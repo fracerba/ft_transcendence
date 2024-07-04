@@ -1,11 +1,6 @@
----
-description: >-
-  This repository contains the source code and documentation for an advanced
-  web-based gaming platform featuring a modernized version of the classic Pong
-  game, along with several additional modules enha
----
-
 # ft\_transcendence
+
+This repository contains the source code and documentation for an advanced web-based gaming platform featuring a modernized version of the classic Pong game, along with several additional modules.
 
 ## Mighty Pong Contest
 
