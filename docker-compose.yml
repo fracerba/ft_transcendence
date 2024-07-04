@@ -8,12 +8,12 @@ services:
     command: > 
       sh -c "
         python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:4242
+        python manage.py runserver 0.0.0.0:8000
         "
     volumes:
       - ./backend:/code
     ports:
-      - "4242:4242"
+      - "8000:8000"
     depends_on:
       - db
     environment:
