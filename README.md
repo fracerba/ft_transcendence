@@ -1,10 +1,15 @@
+---
+description: >-
+  This repository contains the source code and documentation for an advanced
+  web-based gaming platform featuring a modernized version of the classic Pong
+  game, along with several additional modules enha
+---
+
 # ft\_transcendence
 
-This repository contains the source code and documentation for an advanced web-based gaming platform featuring a modernized version of the classic Pong game, along with several additional modules enhancing user experience, security, and gameplay features.
+## Mighty Pong Contest
 
 ***
-
-## Mighty Pong Contest
 
 Welcome to the Mighty Pong Contest! This project aims to provide a platform for users to play Pong against others in real-time with a seamless user experience.
 
@@ -15,7 +20,6 @@ Welcome to the Mighty Pong Contest! This project aims to provide a platform for 
 * [Technologies](./#technologies)
 * [Setup](./#setup)
 * [Usage](./#usage)
-* [Contributing](./#contributing)
 * [License](./#license)
 
 ### Overview
