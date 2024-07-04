@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: > 
+      sh -c "
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:4242
+        "
+    volumes:
+      - ./backend:/code
+    ports:
+      - "4242:4242"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS=pong_project.settings
+      - DATABASE_URL=postgres://pong_admin:megapong@db:5432/pong_db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: pong_db
+      POSTGRES_USER: pong_admin
+      POSTGRES_PASSWORD: megapong
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
+
