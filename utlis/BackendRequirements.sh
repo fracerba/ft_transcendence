@@ -41,4 +41,4 @@ pip3 install Django
 echo "Verifying Django installation..."
 django-admin --version
 
-echo "Installation complete!"
+echo "Installation backend requirements complete!"

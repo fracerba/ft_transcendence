@@ -1,34 +1,47 @@
-version: '3'
-
+version: '3.8'
 services:
-  web:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    command: > 
-      sh -c "
-        python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:8000
-        "
+  user_service:
+    build: ./backend/user_service
     volumes:
-      - ./backend:/code
+      - ./backend/user_service/app:/app
+    env_file:
+      - .env
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
     ports:
       - "8000:8000"
     depends_on:
-      - db
-    environment:
-      - DJANGO_SETTINGS=pong_project.settings
-      - DATABASE_URL=postgres://pong_admin:megapong@db:5432/pong_db
+      - users_db
+    networks:
+      - network
 
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: pong_db
-      POSTGRES_USER: pong_admin
-      POSTGRES_PASSWORD: megapong
+  users_db:
+    image: postgres:12
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRESS_DB}
+      POSTGRES_USER: ${POSTGRESS_USER}
+      POSTGRES_PASSWORD: ${POSTGRESS_PASS}
+    networks:
+      - network
+  
+  # game_service:
+  #   build: ./backend/game_service
+  #   volumes:
+  #     - ./backend/game_service:/app
+  #   ports:
+  #     - "3000:3000"
+  #   command: npm start
+  #   environment:
+  #     - NODE_ENV=development
+  #   networks:
+  #     - network
+      
 volumes:
   postgres_data:
 
+networks:
+  network:
