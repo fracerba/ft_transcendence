@@ -85,7 +85,7 @@ The Mighty Pong Contest is a single-page web application that allows users to:
     cd mighty-pong-contest
     ```
 2. **Set up environment variables**
-   *   Create a `.env` file in the root directory with necessary environment variables:
+   *   Create a `.env` file in the src/ directory with necessary environment variables:
 
        ```sh
 
