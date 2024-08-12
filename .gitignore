@@ -1,64 +1,45 @@
-# Python generated files
-__pycache__/
-*.py[cod]
+# Python specific
+*.pyc
 *.pyo
 *.pyd
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
+__pycache__/
+*.db
+*.sqlite3
 *.egg
-MANIFEST
+*.egg-info
+dist/
+build/
+*.py[cod]
+
 # Django specific
 *.log
 *.pot
 *.pyc
+*.pyo
+*.pyd
+__pycache__/
 db.sqlite3
-db.sqlite3-journal
-media
-
-# Docker
-**/Dockerfile
-docker-compose*.yml
 .env
-.dockerignore
+media/
 
-# Frontend/node specific
+# React specific
 node_modules/
-npm-debug.log
-yarn-error.log
-yarn-debug.log
+build/
+*.log
+*.cache
+*.eslintcache
+*.env
 
-# IDE specific
-.idea/
+# Docker specific
+docker-compose.override.yml
+docker-compose.local.yml
+
+# IDE/editor specific
 .vscode/
-*.swp
-*.swo
-*~
+.idea/
+*.sublime-workspace
+*.sublime-project
 
-# OS generated files
+# OS-specific files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
-
-# Virtual environment
-venv/
-ENV/
-env/
