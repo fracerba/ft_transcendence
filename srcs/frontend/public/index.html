@@ -3,15 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My React App</title>
+  <title>ft_transcendence</title>
   <!-- Link to a favicon if you have one -->
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
   <!-- Link to any additional CSS files -->
   <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 6em;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      background-color: #000000; /* Black */
+      border: rgb(145, 145, 145);
+      border-style: solid;
+      color: rgb(255, 255, 255);
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px; /* Aggiungi questa linea per i bordi smussati */
+      width: 200px;
+      transition: background-color 0.3s; /* Aggiungi una transizione per un effetto più fluido */
+    }
+    button:hover {
+      background-color: #555555; /* Cambia il colore di sfondo quando ci passi sopra con il mouse */
+    }
+  </style>
 </head>
 <body>
-  <div id="root"></div>
-  <!-- The bundled JavaScript file will be automatically included here by the build process -->
+  <h1> PONG II </h1>
+  <div class="button-container">
+    <button>Online match</button>
+    <button>Local</button>
+    <button>Tournament</button>
+  </div>
 </body>
 </html>
-
