@@ -4,55 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ft_transcendence</title>
-  <!-- Link to a favicon if you have one -->
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Link to any additional CSS files -->
   <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    h1 {
-      font-size: 6em;
-      margin-bottom: 20px;
-    }
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    button {
-      background-color: #000000; /* Black */
-      border: rgb(145, 145, 145);
-      border-style: solid;
-      color: rgb(255, 255, 255);
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 12px; /* Aggiungi questa linea per i bordi smussati */
-      width: 200px;
-      transition: background-color 0.3s; /* Aggiungi una transizione per un effetto più fluido */
-    }
-    button:hover {
-      background-color: #555555; /* Cambia il colore di sfondo quando ci passi sopra con il mouse */
-    }
-  </style>
 </head>
 <body>
-  <h1> PONG II </h1>
-  <div class="button-container">
-    <button>Online match</button>
-    <button>Local</button>
-    <button>Tournament</button>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">PONG II</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Language
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">English</a></li>
+              <li><a class="dropdown-item" href="#">Italian</a></li>
+              <li><a class="dropdown-item" href="#">Spanish</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container text-center">
+    <a href="/game" class="btn btn-dark">Play</a>
+    <a href="/leaderboard" class="btn btn-dark">Leaderboard</a>
+    <a href="/profile" class="btn btn-dark">Profile</a>
+    <a href="/logout" class="btn btn-dark">Logout</a>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
