@@ -1,46 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ft_transcendence</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <!-- Link to any additional CSS files -->
-  <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ft_transcendence</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<!-- Link to any additional CSS files -->
+	<link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
+	<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">PONG II</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" data-translate="home">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-translate="language">Language</a>
-            <ul class="dropdown-menu dropdown-menu-start">
-              <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
-              <li><a class="dropdown-item" href="#" data-lang="it">Italian</a></li>
-              <li><a class="dropdown-item" href="#" data-lang="es">Spanish</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container-fluid justify-content-center mt-3">
-    <div class="d-grid gap-2 col-2 mx-auto">
-        <a href="/game" class="btn btn-dark" data-translate="play">Play</a>
-        <a href="/leaderboard" class="btn btn-dark" data-translate="leaderboard">Leaderboard</a>
-        <a href="/profile" class="btn btn-dark" data-translate="profile">Profile</a>
-        <a href="/login" class="btn btn-dark" data-translate="login">Log in</a>
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="translate.js"></script>
+	<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">PONG II</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#" data-translate="home">Home</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-translate="language">Language</a>
+						<ul class="dropdown-menu dropdown-menu-start">
+							<li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+							<li><a class="dropdown-item" href="#" data-lang="it">Italiano</a></li>
+							<li><a class="dropdown-item" href="#" data-lang="es">Español</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid justify-content-center mt-3">
+		<div class="d-grid gap-2 col-2 mx-auto">
+				<a id="play-btn" href="#" class="btn btn-dark" data-translate="play">Play</a>
+				<a id="leaderboard-btn" href="#" class="btn btn-dark" data-translate="leaderboard">Leaderboard</a>
+				<a id="stats-btn" href="#" class="btn btn-dark" data-translate="stats">Stats</a>
+				<a id="profile-btn" href="#" class="btn btn-dark" data-translate="profile">Profile</a>
+				<a id="login-btn" href="#" class="btn btn-dark" data-translate="login">Log in</a>
+				<a id="logout-btn" href="#" class="btn btn-dark" data-translate="logout">Log out</a>
+		</div>
+	</div>
+	<div class="container-fluid justify-content-center mt-3">
+		<canvas id="gameCanvas" style="display:none"></canvas>
+	</div>
+	<div class="fixed-bottom bg-dark">
+		<div class="container-fluid">
+		  <div class="row justify-content-center mt-3">
+			<div class="col-4 text-start">
+			  <p class="text-white">© 2024 Pong II. All rights reserved.</p>
+			</div>
+			<div class="col-4 text-center">
+			  <p class="text-white" data-translate="footer">Developed by fracerba, ncortigi, everonel, lgaibazz</p>
+			</div>
+			<div class="col-4 text-center"></div>
+		  </div>
+		</div>
+	  </div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="translate.js"></script>
+	<script src="index.js"></script>
+	<script src="pong2.js" defer></script>
 </body>
 </html>
