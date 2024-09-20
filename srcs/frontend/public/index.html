@@ -44,6 +44,7 @@
 		</div>
 	</nav>
 	<div class="container-fluid justify-content-center mt-3">
+		<canvas id="pongCanvas" class="mx-auto" style="display: none"></canvas>
 		<div class="d-grid gap-2 col-2 mx-auto">
 				<a id="play-btn" href="#" class="btn btn-dark" data-translate="play">Play</a>
 				<a id="leaderboard-btn" href="#" class="btn btn-dark" data-translate="leaderboard">Leaderboard</a>
@@ -63,9 +64,6 @@
 				<a id="back-btn" href="#" class="btn btn-dark" data-translate="back">Back</a>
 		</div>
 	</div>
-	<div class="container-fluid justify-content-center mt-3">
-		<canvas id="gameCanvas" style="display:none"></canvas>
-	</div>
 	<div class="fixed-bottom bg-dark">
 		<div class="container-fluid">
 		  <div class="row justify-content-center mt-3">
@@ -82,6 +80,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="translate.js"></script>
 	<script src="index.js"></script>
-	<script src="pong2.js" defer></script>
+	<script src="pong2.js"></script>
 </body>
 </html>

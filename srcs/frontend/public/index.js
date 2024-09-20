@@ -51,7 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		updateButtonVisibilityPlay();
-		//document.getElementById('gameCanvas').style.display = 'block';
+	});
+
+	document.getElementById('local-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+
+		document.getElementById('pongCanvas').style.display = 'block';
 		// Assuming pong2.js initializes the game on the canvas with id 'gameCanvas'
 	});
 
