@@ -3,6 +3,7 @@ const context = canvas.getContext('2d');
 
 let player1Score = 0;
 let player2Score = 0;
+let running = true;
 
 const normalHeight = 519;
 const normalWidth = 1177;
@@ -120,7 +121,7 @@ function drawScore() {
     else
         context.fillText(player2Score, canvas.width / 2 - 45, 50);
     context.fillText("Player01", canvas.width / 2 - 130, canvas.height - 20);
-    context.fillRect(canvas.width / 2, 0, 2, canvas.height);
+    context.fillRect(canvas.width / 2, 0, 2, canvas.height); //forse serve fare -1 per centrare meglio
     if (player1Score < 10)
         context.fillText(player1Score, canvas.width / 2 + 25, 50);
     else
@@ -252,7 +253,21 @@ window.addEventListener('keyup', function (event) {
     }
 });
 
+window.pongGame = {
+    pause: function() {
+        running = false;
+    }
+};
+
+window.pongGame = {
+    terminate: function() {
+        running = false;
+    }
+};
+
 function gameLoop() {
+    if (!running)
+        return;
     drawField();
     drawPaddle(player1Paddle);
     drawPaddle(player2Paddle);

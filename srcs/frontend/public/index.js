@@ -46,7 +46,35 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('back-btn').style.display = 'block';
 	}
 
-	updateButtonVisibility();
+	function updateButtonVisibilityPlaying() {
+		document.getElementById('local-match-btn').style.display = 'none';
+		document.getElementById('online-match-btn').style.display = 'none';
+		document.getElementById('bot-match-btn').style.display = 'none';
+		document.getElementById('tournament-btn').style.display = 'none';
+		document.getElementById('back-btn').style.display = 'none';
+	}
+
+	function loadPongScript() {
+        const script = document.createElement('script');
+        script.src = 'pong2.js';
+        script.defer = true;
+        document.body.appendChild(script);
+    }
+
+	function terminatePongScript() {
+		if (window.pongGame) {
+			window.pongGame.terminate();
+		}
+	}
+
+	//updateButtonVisibility();
+
+	document.getElementById('home-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		updateButtonVisibility();
+		document.getElementById('pongCanvas').style.display = 'none';
+		terminatePongScript();
+	});
 
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
@@ -55,9 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-
+		updateButtonVisibilityPlaying();
 		document.getElementById('pongCanvas').style.display = 'block';
-		// Assuming pong2.js initializes the game on the canvas with id 'gameCanvas'
+		loadPongScript();
 	});
 
 	document.getElementById('login-btn').addEventListener('click', function(event) {
