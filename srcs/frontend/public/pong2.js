@@ -204,9 +204,10 @@ function update() {
 
 function winLose() {
     if (player1Score < 11 && player2Score < 11) {
-        requestAnimationFrame(gameLoop);
+        return;
     }
     else {
+        running = false;
         if (player2Score > player1Score) {
             context.fillStyle = 'white';
             context.font = '50px Arial';
@@ -256,12 +257,17 @@ window.addEventListener('keyup', function (event) {
 window.pongGame = {
     pause: function() {
         running = false;
-    }
-};
-
-window.pongGame = {
-    terminate: function() {
+    },
+    play: function() {
+        running = true;
+    },
+    reset: function() {
         running = false;
+        player1Paddle = { ...initialState.player1Paddle };
+        player2Paddle = { ...initialState.player2Paddle };
+        ball = { ...initialState.ball };
+        score = { ...initialState.score };
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
 };
 
@@ -275,6 +281,7 @@ function gameLoop() {
     update();
     drawScore();
     winLose();
+    requestAnimationFrame(gameLoop);
 }
 
 // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata

@@ -61,9 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(script);
     }
 
+	function startPongScript() {
+		if (window.pongGame) {
+			window.pongGame.play();
+		}
+	}
+
 	function terminatePongScript() {
 		if (window.pongGame) {
-			window.pongGame.terminate();
+			window.pongGame.pause();
+		}
+	}
+
+	function terminatePongScript() {
+		if (window.pongGame) {
+			window.pongGame.reset();
 		}
 	}
 
@@ -71,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		updateButtonVisibility();
 		document.getElementById('pongCanvas').style.display = 'none';
+		updateButtonVisibility();
 		terminatePongScript();
 	});
 
@@ -85,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		updateButtonVisibilityPlaying();
 		document.getElementById('pongCanvas').style.display = 'block';
+		startPongScript();
 		loadPongScript();
 	});
 
