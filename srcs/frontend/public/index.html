@@ -42,10 +42,10 @@
 				<a id="stats-btn" href="#" class="btn btn-dark" style="display: none" data-translate="stats">Stats</a>
 				<a id="profile-btn" href="#" class="btn btn-dark" style="display: none" data-translate="profile">Profile</a>
 				<a id="login-btn" href="#" class="btn btn-dark" data-translate="login">Log in</a>
+				<a id="logout-btn" href="#" class="btn btn-dark" style="display: none" data-translate="logout">Log out</a>
 				<!-- login -->
 				<a id="login2-btn" href="#" class="btn btn-dark" style="display: none" data-translate="login">Log in</a>
 				<a id="register-btn" href="#" class="btn btn-dark" style="display: none" data-translate="register">Sign up</a>
-				<a id="logout-btn" href="#" class="btn btn-dark" style="display: none" data-translate="logout">Log out</a>
 				<!-- game -->
 				<a id="local-match-btn" href="#" class="btn btn-dark" style="display: none" data-translate="localMatch">Play local</a>
 				<a id="online-match-btn" href="#" class="btn btn-dark" style="display: none" data-translate="onlineMatch">Play online</a>
@@ -55,19 +55,31 @@
 				<a id="back-btn" href="#" class="btn btn-dark" style="display: none" data-translate="back">Back</a>
 		</div>
 	</div>
-	<div class="fixed-bottom bg-dark">
-		<div class="container-fluid">
-		  <div class="row justify-content-center mt-3">
-			<div class="col-4 text-start">
-			  <p class="text-white">© 2024 Pong II. All rights reserved.</p>
-			</div>
-			<div class="col-4 text-center">
-			  <p class="text-white" data-translate="footer">Developed by fracerba, ncortigi, everonel, lgaibazz</p>
-			</div>
-			<div class="col-4 text-center"></div>
-		  </div>
-		</div>
-	  </div>
+	<div id="default-footer" class="fixed-bottom bg-dark">
+        <div class="container-fluid">
+          <div class="row justify-content-center mt-3">
+            <div class="col-4 text-start">
+              <p class="text-white">© 2024 Pong II. All rights reserved.</p>
+            </div>
+            <div class="col-4 text-center">
+              <p class="text-white" data-translate="footer">Developed by fracerba, ncortigi, everonel, lgaibazz</p>
+            </div>
+            <div class="col-4 text-center"></div>
+          </div>
+        </div>
+    </div>
+    <div id="playing-footer" class="fixed-bottom bg-dark" style="display: none;">
+        <div class="container-fluid">
+			<div class="row justify-content-center mt-2">
+				<div class="col-3 d-flex justify-content-center mb-2">
+					<a id="pause-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="pause">Pause</a>
+					<a id="resume-btn" href="#" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</a>
+					<a id="restart-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</a>
+					<a id="quit-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="quit">Quit</a>
+				</div>
+            </div>
+        </div>
+    </div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="translate.js"></script>
 	<script src="index.js"></script>

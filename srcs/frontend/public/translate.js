@@ -14,6 +14,10 @@ const translations = {
     botMatch: "Play against bot",
     tournament: "Tournament",
     back: "Back",
+    pause: "Pause",
+    resume: "Resume",
+    restart: "Restart",
+    quit: "Quit",
 	footer: "Developed by fracerba, ncortigi, everonel, lgaibazz",
     },
     it: {
@@ -31,6 +35,10 @@ const translations = {
     botMatch: "Gioca contro il bot",
     tournament: "Torneo",
     back: "Indietro",
+    pause: "Pausa",
+    resume: "Riprendi",
+    restart: "Ricomincia",
+    quit: "Esci",
 	footer: "Sviluppato da fracerba, ncortigi, everonel, lgaibazz",
     },
     es: {
@@ -48,6 +56,10 @@ const translations = {
     botMatch: "Jugar contra bot",
     tournament: "Torneo",
     back: "Atrás",
+    pause: "Pausa",
+    resume: "Reanudar",
+    restart: "Reiniciar",
+    quit: "Salir",
 	footer: "Desarrollado por fracerba, ncortigi, everonel, lgaibazz",
     },
 };
