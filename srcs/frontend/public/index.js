@@ -89,11 +89,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function loadPongScript() {
         const script = document.createElement('script');
+		script.id = 'pong-script';
         script.src = 'pong2.js';
         script.defer = true;
         document.body.appendChild(script);
     }
 
+	function terminatePongScript() {
+		const script = document.getElementById('pong-script');
+		if (script) {
+			document.body.removeChild(script);
+		}
+	}
+	
 	function startPongScript() {
 		if (window.pongGame) {
 			window.pongGame.play();
@@ -109,12 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	function resetPongScript() {
 		if (window.pongGame) {
 			window.pongGame.reset();
-		}
-	}
-
-	function terminatePongScript() {
-		if (window.pongGame) {
-			window.pongGame.pause();
 		}
 	}
 
@@ -172,8 +174,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		hideAll();
 		showPlayingFooter();
-		// startPongScript();
 		loadPongScript();
+		// startPongScript();
 	});
 
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
@@ -240,4 +242,3 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 	});
 });
-

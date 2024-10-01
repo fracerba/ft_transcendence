@@ -121,7 +121,7 @@ function drawScore() {
     else
         context.fillText(player2Score, canvas.width / 2 - 45, 50);
     context.fillText("Player01", canvas.width / 2 - 130, canvas.height - 20);
-    context.fillRect(canvas.width / 2, 0, 2, canvas.height); //forse serve fare -1 per centrare meglio
+    context.fillRect(canvas.width / 2 - 1, 0, 2, canvas.height);
     if (player1Score < 10)
         context.fillText(player1Score, canvas.width / 2 + 25, 50);
     else
@@ -260,6 +260,7 @@ window.pongGame = {
     },
     play: function() {
         running = true;
+        gameLoop();
     },
     reset: function() {
         running = false;
@@ -267,6 +268,9 @@ window.pongGame = {
         player2Paddle = { ...initialState.player2Paddle };
         ball = { ...initialState.ball };
         score = { ...initialState.score };
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    },
+    clear: function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 };
