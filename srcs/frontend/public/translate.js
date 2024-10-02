@@ -24,7 +24,11 @@ const translations = {
     password: "Password",
     submit: "Submit",
     userHelp: "Max 8 characters",
-    passHelp: "Password should have at least 8 characters, one capital letter, one number"
+    passHelp: "Password should have at least 8 characters, one capital letter, one number",
+    player: "Player",
+    wins: "Wins",
+    losses: "Losses",
+    winrate: "Win rate",
     },
     it: {
     home: "Homepage",
@@ -51,7 +55,11 @@ const translations = {
     password: "Password",
     submit: "Conferma",
     userHelp: "Massimo 8 caratteri",
-    passHelp: "La password deve contenere almeno 8 caratteri, una lettera maiuscola e un numero"
+    passHelp: "La password deve contenere almeno 8 caratteri, una lettera maiuscola e un numero",
+    player: "Giocatore",
+    wins: "Vittorie",
+    losses: "Sconfitte",
+    winrate: "Percentuale di vittorie",
     },
     es: {
     home: "Inicio",
@@ -78,7 +86,11 @@ const translations = {
     password: "Contraseña",
     submit: "Enviar",
     userHelp: "Máximo 8 caracteres",
-    passHelp: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número"
+    passHelp: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número",
+    player: "Jugador",
+    wins: "Victorias",
+    losses: "Derrotas",
+    winrate: "Porcentaje de victorias",
     },
 };
 

@@ -87,10 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('playing-footer','none');
     }
 
-	function showLeaderboard() {
-		setElementById('default-footer','block');
-	}
-
 	function loadPongScript() {
         const script = document.createElement('script');
 		script.id = 'pong-script';
@@ -133,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('leaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		// showLeaderboard();
+		setElementById('leaderboard','block');
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
@@ -258,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 		showDefaultFooterblock();
 		terminatePongScript();
+		setElementById('leaderboard','none');
 	});
 
 	document.getElementById('back-btn').addEventListener('click', function(event) {
