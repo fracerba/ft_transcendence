@@ -254,6 +254,19 @@ window.addEventListener('keyup', function (event) {
     }
 });
 
+function gameLoop() {
+    if (!running)
+        return;
+    drawField();
+    drawPaddle(player1Paddle);
+    drawPaddle(player2Paddle);
+    drawBall(ball);
+    update();
+    drawScore();
+    winLose();
+    requestAnimationFrame(gameLoop);
+}
+
 window.pongGame = {
     pause: function() {
         running = false;
@@ -274,19 +287,6 @@ window.pongGame = {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 };
-
-function gameLoop() {
-    if (!running)
-        return;
-    drawField();
-    drawPaddle(player1Paddle);
-    drawPaddle(player2Paddle);
-    drawBall(ball);
-    update();
-    drawScore();
-    winLose();
-    requestAnimationFrame(gameLoop);
-}
 
 // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
 window.addEventListener('resize', resizeCanvas);

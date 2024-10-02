@@ -37,22 +37,40 @@
 	</div>
 	<div class="container-fluid justify-content-center mt-2">
 		<div class="d-grid gap-2 col-2 mx-auto">
-				<a id="play-btn" href="#" class="btn btn-dark" data-translate="play">Play</a>
-				<a id="leaderboard-btn" href="#" class="btn btn-dark" data-translate="leaderboard">Leaderboard</a>
-				<a id="stats-btn" href="#" class="btn btn-dark" style="display: none" data-translate="stats">Stats</a>
-				<a id="profile-btn" href="#" class="btn btn-dark" style="display: none" data-translate="profile">Profile</a>
-				<a id="login-btn" href="#" class="btn btn-dark" data-translate="login">Log in</a>
-				<a id="logout-btn" href="#" class="btn btn-dark" style="display: none" data-translate="logout">Log out</a>
-				<!-- login -->
-				<a id="login2-btn" href="#" class="btn btn-dark" style="display: none" data-translate="login">Log in</a>
-				<a id="register-btn" href="#" class="btn btn-dark" style="display: none" data-translate="register">Sign up</a>
-				<!-- game -->
-				<a id="local-match-btn" href="#" class="btn btn-dark" style="display: none" data-translate="localMatch">Play local</a>
-				<a id="online-match-btn" href="#" class="btn btn-dark" style="display: none" data-translate="onlineMatch">Play online</a>
-				<a id="bot-match-btn" href="#" class="btn btn-dark" style="display: none" data-translate="botMatch">Play against bot</a>
-				<a id="tournament-btn" href="#" class="btn btn-dark" style="display: none" data-translate="tournament">Tournament</a>
-				<!-- utils -->
-				<a id="back-btn" href="#" class="btn btn-dark" style="display: none" data-translate="back">Back</a>
+			<button id="play-btn" type="button" class="btn btn-dark" data-translate="play">Play</button>
+			<button id="leaderboard-btn" type="button" class="btn btn-dark" data-translate="leaderboard">Leaderboard</button>
+			<button id="stats-btn" type="button" class="btn btn-dark" style="display: none" data-translate="stats">Stats</button>
+			<button id="profile-btn" type="button" class="btn btn-dark" style="display: none" data-translate="profile">Profile</button>
+			<button id="login-btn" type="button" class="btn btn-dark" data-translate="login">Log in</button>
+			<button id="logout-btn" type="button" class="btn btn-dark" style="display: none" data-translate="logout">Log out</button>
+			<!-- login -->
+			<button id="login2-btn" type="button" class="btn btn-dark" style="display: none" data-translate="login">Log in</button>
+			<button id="register-btn" type="button" class="btn btn-dark" style="display: none" data-translate="register">Sign up</button>
+			<!-- game -->
+			<button id="local-match-btn" type="button" class="btn btn-dark" style="display: none" data-translate="localMatch">Play local</button>
+			<button id="online-match-btn" type="button" class="btn btn-dark" style="display: none" data-translate="onlineMatch">Play online</button>
+			<button id="bot-match-btn" type="button" class="btn btn-dark" style="display: none" data-translate="botMatch">Play against bot</button>
+			<button id="tournament-btn" type="button" class="btn btn-dark" style="display: none" data-translate="tournament">Tournament</button>
+			<!-- utils -->
+			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
+		</div>
+		<div class="d-grid gap-1 col-3 mx-auto">
+			<form id="registration-form" style="display: none;">
+				<div class="mb-2">
+					<label for="InputEmail" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+				</div>
+				<div class="mb-2">
+					<label for="InputUsername" class="form-label">Username</label>
+					<input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp">
+					<div id="emailHelp" class="form-text">Max 8 characters.</div>
+				</div>
+				<div class="mb-2">
+					<label for="InputPassword" class="form-label">Password</label>
+					<input type="password" class="form-control" id="InputPassword">
+				</div>
+				<button id="submit-btn" type="submit" class="btn btn-dark">Submit</button>
+			</form>
 		</div>
 	</div>
 	<div id="default-footer" class="fixed-bottom bg-dark">
@@ -72,10 +90,10 @@
         <div class="container-fluid">
 			<div class="row justify-content-center mt-2">
 				<div class="col-3 d-flex justify-content-center mb-2">
-					<a id="pause-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="pause">Pause</a>
-					<a id="resume-btn" href="#" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</a>
-					<a id="restart-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</a>
-					<a id="quit-btn" href="#" class="btn btn-secondary mx-1 flex-fill" data-translate="quit">Quit</a>
+					<button id="pause-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="pause">Pause</button>
+					<button id="resume-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
+					<button id="restart-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</button>
+					<button id="quit-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="quit">Quit</button>
 				</div>
             </div>
         </div>

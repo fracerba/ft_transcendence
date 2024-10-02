@@ -87,6 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('playing-footer','none');
     }
 
+	
+
 	function loadPongScript() {
         const script = document.createElement('script');
 		script.id = 'pong-script';
@@ -159,13 +161,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		isLoggedIn = true; // Replace with actual login logic
-		showMainOnly();
+		hideAll();
+		setElementById('registration-form','block');
 	});
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		isLoggedIn = true; // Replace with actual login logic
+		hideAll();
+		setElementById('registration-form','block');
+	});
+
+	document.getElementById('submit-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('registration-form','none');
+		isLoggedIn = true;
 		showMainOnly();
 	});
 
