@@ -19,19 +19,9 @@ let player1Paddle, player2Paddle, ball;
 let lastScorer = '';
 
 
-// Calcola le dimensioni interne del canvas, tenendo conto dei margini
-const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
-
-// Imposta le dimensioni del canvas
-canvas.width = availableWidth;
-canvas.height = availableHeight;
-const paddleHeightRatio = (0.15 * 519) / availableHeight; // Altezza delle racchette in proporzione all'altezza del canvas
-const paddleWidthRatio = 0.013; // Larghezza delle racchette in proporzione alla larghezza del canvas
-const ballRadiusRatio = 0.01;  // Raggio della palla in proporzione alla larghezza del canvas
-
 function setPaddleSpeed() {
     let speed = 5;
+    const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
     if (normalHeight !== availableHeight)
         speed = (availableHeight * speed) / normalHeight;
     return speed;
@@ -39,13 +29,11 @@ function setPaddleSpeed() {
 
 function setBallSpeed() {
     let speed = 6;
+    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
     if (normalWidth !== availableWidth)
         speed = (availableWidth * speed) / normalWidth;
     return speed;
 }
-
-let paddleSpeed = setPaddleSpeed();
-let ballSpeed = setBallSpeed();
 
 function resetBall() {
     ball = {
@@ -62,32 +50,38 @@ function resetBall() {
 
     // Dopo 1 secondo, fai ripartire la palla
     setTimeout(() => {
-        
-        // Determina la direzione della palla in base a chi ha subito il goal
+        const ballSpeed = setBallSpeed();  // Chiama la funzione per ottenere il valore di velocità
         if (lastScorer === 'player')
             ball.dx = ballSpeed;
         else if (lastScorer === 'ai')
-            ball.dx = -ballSpeed; 
+            ball.dx = -ballSpeed;
         else
-        ball.dx = ballSpeed * (Math.random() < 0.5 ? 1 : -1);  // Se non ci sono goal precedenti, direzione casuale
-    ball.dy = ballSpeed * (Math.random() < 0.5 ? 1 : -1);
-    ballMoving = true;  // La palla può muoversi
-    
+            ball.dx = ballSpeed * (Math.random() < 0.5 ? 1 : -1);  // Se non ci sono goal precedenti, direzione casuale
+
+        ball.dy = ballSpeed * (Math.random() < 0.5 ? 1 : -1);
+        ballMoving = true;  // La palla può muoversi
     }, 1000);  // 1000 millisecondi = 1 secondo
 }
 
 function resizeCanvas() {
+    // Aggiorna le dimensioni disponibili per il canvas
+    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
+    const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
+
+    // Aggiorna le dimensioni del canvas
+    canvas.width = availableWidth;
+    canvas.height = availableHeight;
 
     // Posiziona il canvas con i margini
     canvas.style.marginLeft = `${window.innerWidth * horizontalMarginRatio}px`;
     canvas.style.marginTop = `${window.innerHeight * verticalMarginRatio}px`;
 
     // Calcola le nuove dimensioni delle racchette e della palla
-    paddleWidth = canvas.width * paddleWidthRatio;
-    paddleHeight = canvas.height * paddleHeightRatio;
-    ballRadius = canvas.width * ballRadiusRatio;
+    paddleWidth = canvas.width * 0.013;
+    paddleHeight = canvas.height * 0.15;
+    ballRadius = canvas.width * 0.008;
 
-    // Aggiorna le dimensioni e velocità delle racchette e della palla
+    // Aggiorna le dimensioni e le posizioni delle paddle
     player2Paddle = {
         x: 10,
         y: canvas.height / 2 - paddleHeight / 2,
@@ -225,6 +219,7 @@ function winLose() {
 
 // Funzione per gestire l'input del giocatore
 window.addEventListener('keydown', function (event) {
+    const paddleSpeed = setPaddleSpeed();
     switch (event.key) {
         case 'w':
             player2Paddle.dy = -paddleSpeed;
@@ -288,8 +283,14 @@ window.pongGame = {
     }
 };
 
-// Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
+window.addEventListener('resize', function() {
+    resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
+    if (running) {
+        gameLoop(); // Continua il gioco se è in esecuzione
+    }
+});
 
+// // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
+// window.addEventListener('resize', resizeCanvas);
+resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
 gameLoop(); // Iniziare il loop del gioco
