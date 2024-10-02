@@ -54,22 +54,24 @@
 			<!-- utils -->
 			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 		</div>
-		<div class="d-grid gap-1 col-3 mx-auto">
+		<div class="d-grid gap-1 col-4 mx-auto">
 			<form id="registration-form" style="display: none;">
-				<div class="mb-2">
-					<label for="InputEmail" class="form-label">Email address</label>
+				<div id="email-label" class="mb-1">
+					<label for="InputEmail" class="form-label" data-translate="email">Email address</label>
 					<input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
 				</div>
-				<div class="mb-2">
-					<label for="InputUsername" class="form-label">Username</label>
-					<input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp">
-					<div id="emailHelp" class="form-text">Max 8 characters.</div>
+				<div id="username-label" class="mb-1">
+					<label for="InputUsername" class="form-label" data-translate="username">Username</label>
+					<input type="username" class="form-control" id="InputUsername" aria-describedby="emailHelp">
+					<div id="userHelp" class="form-text" data-translate="userHelp">Max 8 characters.</div>
 				</div>
-				<div class="mb-2">
-					<label for="InputPassword" class="form-label">Password</label>
-					<input type="password" class="form-control" id="InputPassword">
+				<div id="password-label" class="mb-1">
+					<label for="InputPassword" class="form-label" data-translate="password">Password</label>
+					<input type="password" class="form-control" id="InputPassword" aria-describedby="passHelp">
+					<div id="passHelp" class="form-text" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 				</div>
-				<button id="submit-btn" type="submit" class="btn btn-dark">Submit</button>
+				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="submit">Submit</button>
+				<button id="back2-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
 			</form>
 		</div>
 	</div>

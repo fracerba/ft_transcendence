@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('playing-footer','none');
     }
 
-	
+	function showLeaderboard() {
+		setElementById('default-footer','block');
+	}
 
 	function loadPongScript() {
         const script = document.createElement('script');
@@ -163,12 +165,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		hideAll();
 		setElementById('registration-form','block');
+		setElementById('email-label','none');
+		setElementById('userHelp','none');
+		setElementById('passHelp','none');
 	});
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
 		setElementById('registration-form','block');
+		setElementById('email-label','block');
+		setElementById('userHelp','block');
+		setElementById('passHelp','block');
 	});
 
 	document.getElementById('submit-btn').addEventListener('click', function(event) {
@@ -176,6 +184,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('registration-form','none');
 		isLoggedIn = true;
 		showMainOnly();
+	});
+
+	document.getElementById('back2-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('registration-form','none');
+		showLoginOnly();
 	});
 
 	//play buttons

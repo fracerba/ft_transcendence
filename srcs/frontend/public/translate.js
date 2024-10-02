@@ -19,6 +19,12 @@ const translations = {
     restart: "Restart",
     quit: "Quit",
 	footer: "Developed by fracerba, ncortigi, everonel, lgaibazz",
+    email: "Email address",
+    username: "Username",
+    password: "Password",
+    submit: "Submit",
+    userHelp: "Max 8 characters",
+    passHelp: "Password should have at least 8 characters, one capital letter, one number"
     },
     it: {
     home: "Homepage",
@@ -40,6 +46,12 @@ const translations = {
     restart: "Ricomincia",
     quit: "Esci",
 	footer: "Sviluppato da fracerba, ncortigi, everonel, lgaibazz",
+    email: "Indirizzo email",
+    username: "Nome utente",
+    password: "Password",
+    submit: "Conferma",
+    userHelp: "Massimo 8 caratteri",
+    passHelp: "La password deve contenere almeno 8 caratteri, una lettera maiuscola e un numero"
     },
     es: {
     home: "Inicio",
@@ -61,6 +73,12 @@ const translations = {
     restart: "Reiniciar",
     quit: "Salir",
 	footer: "Desarrollado por fracerba, ncortigi, everonel, lgaibazz",
+    email: "Correo electrónico",
+    username: "Nombre de usuario",
+    password: "Contraseña",
+    submit: "Enviar",
+    userHelp: "Máximo 8 caracteres",
+    passHelp: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número"
     },
 };
 
