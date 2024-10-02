@@ -7,6 +7,7 @@ let running = true;
 
 const normalHeight = 519;
 const normalWidth = 1177;
+const baseBallSpeed = 6;
 
 
 // Configurazione dei margini in percentuale rispetto alla finestra
@@ -28,12 +29,13 @@ function setPaddleSpeed() {
 }
 
 function setBallSpeed() {
-    let speed = 6;
     const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-    if (normalWidth !== availableWidth)
-        speed = (availableWidth * speed) / normalWidth;
+    const speed = availableWidth * 0.007;
+    console.log(`Calculated ball speed: ${speed}`); // Debugging log
     return speed;
 }
+
+let nowBallSpeed = 0;
 
 function resetBall() {
     ball = {
@@ -47,18 +49,17 @@ function resetBall() {
     ballMoving = false;  // La palla è ferma
     player1Paddle.y = canvas.height / 2 - paddleHeight / 2;
     player2Paddle.y = canvas.height / 2 - paddleHeight / 2;
-
+    
     // Dopo 1 secondo, fai ripartire la palla
     setTimeout(() => {
-        const ballSpeed = setBallSpeed();  // Chiama la funzione per ottenere il valore di velocità
         if (lastScorer === 'player')
-            ball.dx = ballSpeed;
+            ball.dx = nowBallSpeed;
         else if (lastScorer === 'ai')
-            ball.dx = -ballSpeed;
+            ball.dx = -nowBallSpeed;
         else
-            ball.dx = ballSpeed * (Math.random() < 0.5 ? 1 : -1);  // Se non ci sono goal precedenti, direzione casuale
+            ball.dx = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);  // Se non ci sono goal precedenti, direzione casuale
 
-        ball.dy = ballSpeed * (Math.random() < 0.5 ? 1 : -1);
+        ball.dy = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);
         ballMoving = true;  // La palla può muoversi
     }, 1000);  // 1000 millisecondi = 1 secondo
 }
@@ -98,6 +99,7 @@ function resizeCanvas() {
         dy: 0
     };
 
+    nowBallSpeed = setBallSpeed();
     resetBall();
 }
 
