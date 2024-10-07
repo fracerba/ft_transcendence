@@ -4,6 +4,7 @@ const context = canvas.getContext('2d');
 let player1Score = 0;
 let player2Score = 0;
 let running = true;
+let ended = false;
 
 const normalHeight = 519;
 const normalWidth = 1177;
@@ -204,6 +205,7 @@ function winLose() {
     }
     else {
         running = false;
+        ended = true;
         if (player2Score > player1Score) {
             context.fillStyle = 'white';
             context.font = '50px Arial';
@@ -269,16 +271,19 @@ window.pongGame = {
         running = false;
     },
     play: function() {
+        if (running || ended)
+            return;
         running = true;
         gameLoop();
     },
     reset: function() {
         running = false;
-        player1Paddle = { ...initialState.player1Paddle };
-        player2Paddle = { ...initialState.player2Paddle };
-        ball = { ...initialState.ball };
-        score = { ...initialState.score };
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        ended = false;
+        player1Score = 0;
+        player2Score = 0;
+        resetBall();
+        running = true;
+        gameLoop();
     },
     clear: function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
