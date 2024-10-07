@@ -87,6 +87,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('playing-footer','none');
     }
 
+	function loginSuccess() {
+		isLoggedIn = true;
+		setElementById('login-form','none');
+		document.getElementById('loginUsername').value = '';
+		document.getElementById('loginPassword').value = '';
+		setElementById('signup-form','none');
+		document.getElementById('signupEmail').value = '';
+		document.getElementById('signupUsername').value = '';
+		document.getElementById('signupPassword').value = '';
+		showMainOnly();
+	}
+
 	function loadPongScript() {
         const script = document.createElement('script');
 		script.id = 'pong-script';
@@ -160,31 +172,24 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		setElementById('registration-form','block');
-		setElementById('email-label','none');
-		setElementById('userHelp','none');
-		setElementById('passHelp','none');
+		setElementById('login-form','block');
 	});
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		setElementById('registration-form','block');
-		setElementById('email-label','block');
-		setElementById('userHelp','block');
-		setElementById('passHelp','block');
-	});
-
-	document.getElementById('submit-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		setElementById('registration-form','none');
-		isLoggedIn = true;
-		showMainOnly();
+		setElementById('signup-form','block');
 	});
 
 	document.getElementById('back2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('registration-form','none');
+		setElementById('login-form','none');
+		showLoginOnly();
+	});
+
+	document.getElementById('back3-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('signup-form','none');
 		showLoginOnly();
 	});
 
@@ -239,6 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetPongScript();
+		document.getElementById('pause-btn').style.display = 'block';
+		document.getElementById('resume-btn').style.display = 'none';
 	});
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
@@ -261,4 +268,46 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		showMainOnly();
 	});
+
+	// Form validation for Login
+	document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+		const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        if (validatePassword(password) && validateUsername(username)) {
+            console.log('Log in successful');
+			loginSuccess();
+        } else {
+            alert('Invalid username or password');
+        }
+    });
+
+    // Form validation for Sign up
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const username = document.getElementById('signupUsername').value;
+        const password = document.getElementById('signupPassword').value;
+
+        if (validateEmail(email) && validatePassword(password) && validateUsername(username)) {
+            console.log('Sign up successful');
+			loginSuccess();
+        } else {
+            alert('Invalid email, username or password');
+        }
+    });
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+	function validateUsername(username) {
+		return (username.length <= 8);
+	}
+
+    function validatePassword(password) {
+        return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
+    }
 });
