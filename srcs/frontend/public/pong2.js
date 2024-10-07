@@ -1,6 +1,8 @@
 const canvas = document.getElementById('pongCanvas');
 const context = canvas.getContext('2d');
 
+let animationId
+
 let player1Score = 0;
 let player2Score = 0;
 let running = true;
@@ -32,7 +34,6 @@ function setPaddleSpeed() {
 function setBallSpeed() {
     const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
     const speed = availableWidth * 0.007;
-    console.log(`Calculated ball speed: ${speed}`); // Debugging log
     return speed;
 }
 
@@ -66,6 +67,9 @@ function resetBall() {
 }
 
 function resizeCanvas() {
+    if (animationId) {
+        cancelAnimationFrame(animationId);  // Ferma l'animazione corrente
+    }
     // Aggiorna le dimensioni disponibili per il canvas
     const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
     const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
@@ -149,24 +153,41 @@ function update() {
     if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
         ball.dy = -ball.dy;
     }
-    // Rimbalzi sui paddle
+    // Rimbalzi paddle sinistro
     if (ball.x - ball.radius < player2Paddle.x + player2Paddle.width + 0.005 && 
         ball.x - ball.radius > player2Paddle.x - 0.005 && 
         ball.y > player2Paddle.y - 0.005 && 
         ball.y < player2Paddle.y + player2Paddle.height + 0.005) {
         
-        ball.dx = Math.abs(ball.dx);  // Assicurati che la palla vada verso destra
-        ball.x = player2Paddle.x + player2Paddle.width + ball.radius;  // Sposta la palla appena fuori dal paddle
-        //ballTouchedPaddle = true;
+        // Distanza dal centro del paddle
+        let impactPoint = ball.y - (player2Paddle.y + player2Paddle.height / 2);
+        let normalizedImpact = impactPoint / (player2Paddle.height / 2);
 
-    } else if (ball.x + ball.radius >  player1Paddle.x + 0.005 && 
+        // Modifica la direzione della palla in base al punto di impatto
+        let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
+        let speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);  // Mantieni la velocità costante
+        ball.dx = speed * Math.cos(bounceAngle);
+        ball.dy = speed * Math.sin(bounceAngle);
+
+        // Assicurati che la palla vada verso destra
+        ball.dx = Math.abs(ball.dx);
+    }
+    //paddle destro
+    else if (ball.x + ball.radius >  player1Paddle.x + 0.005 && 
             ball.x + ball.radius <  player1Paddle.x +  player1Paddle.width - 0.005 && 
             ball.y >  player1Paddle.y - 0.005 && 
             ball.y <  player1Paddle.y +  player1Paddle.height + 0.005) {
+
+                let impactPoint = ball.y - (player1Paddle.y + player1Paddle.height / 2);
+                let normalizedImpact = impactPoint / (player1Paddle.height / 2);
         
-        ball.dx = -Math.abs(ball.dx);  // Assicurati che la palla vada verso sinistra
-        ball.x =  player1Paddle.x - ball.radius;  // Sposta la palla appena fuori dal paddle
-        //ballTouchedPaddle = true;
+                let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
+                let speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+                ball.dx = speed * Math.cos(bounceAngle);
+                ball.dy = speed * Math.sin(bounceAngle);
+        
+                // Assicurati che la palla vada verso sinistra
+                ball.dx = -Math.abs(ball.dx);
     }
 
     if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
@@ -263,12 +284,15 @@ function gameLoop() {
     update();
     drawScore();
     winLose();
-    requestAnimationFrame(gameLoop);
+    animationId = requestAnimationFrame(gameLoop);
 }
 
 window.pongGame = {
     pause: function() {
         running = false;
+        if (animationId) {
+            cancelAnimationFrame(animationId);  // Ferma l'animazione corrente
+        }
     },
     play: function() {
         if (running || ended)
@@ -282,6 +306,9 @@ window.pongGame = {
         player1Score = 0;
         player2Score = 0;
         resetBall();
+        if (animationId) {
+            cancelAnimationFrame(animationId);  // Ferma l'animazione precedente
+        }
         running = true;
         gameLoop();
     },
@@ -289,6 +316,7 @@ window.pongGame = {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 };
+
 
 window.addEventListener('resize', function() {
     resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
