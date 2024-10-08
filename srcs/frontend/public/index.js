@@ -107,25 +107,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(script);
     }
 
-	function terminatePongScript() {
-		const script = document.getElementById('pong-script');
-		if (script) {
-			document.body.removeChild(script);
-		}
-	}
-	
 	function startPongScript() {
 		if (window.pongGame) {
 			window.pongGame.play();
 		}
 	}
-
+	
 	function pausePongScript() {
 		if (window.pongGame) {
 			window.pongGame.pause();
 		}
 	}
-
+	
 	function resetPongScript() {
 		if (window.pongGame) {
 			window.pongGame.reset();
@@ -184,12 +177,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('back2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('login-form','none');
+		document.getElementById('loginUsername').value = '';
+		document.getElementById('loginPassword').value = '';
 		showLoginOnly();
 	});
 
 	document.getElementById('back3-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('signup-form','none');
+		document.getElementById('signupEmail').value = '';
+		document.getElementById('signupUsername').value = '';
+		document.getElementById('signupPassword').value = '';
 		showLoginOnly();
 	});
 
@@ -199,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		hideAll();
 		showPlayingFooter();
 		loadPongScript();
-		// startPongScript();
 	});
 
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
@@ -227,6 +224,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	//playing buttons
+	document.getElementById('play2-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		startPongScript();
+		document.getElementById('play2-btn').style.display = 'none';
+		document.getElementById('pause-btn').style.display = 'block';
+		document.getElementById('resume-btn').style.display = 'none';
+	});
+
 	document.getElementById('pause-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		pausePongScript();
@@ -244,23 +249,30 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetPongScript();
-		document.getElementById('pause-btn').style.display = 'block';
+		document.getElementById('play2-btn').style.display = 'block';
+		document.getElementById('pause-btn').style.display = 'none';
 		document.getElementById('resume-btn').style.display = 'none';
 	});
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		document.getElementById('play2-btn').style.display = 'block';
+		document.getElementById('pause-btn').style.display = 'none';
+		document.getElementById('resume-btn').style.display = 'none';
 		showMainOnly();
 		showDefaultFooterblock();
-		terminatePongScript();
+		resetPongScript();
 	});
 
 	//utils buttons
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		document.getElementById('play2-btn').style.display = 'block';
+		document.getElementById('pause-btn').style.display = 'none';
+		document.getElementById('resume-btn').style.display = 'none';
 		showMainOnly();
 		showDefaultFooterblock();
-		terminatePongScript();
+		resetPongScript();
 		setElementById('leaderboard','none');
 	});
 
@@ -268,6 +280,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		showMainOnly();
 	});
+
+	const alertTrigger = document.getElementById('liveAlertBtn')
+		if (alertTrigger) {
+			alertTrigger.addEventListener('click', () => {
+				appendAlert('Nice, you triggered this alert message!', 'success')
+		})
+	}
 
 	// Form validation for Login
 	document.getElementById('login-form').addEventListener('submit', function(event) {

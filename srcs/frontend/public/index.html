@@ -61,10 +61,14 @@
 					<label for="loginUsername" class="form-label" data-translate="username">Username</label>
 					<input type="username" class="form-control" id="loginUsername" required>
 				</div>
+				<div id="liveAlertPlaceholder">
+					<div class="alert alert-danger d-none" role="alert" id="liveAlert">Username is max 8 characters</div>
+				</div>
 				<div id="password-label" class="mb-1">
 					<label for="loginPassword" class="form-label">Password</label>
 					<input type="password" class="form-control" id="loginPassword" required>
 				</div>
+				<div id="liveAlertPlaceholder2"></div>
 				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="login">Log in</button>
 				<button id="back2-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
 			</form>
@@ -143,7 +147,8 @@
         <div class="container-fluid">
 			<div class="row justify-content-center mt-2">
 				<div class="col-3 d-flex justify-content-center mb-2">
-					<button id="pause-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="pause">Pause</button>
+					<button id="play2-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="play">Play</button>
+					<button id="pause-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="pause">Pause</button>
 					<button id="resume-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
 					<button id="restart-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</button>
 					<button id="quit-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="quit">Quit</button>

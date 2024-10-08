@@ -5,7 +5,7 @@ let animationId
 
 let player1Score = 0;
 let player2Score = 0;
-let running = true;
+let running = false;
 let ended = false;
 
 const normalHeight = 519;
@@ -274,15 +274,19 @@ window.addEventListener('keyup', function (event) {
     }
 });
 
-function gameLoop() {
-    if (!running)
-        return;
+function drawFrame() {
     drawField();
     drawPaddle(player1Paddle);
     drawPaddle(player2Paddle);
     drawBall(ball);
-    update();
     drawScore();
+}
+
+function gameLoop() {
+    if (!running || ended)
+        return;
+    drawFrame();
+    update();
     winLose();
     animationId = requestAnimationFrame(gameLoop);
 }
@@ -305,12 +309,12 @@ window.pongGame = {
         ended = false;
         player1Score = 0;
         player2Score = 0;
+        lastScorer = '';
         resetBall();
+        drawFrame();
         if (animationId) {
             cancelAnimationFrame(animationId);  // Ferma l'animazione precedente
         }
-        running = true;
-        gameLoop();
     },
     clear: function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -320,6 +324,7 @@ window.pongGame = {
 
 window.addEventListener('resize', function() {
     resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
+    drawFrame();
     if (running) {
         gameLoop(); // Continua il gioco se è in esecuzione
     }
@@ -328,4 +333,4 @@ window.addEventListener('resize', function() {
 // // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
 // window.addEventListener('resize', resizeCanvas);
 resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
-gameLoop(); // Iniziare il loop del gioco
+drawFrame();
