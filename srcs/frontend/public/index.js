@@ -178,6 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('login-form','none');
 		document.getElementById('loginUsername').value = '';
 		document.getElementById('loginPassword').value = '';
+		document.getElementById('loginUsername').classList.remove('is-invalid');
+		document.getElementById('loginPassword').classList.remove('is-invalid');
 		showLoginOnly();
 	});
 
@@ -187,6 +189,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('signupEmail').value = '';
 		document.getElementById('signupUsername').value = '';
 		document.getElementById('signupPassword').value = '';
+		document.getElementById('emailHelp').style.display = 'block';
+		document.getElementById('userHelp').style.display = 'block';
+		document.getElementById('passHelp').style.display = 'block';
+		document.getElementById('signupEmail').classList.remove('is-invalid');
+		document.getElementById('signupUsername').classList.remove('is-invalid');
+		document.getElementById('signupPassword').classList.remove('is-invalid');
 		showLoginOnly();
 	});
 
@@ -280,57 +288,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 	});
 
-	const alertUsername = document.getElementById('liveAlertUsername')
-	const alertPassword = document.getElementById('liveAlertPassword')
-	const appendAlert = (message, type) => {
-	const wrapper = document.createElement('div')
-	wrapper.innerHTML = [
-		`<div class="alert alert-${type} alert-dismissible" role="alert">`,
-		`   <div>${message}</div>`,
-		'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-		'</div>'
-	].join('')
+	// // Form validation
+	// const alertUsername = document.getElementById('liveAlertUsername')
+	// const alertPassword = document.getElementById('liveAlertPassword')
+	// const appendAlert = (message, type) => {
+	// const wrapper = document.createElement('div')
+	// wrapper.innerHTML = [
+	// 	`<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	// 	`   <div>${message}</div>`,
+	// 	'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	// 	'</div>'
+	// ].join('')
 
-	alertUsername.append(wrapper)
-	alertPassword.append(wrapper)
-	}
+	// alertUsername.append(wrapper)
+	// alertPassword.append(wrapper)
+	// }
 
-	// Form validation for Login
-	document.getElementById('login-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-		const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
+	// (() => {
+	// 	'use strict'
+	  
+	// 	// Fetch all the forms we want to apply custom Bootstrap validation styles to
+	// 	const forms = document.querySelectorAll('.needs-validation')
+	  
+	// 	// Loop over them and prevent submission
+	// 	Array.from(forms).forEach(form => {
+	// 	  form.addEventListener('submit', event => {
+	// 		if (!form.checkValidity()) {
+	// 		  event.preventDefault()
+	// 		  event.stopPropagation()
+	// 		}
+	  
+	// 		form.classList.add('was-validated')
+	// 	  }, false)
+	// 	})
+	//   })()
 
-		//cambia con controllo sul database
-        if (validatePassword(password) && validateUsername(username)) {
-			isLoggedIn = true;
-			loginSuccess();
-        } else {
-			if (!validateUsername(username)) {
-            	appendAlert('Username is max 8 characters', 'danger');
-			}
-			if (!validatePassword(password)) {
-				appendAlert('Invalid password', 'danger');
-			}
-        }
-    });
-
-    // Form validation for Sign up
-    document.getElementById('signup-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('signupEmail').value;
-        const username = document.getElementById('signupUsername').value;
-        const password = document.getElementById('signupPassword').value;
-
-        if (validateEmail(email) && validatePassword(password) && validateUsername(username)) {
-            isLoggedIn = true;
-			//aggiungere utente al database
-			loginSuccess();
-        } else {
-            appendAlert('Invalid email, username, or password', 'danger');
-        }
-    });
-
+	// Form validation functions
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
@@ -343,4 +336,72 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePassword(password) {
         return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
     }
+	
+	// Form validation for Login
+	document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+		const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        let isValid = true;
+
+		//cambia con controllo sul database
+        if (!validateUsername(username)) {
+            isValid = false;
+            document.getElementById('loginUsername').classList.add('is-invalid');
+        } else {
+            document.getElementById('loginUsername').classList.remove('is-invalid');
+        }
+		//cambia con controllo sul database
+        if (!validatePassword(password)) {
+            isValid = false;
+            document.getElementById('loginPassword').classList.add('is-invalid');
+        } else {
+            document.getElementById('loginPassword').classList.remove('is-invalid');
+        }
+        if (isValid) {
+            isLoggedIn = true;
+            loginSuccess();
+        }
+    });
+
+    // Form validation for Sign up
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const username = document.getElementById('signupUsername').value;
+        const password = document.getElementById('signupPassword').value;
+
+		let isValid = true;
+
+        if (!validateEmail(email)) {
+            isValid = false;
+			document.getElementById('emailHelp').style.display = 'none';
+            document.getElementById('signupEmail').classList.add('is-invalid');
+        } else {
+			document.getElementById('emailHelp').style.display = 'block';
+            document.getElementById('signupEmail').classList.remove('is-invalid');
+        }
+		if (!validateUsername(username)) {
+			isValid = false;
+			document.getElementById('userHelp').style.display = 'none';
+			document.getElementById('signupUsername').classList.add('is-invalid');
+		} else {
+			document.getElementById('userHelp').style.display = 'block';
+			document.getElementById('signupUsername').classList.remove('is-invalid');
+		}
+        if (!validatePassword(password)) {
+            isValid = false;
+			document.getElementById('passHelp').style.display = 'none';
+            document.getElementById('signupPassword').classList.add('is-invalid');
+        } else {
+			document.getElementById('passHelp').style.display = 'block';
+            document.getElementById('signupPassword').classList.remove('is-invalid');
+        }
+        if (isValid) {
+            isLoggedIn = true;
+			//aggiungere utente al database
+			loginSuccess();
+        }
+    });
 });

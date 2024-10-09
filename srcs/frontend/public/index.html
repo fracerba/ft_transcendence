@@ -55,38 +55,40 @@
 			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 		</div>
 		<div class="d-grid gap-1 col-4 mx-auto">
-			<!-- Login Form -->
-			<form id="login-form" style="display: none;">
+			<!-- Log in Form -->
+			<form id="login-form" class="needs-validation" novalidate style="display: none;">
 				<div id="username-label" class="mb-1">
 					<label for="loginUsername" class="form-label" data-translate="username">Username</label>
 					<input type="username" class="form-control" id="loginUsername" required>
-					<div id="liveAlertUsername">
-				</div>
+					<div class="invalid-feedback" data-translate="userError">Invalid username</div>
 				</div>
 				<div id="password-label" class="mb-1">
 					<label for="loginPassword" class="form-label">Password</label>
 					<input type="password" class="form-control" id="loginPassword" required>
-					<div id="liveAlertPassword"></div>
+					<div class="invalid-feedback" data-translate="passError">Wrong password</div>
 				</div>
 				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="login">Log in</button>
 				<button id="back2-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
 			</form>
 			<!-- Sign up Form -->
-			<form id="signup-form" style="display: none;">
+			<form id="signup-form" class="needs-validation" novalidate style="display: none;">
 				<div id="email-label" class="mb-1">
 					<label for="signupEmail" class="form-label" data-translate="email">Email address</label>
 					<input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" required>
-					<div id="emailHelp" class="form-text" data-translate="emailHelp">The email address must be valid</div>
+					<div id="emailHelp" class="form-text" data-translate="emailHelp">Please enter a valid email address</div>
+					<div class="invalid-feedback" data-translate="emailHelp">Please enter a valid email address</div>
 				</div>
 				<div id="username-label" class="mb-1">
 					<label for="signupUsername" class="form-label" data-translate="username">Username</label>
 					<input type="username" class="form-control" id="signupUsername" aria-describedby="userHelp" required>
 					<div id="userHelp" class="form-text" data-translate="userHelp">Max 8 characters</div>
+					<div class="invalid-feedback" data-translate="userHelp">Max 8 characters</div>
 				</div>
 				<div id="password-label" class="mb-1">
 					<label for="signupPassword" class="form-label" data-translate="password">Password</label>
 					<input type="password" class="form-control" id="signupPassword" aria-describedby="passHelp" required>
 					<div id="passHelp" class="form-text" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
+					<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 				</div>
 				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="submit">Submit</button>
 				<button id="back3-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
