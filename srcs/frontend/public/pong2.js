@@ -283,11 +283,11 @@ function drawFrame() {
 }
 
 function gameLoop() {
+    drawFrame();
+    winLose();
     if (!running || ended)
         return;
-    drawFrame();
     update();
-    winLose();
     animationId = requestAnimationFrame(gameLoop);
 }
 
@@ -324,10 +324,7 @@ window.pongGame = {
 
 window.addEventListener('resize', function() {
     resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
-    drawFrame();
-    if (running) {
-        gameLoop(); // Continua il gioco se è in esecuzione
-    }
+    gameLoop(); // Continua il gioco se è in esecuzione
 });
 
 // // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
