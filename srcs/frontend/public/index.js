@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 	function showMainButtons() {
-		setElementById('play-btn', 'block');
-		setElementById('leaderboard-btn', 'block');
-		setElementById('stats-btn', isLoggedIn ? 'block' : 'none');
-		setElementById('profile-btn', isLoggedIn ? 'block' : 'none');
-		setElementById('login-btn', isLoggedIn ? 'none' : 'block');
-		setElementById('logout-btn', isLoggedIn ? 'block' : 'none');
+		setElementById('play-btn','block');
+		setElementById('leaderboard-btn','block');
+		setElementById('stats-btn',isLoggedIn ? 'block' : 'none');
+		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
+		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
+		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
 	}
 
 	function showLoginButtons() {
@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 	function loginSuccess() {
-		isLoggedIn = true;
 		setElementById('login-form','none');
 		document.getElementById('loginUsername').value = '';
 		document.getElementById('loginPassword').value = '';
@@ -223,42 +222,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		// loadPongScript();
 	});
 
-	//playing buttons
+	//game buttons
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
-		document.getElementById('play2-btn').style.display = 'none';
-		document.getElementById('pause-btn').style.display = 'block';
-		document.getElementById('resume-btn').style.display = 'none';
+		setElementById('play2-btn','none');
+		setElementById('pause-btn','block');
+		setElementById('resume-btn','none');
 	});
 
 	document.getElementById('pause-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		pausePongScript();
-		document.getElementById('pause-btn').style.display = 'none';
-		document.getElementById('resume-btn').style.display = 'block';
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','block');
 	});
 
 	document.getElementById('resume-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
-		document.getElementById('pause-btn').style.display = 'block';
-		document.getElementById('resume-btn').style.display = 'none';
+		setElementById('pause-btn','block');
+		setElementById('resume-btn','none');
 	});
 
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetPongScript();
-		document.getElementById('play2-btn').style.display = 'block';
-		document.getElementById('pause-btn').style.display = 'none';
-		document.getElementById('resume-btn').style.display = 'none';
+		setElementById('play2-btn','block');
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','none');
 	});
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		document.getElementById('play2-btn').style.display = 'block';
-		document.getElementById('pause-btn').style.display = 'none';
-		document.getElementById('resume-btn').style.display = 'none';
+		setElementById('play2-btn','block');
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','none');
 		showMainOnly();
 		showDefaultFooterblock();
 		resetPongScript();
@@ -267,13 +266,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	//utils buttons
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		document.getElementById('play2-btn').style.display = 'block';
-		document.getElementById('pause-btn').style.display = 'none';
-		document.getElementById('resume-btn').style.display = 'none';
-		showMainOnly();
+		setElementById('play2-btn','block');
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','none');
+		setElementById('leaderboard','none');
 		showDefaultFooterblock();
 		resetPongScript();
-		setElementById('leaderboard','none');
+		loginSuccess();
 	});
 
 	document.getElementById('back-btn').addEventListener('click', function(event) {
@@ -281,11 +280,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 	});
 
-	const alertTrigger = document.getElementById('liveAlertBtn')
-		if (alertTrigger) {
-			alertTrigger.addEventListener('click', () => {
-				appendAlert('Nice, you triggered this alert message!', 'success')
-		})
+	const alertUsername = document.getElementById('liveAlertUsername')
+	const alertPassword = document.getElementById('liveAlertPassword')
+	const appendAlert = (message, type) => {
+	const wrapper = document.createElement('div')
+	wrapper.innerHTML = [
+		`<div class="alert alert-${type} alert-dismissible" role="alert">`,
+		`   <div>${message}</div>`,
+		'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+		'</div>'
+	].join('')
+
+	alertUsername.append(wrapper)
+	alertPassword.append(wrapper)
 	}
 
 	// Form validation for Login
@@ -294,11 +301,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
 
+		//cambia con controllo sul database
         if (validatePassword(password) && validateUsername(username)) {
-            console.log('Log in successful');
+			isLoggedIn = true;
 			loginSuccess();
         } else {
-            alert('Invalid username or password');
+			if (!validateUsername(username)) {
+            	appendAlert('Username is max 8 characters', 'danger');
+			}
+			if (!validatePassword(password)) {
+				appendAlert('Invalid password', 'danger');
+			}
         }
     });
 
@@ -310,10 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('signupPassword').value;
 
         if (validateEmail(email) && validatePassword(password) && validateUsername(username)) {
-            console.log('Sign up successful');
+            isLoggedIn = true;
+			//aggiungere utente al database
 			loginSuccess();
         } else {
-            alert('Invalid email, username or password');
+            appendAlert('Invalid email, username, or password', 'danger');
         }
     });
 
@@ -323,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 	function validateUsername(username) {
-		return (username.length <= 8);
+		return (username.length <= 8 && username.length > 0);
 	}
 
     function validatePassword(password) {
