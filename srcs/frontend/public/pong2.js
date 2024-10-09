@@ -38,8 +38,18 @@ function setBallSpeed() {
 }
 
 let nowBallSpeed = 0;
+let maxSpeed;
+let minSpeed;
+
+let TimeoutId = null;  // Variabile globale per l'ID del timeout
 
 function resetBall() {
+    // Se esiste un timeout precedente, annullalo
+    if (TimeoutId !== null) {
+        clearTimeout(TimeoutId);
+    }
+
+    // Imposta la palla nella posizione iniziale senza movimento
     ball = {
         x: canvas.width / 2,
         y: canvas.height / 2,
@@ -47,24 +57,25 @@ function resetBall() {
         dx: 0,  // Nessun movimento iniziale
         dy: 0
     };
-    
+
     ballMoving = false;  // La palla è ferma
     player1Paddle.y = canvas.height / 2 - paddleHeight / 2;
     player2Paddle.y = canvas.height / 2 - paddleHeight / 2;
     
-    // Dopo 1 secondo, fai ripartire la palla
-    setTimeout(() => {
+    // Imposta un nuovo timeout per far ripartire la palla dopo 1 secondo
+    TimeoutId = setTimeout(() => {
         if (lastScorer === 'player')
             ball.dx = nowBallSpeed;
         else if (lastScorer === 'ai')
             ball.dx = -nowBallSpeed;
         else
-            ball.dx = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);  // Se non ci sono goal precedenti, direzione casuale
+            ball.dx = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);  // Direzione casuale se non ci sono goal precedenti
 
         ball.dy = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);
         ballMoving = true;  // La palla può muoversi
     }, 1000);  // 1000 millisecondi = 1 secondo
 }
+
 
 function resizeCanvas() {
     if (animationId) {
@@ -105,6 +116,8 @@ function resizeCanvas() {
     };
 
     nowBallSpeed = setBallSpeed();
+    maxSpeed = nowBallSpeed + 8;
+    minSpeed = nowBallSpeed + 0.5;
     resetBall();
 }
 
@@ -150,9 +163,17 @@ function update() {
     ball.x += ball.dx;
     ball.y += ball.dy;
 
-    if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
-        ball.dy = -ball.dy;
+    // Rimbalzi sui muri
+    if (ball.y + ball.radius > canvas.height) {
+        ball.dy = -ball.dy;  // Inverti la direzione verticale
+        ball.y = canvas.height - ball.radius;  // Riposiziona appena all'interno del campo
     }
+    
+    if (ball.y - ball.radius < 0) {
+        ball.dy = -ball.dy;  // Inverti la direzione verticale
+        ball.y = ball.radius;  // Riposiziona appena all'interno del campo
+    }
+
     // Rimbalzi paddle sinistro
     if (ball.x - ball.radius < player2Paddle.x + player2Paddle.width + 0.005 && 
         ball.x - ball.radius > player2Paddle.x - 0.005 && 
@@ -165,7 +186,7 @@ function update() {
 
         // Modifica la direzione della palla in base al punto di impatto
         let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-        let speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);  // Mantieni la velocità costante
+        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));  // Imposta la velocità: velocità massima al centro, minima ai bordi
         ball.dx = speed * Math.cos(bounceAngle);
         ball.dy = speed * Math.sin(bounceAngle);
 
@@ -182,7 +203,7 @@ function update() {
                 let normalizedImpact = impactPoint / (player1Paddle.height / 2);
         
                 let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-                let speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+                let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Imposta la velocità: velocità massima al centro, minima ai bordi
                 ball.dx = speed * Math.cos(bounceAngle);
                 ball.dy = speed * Math.sin(bounceAngle);
         
