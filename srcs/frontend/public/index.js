@@ -51,6 +51,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('back-btn','none');
 	}
 
+	function hideLeaderboard() {
+		setElementById('leaderboard','none');
+		setElementById('back4-btn','none');
+	}
+
+	function hideProfile() {
+		setElementById('profile','none');
+		setElementById('back5-btn','none');
+	}
+
+	function hideStats() {
+		setElementById('stats','none');
+		setElementById('back6-btn','none');
+	}
+
 	function showMainOnly() {
 		showMainButtons();
 		hideLoginButtons();
@@ -87,14 +102,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('playing-footer','none');
     }
 
-	function loginSuccess() {
-		setElementById('login-form','none');
+	function resetFooterButtons() {
+		setElementById('play2-btn','block');
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','none');
+	}
+
+	function resetLoginInput() {
 		document.getElementById('loginUsername').value = '';
 		document.getElementById('loginPassword').value = '';
-		setElementById('signup-form','none');
+	}
+
+	function resetSignupInput() {
 		document.getElementById('signupEmail').value = '';
 		document.getElementById('signupUsername').value = '';
 		document.getElementById('signupPassword').value = '';
+	}
+
+	function loginSuccess() {
+		setElementById('login-form','none');
+		resetLoginInput();
+		setElementById('signup-form','none');
+		resetSignupInput();
 		showMainOnly();
 	}
 
@@ -134,20 +163,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		hideAll();
 		setElementById('leaderboard','block');
+		setElementById('back4-btn','block');
+	});
+	
+	document.getElementById('profile-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		hideAll();
+		setElementById('profile','block');
+		setElementById('back5-btn','block');
+		// showProfile();
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
+		setElementById('stats','block');
+		setElementById('back6-btn','block');
 		// showStats();
 	});
-
-	document.getElementById('profile-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		hideAll();
-		// showProfile();
-	});
-
+	
 	document.getElementById('login-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		showLoginOnly();
@@ -176,8 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('back2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('login-form','none');
-		document.getElementById('loginUsername').value = '';
-		document.getElementById('loginPassword').value = '';
+		resetLoginInput();
 		document.getElementById('loginUsername').classList.remove('is-invalid');
 		document.getElementById('loginPassword').classList.remove('is-invalid');
 		showLoginOnly();
@@ -186,9 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('back3-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('signup-form','none');
-		document.getElementById('signupEmail').value = '';
-		document.getElementById('signupUsername').value = '';
-		document.getElementById('signupPassword').value = '';
+		resetSignupInput();
 		document.getElementById('emailHelp').style.display = 'block';
 		document.getElementById('userHelp').style.display = 'block';
 		document.getElementById('passHelp').style.display = 'block';
@@ -256,16 +287,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetPongScript();
-		setElementById('play2-btn','block');
-		setElementById('pause-btn','none');
-		setElementById('resume-btn','none');
+		resetFooterButtons();
 	});
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('play2-btn','block');
-		setElementById('pause-btn','none');
-		setElementById('resume-btn','none');
+		resetFooterButtons();
 		showMainOnly();
 		showDefaultFooterblock();
 		resetPongScript();
@@ -274,10 +301,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	//utils buttons
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('play2-btn','block');
-		setElementById('pause-btn','none');
-		setElementById('resume-btn','none');
-		setElementById('leaderboard','none');
+		resetFooterButtons();
+		hideLeaderboard();
+		hideProfile();
+		hideStats();
 		showDefaultFooterblock();
 		resetPongScript();
 		loginSuccess();
@@ -288,24 +315,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 	});
 
-	// // Form validation
-	// const alertUsername = document.getElementById('liveAlertUsername')
-	// const alertPassword = document.getElementById('liveAlertPassword')
-	// const appendAlert = (message, type) => {
-	// const wrapper = document.createElement('div')
-	// wrapper.innerHTML = [
-	// 	`<div class="alert alert-${type} alert-dismissible" role="alert">`,
-	// 	`   <div>${message}</div>`,
-	// 	'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-	// 	'</div>'
-	// ].join('')
+	document.getElementById('back4-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		hideLeaderboard();
+		showMainOnly();
+	});
 
-	// alertUsername.append(wrapper)
-	// alertPassword.append(wrapper)
-	// }
+	document.getElementById('back5-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		hideProfile();
+		showMainOnly();
+	});
 
-	// (() => {
-	// 	'use strict'
+	document.getElementById('back6-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		hideStats();
+		showMainOnly();
+	});
 	  
 	// 	// Fetch all the forms we want to apply custom Bootstrap validation styles to
 	// 	const forms = document.querySelectorAll('.needs-validation')
@@ -404,4 +430,80 @@ document.addEventListener('DOMContentLoaded', function() {
 			loginSuccess();
         }
     });
+
+	// Gestione del caricamento dell'immagine del profilo
+	document.getElementById('uploadImageBtn').addEventListener('click', function() {
+		document.getElementById('uploadImage').click();
+	});
+
+	document.getElementById('uploadImage').addEventListener('change', function(event) {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('profileImage').src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+	});
+
+	// Gestione della modifica della descrizione del profilo
+	document.getElementById('saveDescriptionBtn').addEventListener('click', function() {
+		const description = document.getElementById('profileDescription').value;
+		// Salva la descrizione (puoi aggiungere logica per salvare la descrizione nel backend)
+		console.log('Descrizione salvata:', description);
+	});
+
+	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
+	const friendsList = [
+		{ name: 'Friend01', online: true },
+		{ name: 'Friend02', online: false },
+		// Aggiungi altri amici qui
+	];
+
+	const friendsListElement = document.getElementById('friendsList');
+	friendsList.forEach(friend => {
+		const listItem = document.createElement('li');
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.textContent = friend.name;
+
+		const statusBadge = document.createElement('span');
+		statusBadge.className = `badge ${friend.online ? 'bg-success' : 'bg-secondary'}`;
+		statusBadge.textContent = friend.online ? 'Online' : 'Offline';
+
+		listItem.appendChild(statusBadge);
+		friendsListElement.appendChild(listItem);
+	});
+
+	// Esempio di lista di partite (puoi popolare dinamicamente questa lista dal backend)
+	const matchesList = [
+		{ opponent: 'Opponent01', result: 'Win' },
+		{ opponent: 'Opponent02', result: 'Loss' },
+		// Aggiungi altre partite qui
+	];
+
+	const matchesListElement = document.getElementById('matchesList');
+	matchesList.forEach(match => {
+		const listItem = document.createElement('li');
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.textContent = match.opponent;
+
+		const resultBadge = document.createElement('span');
+		resultBadge.className = `badge ${match.result === 'Win' ? 'bg-success' : 'bg-danger'}`;
+		resultBadge.textContent = match.result;
+
+		listItem.appendChild(resultBadge);
+		matchesListElement.appendChild(listItem);
+	});
+
+	// Esempio di statistiche (puoi popolare dinamicamente queste statistiche dal backend)
+	const stats = {
+		totalMatches: 10,
+		wins: 5,
+		losses: 3,
+	};
+
+	document.getElementById('totalMatches').textContent = stats.totalMatches;
+	document.getElementById('wins').textContent = stats.wins;
+	document.getElementById('losses').textContent = stats.losses;
 });

@@ -36,11 +36,12 @@
 		<canvas id="pongCanvas" class="mx-auto mt-0" style="display: none"></canvas>
 	</div>
 	<div class="container-fluid justify-content-center mt-2">
+		<!-- Buttons -->
 		<div class="d-grid gap-2 col-2 mx-auto">
 			<button id="play-btn" type="button" class="btn btn-dark" data-translate="play">Play</button>
 			<button id="leaderboard-btn" type="button" class="btn btn-dark" data-translate="leaderboard">Leaderboard</button>
-			<button id="stats-btn" type="button" class="btn btn-dark" style="display: none" data-translate="stats">Stats</button>
 			<button id="profile-btn" type="button" class="btn btn-dark" style="display: none" data-translate="profile">Profile</button>
+			<button id="stats-btn" type="button" class="btn btn-dark" style="display: none" data-translate="stats">Stats</button>
 			<button id="login-btn" type="button" class="btn btn-dark" data-translate="login">Log in</button>
 			<button id="logout-btn" type="button" class="btn btn-dark" style="display: none" data-translate="logout">Log out</button>
 			<!-- login -->
@@ -54,6 +55,7 @@
 			<!-- utils -->
 			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 		</div>
+		<!-- Login -->
 		<div class="d-grid gap-1 col-4 mx-auto">
 			<!-- Log in Form -->
 			<form id="login-form" class="needs-validation" novalidate style="display: none;">
@@ -67,7 +69,7 @@
 					<input type="password" class="form-control" id="loginPassword" required>
 					<div class="invalid-feedback" data-translate="passError">Wrong password</div>
 				</div>
-				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="login">Log in</button>
+				<button id="login-submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="login">Log in</button>
 				<button id="back2-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
 			</form>
 			<!-- Sign up Form -->
@@ -90,46 +92,113 @@
 					<div id="passHelp" class="form-text" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 					<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 				</div>
-				<button id="submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="submit">Submit</button>
+				<button id="signup-submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="submit">Submit</button>
 				<button id="back3-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
 			</form>
 		</div>
+		<!-- Leaderboard -->
 		<div class="d-grid gap-1 col-4 mx-auto">
-			<table id="leaderboard" class="table table-responsive table-dark table-hover table-bordered caption-top" style="display: none;">
-				<caption data-translate="leaderboard">Leaderboard</caption>
-				<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col" data-translate="player">Player</th>
-					<th scope="col" data-translate="wins">Wins</th>
-					<th scope="col" data-translate="losses">Losses</th>
-					<th scope="col" data-translate="winrate">Win rate</th>
-				</tr>
-				</thead>
-				<tbody class="table-group-divider">
-				<tr>
-					<th scope="row">1</th>
-					<td>Player01</td>
-					<td class="text-end">2</td>
-					<td class="text-end">0</td>
-					<td class="text-end">100%</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Player02</td>
-					<td class="text-end">1</td>
-					<td class="text-end">1</td>
-					<td class="text-end">50%</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Player03</td>
-					<td class="text-end">0</td>
-					<td class="text-end">2</td>
-					<td class="text-end">0%</td>
-				</tr>
-				</tbody>
-			</table>
+			<div id="leaderboard" class="card text-white bg-dark mb-3" style="display: none;">
+				<div class="card-header" data-translate="leaderboard">Leaderboard</div>
+				<div class="card-body">
+					<table id="leaderboard" class="table table-responsive table-dark table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col" data-translate="player">Player</th>
+								<th scope="col" class="text-center" data-translate="wins">Wins</th>
+								<th scope="col" class="text-center" data-translate="losses">Losses</th>
+								<th scope="col" class="text-center" data-translate="winrate">Win rate</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<tr>
+								<th scope="row">1</th>
+								<td>Player01</td>
+								<td class="text-center">2</td>
+								<td class="text-center">0</td>
+								<td class="text-end">100%</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td>Player02</td>
+								<td class="text-center">1</td>
+								<td class="text-center">1</td>
+								<td class="text-end">50%</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>Player03</td>
+								<td class="text-center">0</td>
+								<td class="text-center">2</td>
+								<td class="text-end">0%</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="d-grid gap-2 col-4 mx-auto">
+				<button id="back4-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
+			</div>
+		</div>
+		<!-- Profile -->
+		<div class="d-grid gap-1 col-8 mx-auto">
+			<div id="profile" class="card text-white bg-dark mb-3" style="display: none;">
+				<div class="card-header" data-translate="profile">Profile</div>
+				<div class="card-body">
+					<div class="row">
+						<!-- Sezione 1: Immagine e Nome Profilo -->
+						<div class="col-md-4 mb-3 text-center">
+							<img id="profileImage" src="default-profile.png" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
+							<h5 class="card-title mt-2" data-translate="username">Username</h5>
+							<p class="card-text">Player01</p>
+							<input type="file" id="uploadImage" class="form-control" style="display: none;">
+							<button id="uploadImageBtn" type="button" class="btn btn-light mt-2" data-translate="uploadImage">Upload Image</button>
+						</div>
+						<!-- Sezione 2: Scheda Info -->
+						<div class="col-md-4 mb-3">
+							<h5 class="card-title" data-translate="info">Info</h5>
+							<textarea id="profileDescription" class="form-control" rows="3" placeholder="Enter your description here...">This is a sample description.</textarea>
+							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save">Save</button>
+						</div>
+						<!-- Sezione 3: Lista di Amici -->
+						<div class="col-md-4">
+							<h5 class="card-title" data-translate="friends">Friends</h5>
+							<ul id="friendsList" class="list-group">
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Friend01
+									<span class="badge bg-success">Online</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Friend02
+									<span class="badge bg-secondary">Offline</span>
+								</li>
+								<!-- Aggiungi altri amici qui -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-grid gap-2 col-2 mx-auto">
+				<button id="back5-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
+			</div>
+		</div>
+		<!-- Stats -->
+		<div class="d-grid gap-1 col-4 mx-auto">
+			<div id="stats" class="card text-white bg-dark mb-3" style="display: none;">
+				<div class="card-header" data-translate="stats">Stats</div>
+				<div class="card-body">
+					<h5 class="card-title" data-translate="wins">Wins</h5>
+					<p class="card-text">2</p>
+					<h5 class="card-title" data-translate="losses">Losses</h5>
+					<p class="card-text">0</p>
+					<h5 class="card-title" data-translate="winrate">Win rate</h5>
+					<p class="card-text">100%</p>
+				</div>
+			</div>
+			<div class="d-grid gap-2 col-4 mx-auto">
+				<button id="back6-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
+			</div>
 		</div>
 	</div>
 	<div id="default-footer" class="fixed-bottom bg-dark">
