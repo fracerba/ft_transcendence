@@ -31,15 +31,28 @@ function setPaddleSpeed() {
     return speed;
 }
 
-function setBallSpeed() {
-    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-    const speed = availableWidth * 0.007;
-    return speed;
-}
-
 let nowBallSpeed = 0;
 let maxSpeed;
 let minSpeed;
+
+function setBallSpeed() {
+    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
+
+    // Calcola la velocità di base in base alla larghezza disponibile
+    const speed = availableWidth * 0.007;
+
+    // Imposta velocità massima e minima come frazioni della larghezza del canvas
+    const speedFactorMax = 0.014; // Frazione per la velocità massima
+    const speedFactorMin = 0.007; // Frazione per la velocità minima
+
+    // Calcola la velocità massima e minima in base alla larghezza del canvas
+    maxSpeed = availableWidth * speedFactorMax;
+    minSpeed = availableWidth * speedFactorMin;
+
+    console.log(`Max Speed: ${maxSpeed}, Min Speed: ${minSpeed}, Base Speed: ${speed}`); //debug
+
+    return speed;
+}
 
 let TimeoutId = null;  // Variabile globale per l'ID del timeout
 
@@ -57,7 +70,7 @@ function resetBall() {
         dx: 0,  // Nessun movimento iniziale
         dy: 0
     };
-
+    
     ballMoving = false;  // La palla è ferma
     player1Paddle.y = canvas.height / 2 - paddleHeight / 2;
     player2Paddle.y = canvas.height / 2 - paddleHeight / 2;
@@ -81,17 +94,37 @@ function resizeCanvas() {
     if (animationId) {
         cancelAnimationFrame(animationId);  // Ferma l'animazione corrente
     }
-    // Aggiorna le dimensioni disponibili per il canvas
-    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-    const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
 
-    // Aggiorna le dimensioni del canvas
-    canvas.width = availableWidth;
-    canvas.height = availableHeight;
+    // Imposta un rapporto fisso
+    const aspectRatio = 19 / 10;
 
-    // Posiziona il canvas con i margini
-    canvas.style.marginLeft = `${window.innerWidth * horizontalMarginRatio}px`;
-    canvas.style.marginTop = `${window.innerHeight * verticalMarginRatio}px`;
+    // Ottieni le dimensioni della finestra disponibile
+    const windowWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
+    const windowHeight = window.innerHeight - 108; // Sottrai l'altezza del footer
+
+    // Calcola la larghezza e l'altezza del canvas mantenendo il rapporto fisso
+    let canvasWidth = windowWidth;
+    let canvasHeight = windowWidth / aspectRatio;
+
+    // Se l'altezza calcolata è maggiore dello spazio disponibile, ridimensiona in base all'altezza
+    if (canvasHeight > windowHeight) {
+        canvasHeight = windowHeight;
+        canvasWidth = windowHeight * aspectRatio;
+
+        // Controlla se la nuova larghezza è maggiore della larghezza disponibile
+        if (canvasWidth > windowWidth) {
+            canvasWidth = windowWidth;
+            canvasHeight = windowWidth / aspectRatio; // Mantieni il rapporto fisso
+        }
+    }
+
+    // Aggiorna le dimensioni del canvas mantenendo il rapporto fisso
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    // Posiziona il canvas con i margini per centrarlo orizzontalmente e sopra il footer
+    canvas.style.marginLeft = `${(window.innerWidth - canvasWidth) / 2}px`;
+    canvas.style.marginTop = `0px`;
 
     // Calcola le nuove dimensioni delle racchette e della palla
     paddleWidth = canvas.width * 0.013;
@@ -115,11 +148,12 @@ function resizeCanvas() {
         dy: 0
     };
 
+    // Aggiorna la velocità della pallina
     nowBallSpeed = setBallSpeed();
-    maxSpeed = nowBallSpeed + 8;
-    minSpeed = nowBallSpeed + 0.5;
     resetBall();
 }
+
+
 
 // Funzione per disegnare il campo
 function drawField() {
