@@ -100,7 +100,7 @@ function resizeCanvas() {
 
     // Ottieni le dimensioni della finestra disponibile
     const windowWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-    const windowHeight = window.innerHeight - 108; // Sottrai l'altezza del footer
+    const windowHeight = window.innerHeight - 110; // Sottrai l'altezza del footer
 
     // Calcola la larghezza e l'altezza del canvas mantenendo il rapporto fisso
     let canvasWidth = windowWidth;

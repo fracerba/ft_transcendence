@@ -58,83 +58,95 @@
 		<!-- Login -->
 		<div class="d-grid gap-1 col-4 mx-auto">
 			<!-- Log in Form -->
-			<form id="login-form" class="needs-validation" novalidate style="display: none;">
-				<div id="username-label" class="mb-1">
-					<label for="loginUsername" class="form-label" data-translate="username">Username</label>
-					<input type="username" class="form-control" id="loginUsername" required>
-					<div class="invalid-feedback" data-translate="userError">Invalid username</div>
+			<div id="login-form" class="card text-white bg-dark mb-3" style="display: none;">
+				<div class="card-body">
+					<h5 class="card-title" data-translate="login">Log in</h5>
+					<form class="needs-validation" novalidate>
+						<div id="username-label" class="mb-1">
+							<label for="loginUsername" class="form-label" data-translate="username">Username</label>
+							<input type="username" class="form-control bg-dark text-white" id="loginUsername" required>
+							<div class="invalid-feedback" data-translate="userError">Invalid username</div>
+						</div>
+						<div id="password-label" class="mb-1">
+							<label for="loginPassword" class="form-label">Password</label>
+							<input type="password" class="form-control bg-dark text-white" id="loginPassword" required>
+							<div class="invalid-feedback" data-translate="passError">Wrong password</div>
+						</div>
+						<button id="login-submit-btn" type="submit" class="btn btn-success mt-1" data-translate="login">Log in</button>
+						<button id="back2-btn" type="button" class="btn btn-secondary mt-1 mx-2" data-translate="back">Back</button>
+					</form>
 				</div>
-				<div id="password-label" class="mb-1">
-					<label for="loginPassword" class="form-label">Password</label>
-					<input type="password" class="form-control" id="loginPassword" required>
-					<div class="invalid-feedback" data-translate="passError">Wrong password</div>
-				</div>
-				<button id="login-submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="login">Log in</button>
-				<button id="back2-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
-			</form>
+			</div>
 			<!-- Sign up Form -->
-			<form id="signup-form" class="needs-validation" novalidate style="display: none;">
-				<div id="email-label" class="mb-1">
-					<label for="signupEmail" class="form-label" data-translate="email">Email address</label>
-					<input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" required>
-					<div id="emailHelp" class="form-text" data-translate="emailHelp">Please enter a valid email address</div>
-					<div class="invalid-feedback" data-translate="emailHelp">Please enter a valid email address</div>
+			<div id="signup-form" class="card text-white bg-dark mb-3" style="display: none;">
+				<div class="card-body">
+					<h5 class="card-title" data-translate="signup">Sign up</h5>
+					<form class="needs-validation" novalidate>
+						<div id="email-label" class="mb-1">
+							<label for="signupEmail" class="form-label" data-translate="email">Email address</label>
+							<input type="email" class="form-control bg-dark text-white" id="signupEmail" aria-describedby="emailHelp" required>
+							<div id="emailHelp" class="form-text text-white-50" data-translate="emailHelp">Please enter a valid email address</div>
+							<div class="invalid-feedback" data-translate="emailHelp">Please enter a valid email address</div>
+						</div>
+						<div id="username-label" class="mb-1">
+							<label for="signupUsername" class="form-label" data-translate="username">Username</label>
+							<input type="username" class="form-control bg-dark text-white" id="signupUsername" aria-describedby="userHelp" required>
+							<div id="userHelp" class="form-text text-white-50" data-translate="userHelp">Max 8 characters</div>
+							<div class="invalid-feedback" data-translate="userHelp">Max 8 characters</div>
+						</div>
+						<div id="password-label" class="mb-1">
+							<label for="signupPassword" class="form-label" data-translate="password">Password</label>
+							<input type="password" class="form-control bg-dark text-white" id="signupPassword" aria-describedby="passHelp" required>
+							<div id="passHelp" class="form-text text-white-50" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
+							<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
+						</div>
+						<button id="signup-submit-btn" type="submit" class="btn btn-success mt-1" data-translate="submit">Submit</button>
+						<button id="back3-btn" type="button" class="btn btn-secondary mt-1 mx-2" data-translate="back">Back</button>
+					</form>
 				</div>
-				<div id="username-label" class="mb-1">
-					<label for="signupUsername" class="form-label" data-translate="username">Username</label>
-					<input type="username" class="form-control" id="signupUsername" aria-describedby="userHelp" required>
-					<div id="userHelp" class="form-text" data-translate="userHelp">Max 8 characters</div>
-					<div class="invalid-feedback" data-translate="userHelp">Max 8 characters</div>
-				</div>
-				<div id="password-label" class="mb-1">
-					<label for="signupPassword" class="form-label" data-translate="password">Password</label>
-					<input type="password" class="form-control" id="signupPassword" aria-describedby="passHelp" required>
-					<div id="passHelp" class="form-text" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
-					<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
-				</div>
-				<button id="signup-submit-btn" type="submit" class="btn btn-dark mt-1" data-translate="submit">Submit</button>
-				<button id="back3-btn" type="button" class="btn btn-dark mt-1 mx-2" data-translate="back">Back</button>
-			</form>
+			</div>
 		</div>
 		<!-- Leaderboard -->
-		<div class="d-grid gap-1 col-4 mx-auto">
+		<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 			<div id="leaderboard" class="card text-white bg-dark mb-3" style="display: none;">
-				<div class="card-header" data-translate="leaderboard">Leaderboard</div>
 				<div class="card-body">
-					<table id="leaderboard" class="table table-responsive table-dark table-hover">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col" data-translate="player">Player</th>
-								<th scope="col" class="text-center" data-translate="wins">Wins</th>
-								<th scope="col" class="text-center" data-translate="losses">Losses</th>
-								<th scope="col" class="text-center" data-translate="winrate">Win rate</th>
-							</tr>
-						</thead>
-						<tbody class="table-group-divider">
-							<tr>
-								<th scope="row">1</th>
-								<td>Player01</td>
-								<td class="text-center">2</td>
-								<td class="text-center">0</td>
-								<td class="text-end">100%</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Player02</td>
-								<td class="text-center">1</td>
-								<td class="text-center">1</td>
-								<td class="text-end">50%</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Player03</td>
-								<td class="text-center">0</td>
-								<td class="text-center">2</td>
-								<td class="text-end">0%</td>
-							</tr>
-						</tbody>
-					</table>
+					<h5 class="card-title" data-translate="leaderboard">Leaderboard</h5>
+					<div class="table-responsive">
+						<table class="table table-responsive table-dark table-hover">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col" data-translate="player">Player</th>
+									<th scope="col" class="text-center" data-translate="wins">Wins</th>
+									<th scope="col" class="text-center" data-translate="losses">Losses</th>
+									<th scope="col" class="text-center" data-translate="winrate">Win rate</th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+								<tr>
+									<th scope="row">1</th>
+									<td>Player01</td>
+									<td class="text-center">2</td>
+									<td class="text-center">0</td>
+									<td class="text-end">100%</td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td>Player02</td>
+									<td class="text-center">1</td>
+									<td class="text-center">1</td>
+									<td class="text-end">50%</td>
+								</tr>
+								<tr>
+									<th scope="row">3</th>
+									<td>Player03</td>
+									<td class="text-center">0</td>
+									<td class="text-center">2</td>
+									<td class="text-end">0%</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 			<div class="d-grid gap-2 col-4 mx-auto">
@@ -149,7 +161,7 @@
 					<div class="row">
 						<!-- Sezione 1: Immagine e Nome Profilo -->
 						<div class="col-md-4 mb-3 text-center">
-							<img id="profileImage" src="default-profile.png" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
+							<img id="profileImage" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
 							<h5 class="card-title mt-2" data-translate="username">Username</h5>
 							<p class="card-text">Player01</p>
 							<input type="file" id="uploadImage" class="form-control" style="display: none;">
@@ -158,13 +170,28 @@
 						<!-- Sezione 2: Scheda Info -->
 						<div class="col-md-4 mb-3">
 							<h5 class="card-title" data-translate="info">Info</h5>
-							<textarea id="profileDescription" class="form-control" rows="3" placeholder="Enter your description here...">This is a sample description.</textarea>
-							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save">Save</button>
+							<textarea id="profileDescription" class="form-control" rows="3" placeholder="Enter your description here..." readonly>This is a sample description.</textarea>
+							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
+							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save" style="display: none;">Save</button>
+							<!-- Riassunto delle statistiche -->
+							<div class="mt-3">
+								<h5 class="card-title" data-translate="stats">General Stats</h5>
+								<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
+								<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
+								<ul id="recentGamesList" class="list-group">
+									<li class="list-group-item">Game 1: Win</li>
+									<li class="list-group-item">Game 2: Loss</li>
+									<li class="list-group-item">Game 3: Win</li>
+									<li class="list-group-item">Game 4: Win</li>
+									<li class="list-group-item">Game 5: Loss</li>
+								</ul>
+								<a href="#stats" class="btn btn-light mt-2" data-translate="viewStats">View Full Stats</a>
+							</div>
 						</div>
 						<!-- Sezione 3: Lista di Amici -->
 						<div class="col-md-4">
 							<h5 class="card-title" data-translate="friends">Friends</h5>
-							<ul id="friendsList" class="list-group">
+							<ul id="friendsList" class="list-group mb-3">
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									Friend01
 									<span class="badge bg-success">Online</span>
@@ -174,6 +201,30 @@
 									<span class="badge bg-secondary">Offline</span>
 								</li>
 								<!-- Aggiungi altri amici qui -->
+							</ul>
+							<h5 class="card-title" data-translate="friendRequests">Friend Requests</h5>
+							<ul id="friendRequestsList" class="list-group mb-3">
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Request01
+									<div>
+										<button class="btn btn-success btn-sm">Accept</button>
+										<button class="btn btn-danger btn-sm">Reject</button>
+									</div>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Request02
+									<div>
+										<button class="btn btn-success btn-sm">Accept</button>
+										<button class="btn btn-danger btn-sm">Reject</button>
+									</div>
+								</li>
+								<!-- Aggiungi altre richieste qui -->
+							</ul>
+							<h5 class="card-title" data-translate="sentRequests">Sent Requests</h5>
+							<ul id="sentRequestsList" class="list-group">
+								<li class="list-group-item">SentRequest01</li>
+								<li class="list-group-item">SentRequest02</li>
+								<!-- Aggiungi altre richieste inviate qui -->
 							</ul>
 						</div>
 					</div>
@@ -202,31 +253,31 @@
 		</div>
 	</div>
 	<div id="default-footer" class="fixed-bottom bg-dark">
-        <div class="container-fluid">
-          <div class="row justify-content-center mt-3">
-            <div class="col-4 text-start">
-              <p class="text-white">© 2024 Pong II. All rights reserved.</p>
-            </div>
-            <div class="col-4 text-center">
-              <p class="text-white" data-translate="footer">Developed by fracerba, ncortigi, everonel, lgaibazz</p>
-            </div>
-            <div class="col-4 text-center"></div>
-          </div>
-        </div>
-    </div>
-    <div id="playing-footer" class="fixed-bottom bg-dark" style="display: none;">
-        <div class="container-fluid">
+		<div class="container-fluid">
+		  <div class="row justify-content-center mt-3">
+			<div class="col-4 text-start">
+			  <p class="text-white">© 2024 Pong II. All rights reserved.</p>
+			</div>
+			<div class="col-4 text-center">
+			  <p class="text-white" data-translate="footer">Developed by fracerba, ncortigi, everonel, lgaibazz</p>
+			</div>
+			<div class="col-4 text-center"></div>
+		  </div>
+		</div>
+	</div>
+	<div id="playing-footer" class="fixed-bottom bg-dark" style="display: none;">
+		<div class="container-fluid">
 			<div class="row justify-content-center mt-2">
 				<div class="col-3 d-flex justify-content-center mb-2">
-					<button id="play2-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="play">Play</button>
+					<button id="play2-btn" type="button" class="btn btn-primary mx-1 flex-fill" data-translate="play">Play</button>
 					<button id="pause-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="pause">Pause</button>
 					<button id="resume-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
 					<button id="restart-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</button>
-					<button id="quit-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="quit">Quit</button>
+					<button id="quit-btn" type="button" class="btn btn-danger mx-1 flex-fill" data-translate="quit">Quit</button>
 				</div>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="translate.js"></script>
 	<script src="index.js"></script>

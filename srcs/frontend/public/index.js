@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 	let isLoggedIn = false; // Replace with actual login status check
 
-    function setElementById(id, status) {
-        document.getElementById(id).style.display = status;
-    }
+	function setElementById(id, status) {
+		document.getElementById(id).style.display = status;
+	}
 
 	function showMainButtons() {
 		setElementById('play-btn','block');
@@ -94,13 +94,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('pongCanvas','block');
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
-    }
+	}
 
-    function showDefaultFooterblock() {
-        setElementById('pongCanvas','none');
+	function showDefaultFooterblock() {
+		setElementById('pongCanvas','none');
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
-    }
+	}
 
 	function resetFooterButtons() {
 		setElementById('play2-btn','block');
@@ -128,12 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function loadPongScript() {
-        const script = document.createElement('script');
+		const script = document.createElement('script');
 		script.id = 'pong-script';
-        script.src = 'pong2.js';
-        script.defer = true;
-        document.body.appendChild(script);
-    }
+		script.src = 'pong2.js';
+		script.defer = true;
+		document.body.appendChild(script);
+	}
 
 	function startPongScript() {
 		if (window.pongGame) {
@@ -350,64 +350,64 @@ document.addEventListener('DOMContentLoaded', function() {
 	//   })()
 
 	// Form validation functions
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
+	function validateEmail(email) {
+		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return re.test(email);
+	}
 
 	function validateUsername(username) {
 		return (username.length <= 8 && username.length > 0);
 	}
 
-    function validatePassword(password) {
-        return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
-    }
+	function validatePassword(password) {
+		return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
+	}
 	
 	// Form validation for Login
 	document.getElementById('login-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+		event.preventDefault();
 		const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-
-        let isValid = true;
-
-		//cambia con controllo sul database
-        if (!validateUsername(username)) {
-            isValid = false;
-            document.getElementById('loginUsername').classList.add('is-invalid');
-        } else {
-            document.getElementById('loginUsername').classList.remove('is-invalid');
-        }
-		//cambia con controllo sul database
-        if (!validatePassword(password)) {
-            isValid = false;
-            document.getElementById('loginPassword').classList.add('is-invalid');
-        } else {
-            document.getElementById('loginPassword').classList.remove('is-invalid');
-        }
-        if (isValid) {
-            isLoggedIn = true;
-            loginSuccess();
-        }
-    });
-
-    // Form validation for Sign up
-    document.getElementById('signup-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('signupEmail').value;
-        const username = document.getElementById('signupUsername').value;
-        const password = document.getElementById('signupPassword').value;
+		const password = document.getElementById('loginPassword').value;
 
 		let isValid = true;
 
-        if (!validateEmail(email)) {
-            isValid = false;
+		//cambia con controllo sul database
+		if (!validateUsername(username)) {
+			isValid = false;
+			document.getElementById('loginUsername').classList.add('is-invalid');
+		} else {
+			document.getElementById('loginUsername').classList.remove('is-invalid');
+		}
+		//cambia con controllo sul database
+		if (!validatePassword(password)) {
+			isValid = false;
+			document.getElementById('loginPassword').classList.add('is-invalid');
+		} else {
+			document.getElementById('loginPassword').classList.remove('is-invalid');
+		}
+		if (isValid) {
+			isLoggedIn = true;
+			loginSuccess();
+		}
+	});
+
+	// Form validation for Sign up
+	document.getElementById('signup-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const email = document.getElementById('signupEmail').value;
+		const username = document.getElementById('signupUsername').value;
+		const password = document.getElementById('signupPassword').value;
+
+		let isValid = true;
+
+		if (!validateEmail(email)) {
+			isValid = false;
 			document.getElementById('emailHelp').style.display = 'none';
-            document.getElementById('signupEmail').classList.add('is-invalid');
-        } else {
+			document.getElementById('signupEmail').classList.add('is-invalid');
+		} else {
 			document.getElementById('emailHelp').style.display = 'block';
-            document.getElementById('signupEmail').classList.remove('is-invalid');
-        }
+			document.getElementById('signupEmail').classList.remove('is-invalid');
+		}
 		if (!validateUsername(username)) {
 			isValid = false;
 			document.getElementById('userHelp').style.display = 'none';
@@ -416,20 +416,20 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('userHelp').style.display = 'block';
 			document.getElementById('signupUsername').classList.remove('is-invalid');
 		}
-        if (!validatePassword(password)) {
-            isValid = false;
+		if (!validatePassword(password)) {
+			isValid = false;
 			document.getElementById('passHelp').style.display = 'none';
-            document.getElementById('signupPassword').classList.add('is-invalid');
-        } else {
+			document.getElementById('signupPassword').classList.add('is-invalid');
+		} else {
 			document.getElementById('passHelp').style.display = 'block';
-            document.getElementById('signupPassword').classList.remove('is-invalid');
-        }
-        if (isValid) {
-            isLoggedIn = true;
+			document.getElementById('signupPassword').classList.remove('is-invalid');
+		}
+		if (isValid) {
+			isLoggedIn = true;
 			//aggiungere utente al database
 			loginSuccess();
-        }
-    });
+		}
+	});
 
 	// Gestione del caricamento dell'immagine del profilo
 	document.getElementById('uploadImageBtn').addEventListener('click', function() {
@@ -448,10 +448,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	// Gestione della modifica della descrizione del profilo
+	document.getElementById('editDescriptionBtn').addEventListener('click', function() {
+		const descriptionField = document.getElementById('profileDescription');
+		descriptionField.removeAttribute('readonly');
+		document.getElementById('editDescriptionBtn').style.display = 'none';
+		document.getElementById('saveDescriptionBtn').style.display = 'inline-block';
+	});
+
 	document.getElementById('saveDescriptionBtn').addEventListener('click', function() {
-		const description = document.getElementById('profileDescription').value;
+		const descriptionField = document.getElementById('profileDescription');
+		descriptionField.setAttribute('readonly', true);
+		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
+		document.getElementById('saveDescriptionBtn').style.display = 'none';
 		// Salva la descrizione (puoi aggiungere logica per salvare la descrizione nel backend)
-		console.log('Descrizione salvata:', description);
+		console.log('Descrizione salvata:', descriptionField.value);
 	});
 
 	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
@@ -473,6 +483,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		listItem.appendChild(statusBadge);
 		friendsListElement.appendChild(listItem);
+	});
+
+	// Esempio di richieste di amicizia (puoi popolare dinamicamente questa lista dal backend)
+	const friendRequests = [
+		{ name: 'Request01' },
+		{ name: 'Request02' },
+		// Aggiungi altre richieste qui
+	];
+
+	const friendRequestsElement = document.getElementById('friendRequestsList');
+	friendRequests.forEach(request => {
+		const listItem = document.createElement('li');
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.textContent = request.name;
+
+		const actionsDiv = document.createElement('div');
+		const acceptButton = document.createElement('button');
+		acceptButton.className = 'btn btn-success btn-sm';
+		acceptButton.textContent = 'Accept';
+		acceptButton.addEventListener('click', function() {
+			// Logica per accettare la richiesta
+			console.log('Accepted:', request.name);
+		});
+
+		const rejectButton = document.createElement('button');
+		rejectButton.className = 'btn btn-danger btn-sm';
+		rejectButton.textContent = 'Reject';
+		rejectButton.addEventListener('click', function() {
+			// Logica per rifiutare la richiesta
+			console.log('Rejected:', request.name);
+		});
+
+		actionsDiv.appendChild(acceptButton);
+		actionsDiv.appendChild(rejectButton);
+		listItem.appendChild(actionsDiv);
+		friendRequestsElement.appendChild(listItem);
+	});
+
+	// Esempio di richieste di amicizia inviate (puoi popolare dinamicamente questa lista dal backend)
+	const sentRequests = [
+		{ name: 'SentRequest01' },
+		{ name: 'SentRequest02' },
+		// Aggiungi altre richieste inviate qui
+	];
+
+	const sentRequestsElement = document.getElementById('sentRequestsList');
+	sentRequests.forEach(request => {
+		const listItem = document.createElement('li');
+		listItem.className = 'list-group-item';
+		listItem.textContent = request.name;
+		sentRequestsElement.appendChild(listItem);
 	});
 
 	// Esempio di lista di partite (puoi popolare dinamicamente questa lista dal backend)
