@@ -37,7 +37,7 @@
 	</div>
 	<div class="container-fluid justify-content-center mt-2">
 		<!-- Buttons -->
-		<div class="d-grid gap-2 col-2 mx-auto">
+		<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
 			<button id="play-btn" type="button" class="btn btn-dark" data-translate="play">Play</button>
 			<button id="leaderboard-btn" type="button" class="btn btn-dark" data-translate="leaderboard">Leaderboard</button>
 			<button id="profile-btn" type="button" class="btn btn-dark" style="display: none" data-translate="profile">Profile</button>
@@ -56,7 +56,7 @@
 			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 		</div>
 		<!-- Login -->
-		<div class="d-grid gap-1 col-4 mx-auto">
+		<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 			<!-- Log in Form -->
 			<div id="login-form" class="card text-white bg-dark mb-3" style="display: none;">
 				<div class="card-body">
@@ -161,16 +161,15 @@
 					<div class="row">
 						<!-- Sezione 1: Immagine e Nome Profilo -->
 						<div class="col-md-4 mb-3 text-center">
+							<h4 class="card-title mt-2">Player01</h4>
 							<img id="profileImage" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
-							<h5 class="card-title mt-2" data-translate="username">Username</h5>
-							<p class="card-text">Player01</p>
-							<input type="file" id="uploadImage" class="form-control" style="display: none;">
+							<input type="file" id="uploadImage" class="form-control mt-1" style="display: none;">
 							<button id="uploadImageBtn" type="button" class="btn btn-light mt-2" data-translate="uploadImage">Upload Image</button>
 						</div>
 						<!-- Sezione 2: Scheda Info -->
 						<div class="col-md-4 mb-3">
 							<h5 class="card-title" data-translate="info">Info</h5>
-							<textarea id="profileDescription" class="form-control" rows="3" placeholder="Enter your description here..." readonly>This is a sample description.</textarea>
+							<textarea id="profileDescription" class="form-control" rows="5" placeholder="Enter your description here..." readonly>This is a sample description.</textarea>
 							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
 							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save" style="display: none;">Save</button>
 							<!-- Riassunto delle statistiche -->
@@ -202,7 +201,7 @@
 								</li>
 								<!-- Aggiungi altri amici qui -->
 							</ul>
-							<h5 class="card-title" data-translate="friendRequests">Friend Requests</h5>
+							<h6 class="card-title" data-translate="friendRequests">Friend Requests</h6>
 							<ul id="friendRequestsList" class="list-group mb-3">
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									Request01
@@ -220,7 +219,7 @@
 								</li>
 								<!-- Aggiungi altre richieste qui -->
 							</ul>
-							<h5 class="card-title" data-translate="sentRequests">Sent Requests</h5>
+							<h6 class="card-title" data-translate="sentRequests">Sent Requests</h6>
 							<ul id="sentRequestsList" class="list-group">
 								<li class="list-group-item">SentRequest01</li>
 								<li class="list-group-item">SentRequest02</li>
@@ -235,19 +234,42 @@
 			</div>
 		</div>
 		<!-- Stats -->
-		<div class="d-grid gap-1 col-4 mx-auto">
+		<div class="d-grid gap-1 col-10 col-md-8 mx-auto">
 			<div id="stats" class="card text-white bg-dark mb-3" style="display: none;">
 				<div class="card-header" data-translate="stats">Stats</div>
 				<div class="card-body">
-					<h5 class="card-title" data-translate="wins">Wins</h5>
-					<p class="card-text">2</p>
-					<h5 class="card-title" data-translate="losses">Losses</h5>
-					<p class="card-text">0</p>
-					<h5 class="card-title" data-translate="winrate">Win rate</h5>
-					<p class="card-text">100%</p>
+					<div class="row">
+						<!-- Colonna 1: Nome giocatore, foto profilo e riassunto delle statistiche -->
+						<div class="col-md-4 text-center">
+							<h5 class="card-title" data-translate="playerStats">Player Stats</h5>
+							<img id="profileImageStats" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 120px; height: 120px;">
+							<p id="playerName" class="mt-1">Player01</p>
+							<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
+						</div>
+						<!-- Colonna 2: Partite recenti -->
+						<div class="col-md-4">
+							<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
+							<ul id="recentGamesList" class="list-group">
+								<li class="list-group-item">Game 1: Win</li>
+								<li class="list-group-item">Game 2: Loss</li>
+								<li class="list-group-item">Game 3: Win</li>
+								<li class="list-group-item">Game 4: Win</li>
+								<li class="list-group-item">Game 5: Loss</li>
+							</ul>
+						</div>
+						<!-- Colonna 3: Risultati per modalità -->
+						<div class="col-md-4">
+							<h5 class="card-title" data-translate="modeResults">Mode Results</h5>
+							<ul id="modeResultsList" class="list-group">
+								<li class="list-group-item">Mode 1: 5 Wins, 2 Losses</li>
+								<li class="list-group-item">Mode 2: 3 Wins, 3 Losses</li>
+								<li class="list-group-item">Mode 3: 2 Wins, 0 Losses</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="d-grid gap-2 col-4 mx-auto">
+			<div class="d-grid gap-2 col-2 mx-auto">
 				<button id="back6-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 			</div>
 		</div>
