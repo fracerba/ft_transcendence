@@ -168,20 +168,45 @@ function drawField() {
 }
 
 function drawScore() {
+    const fontSize = canvas.width * 0.03;  // Dimensione del font per i punteggi come frazione della larghezza del canvas
+    let playerFontSize = canvas.width * 0.03;  // Limita la dimensione dei nomi a un massimo di 30px
+
+    if (playerFontSize > 30)
+        playerFontSize = 30;
+
     context.fillStyle = 'white';
-    context.font = '30px Arial';
-    if (player2Score < 10)
-        context.fillText(player2Score, canvas.width / 2 - 35, 50);
-    else
-        context.fillText(player2Score, canvas.width / 2 - 45, 50);
-    context.fillText("Player01", canvas.width / 2 - 130, canvas.height - 20);
+    context.font = `${fontSize}px Arial`;  // Usa la dimensione dinamica del font per i punteggi
+    const scoreOffset = canvas.width * 0.06;  // Offset uguale per entrambi i punteggi rispetto al centro
+
+    // Disegna il punteggio del giocatore 1 (sinistra), con stesso offset rispetto al centro
+    context.fillText(player2Score, canvas.width / 2 - scoreOffset, fontSize + 10);
+
+    // Imposta la dimensione del font per i nomi dei giocatori
+    context.font = `${playerFontSize}px Arial`;
+
+    const playerNameOffset = canvas.height * 0.015;
+    const playerNameDistanceFromCenter = canvas.width * 0.15;  // Distanza simmetrica dei nomi dal centro
+
+    // Disegna il nome del giocatore 1 a sinistra, simmetrico rispetto al nome del giocatore 2
+    context.fillText("Player01", canvas.width / 2 - playerNameDistanceFromCenter, canvas.height - playerNameOffset);
+
+    // Disegna una linea al centro
     context.fillRect(canvas.width / 2 - 1, 0, 2, canvas.height);
-    if (player1Score < 10)
-        context.fillText(player1Score, canvas.width / 2 + 25, 50);
-    else
-        context.fillText(player1Score, canvas.width / 2 + 15, 50);
-    context.fillText("Player02", canvas.width / 2 + 15, canvas.height - 20);
+
+    // Ripristina il font per i punteggi
+    context.font = `${fontSize}px Arial`;
+
+    // Disegna il punteggio del giocatore 2 (destra), con stesso offset rispetto al centro
+    context.fillText(player1Score, canvas.width / 2 + scoreOffset - fontSize / 2, fontSize + 10);
+
+    // Ripristina il font per i nomi
+    context.font = `${playerFontSize}px Arial`;
+
+    // Disegna il nome del giocatore 2 a destra, simmetrico rispetto al nome del giocatore 1
+    context.fillText("Player02", canvas.width / 2 + playerNameDistanceFromCenter - playerFontSize * 4, canvas.height - playerNameOffset);
 }
+
+
 
 // Funzione per disegnare una racchetta
 function drawPaddle(paddle) {
@@ -198,59 +223,59 @@ function drawBall(ball) {
     context.closePath();
 }
 
-// Funzione per aggiornare la posizione della palla e delle racchette
 function update() {
     ball.x += ball.dx;
     ball.y += ball.dy;
 
     // Rimbalzi sui muri
     if (ball.y + ball.radius > canvas.height) {
-        ball.dy = -ball.dy;  // Inverti la direzione verticale
-        ball.y = canvas.height - ball.radius;  // Riposiziona appena all'interno del campo
+        ball.dy = -ball.dy;
+        ball.y = canvas.height - ball.radius;
     }
     
     if (ball.y - ball.radius < 0) {
-        ball.dy = -ball.dy;  // Inverti la direzione verticale
-        ball.y = ball.radius;  // Riposiziona appena all'interno del campo
+        ball.dy = -ball.dy;
+        ball.y = ball.radius;
     }
 
-    // Rimbalzi paddle sinistro
-    if (ball.x - ball.radius < player2Paddle.x + player2Paddle.width + 0.005 && 
-        ball.x - ball.radius > player2Paddle.x - 0.005 && 
-        ball.y > player2Paddle.y - 0.005 && 
-        ball.y < player2Paddle.y + player2Paddle.height + 0.005) {
+    // Collisione con la racchetta sinistra (player2)
+    if (ball.x - ball.radius < player2Paddle.x + player2Paddle.width && 
+        ball.x + ball.radius > player2Paddle.x && 
+        ball.y + ball.radius > player2Paddle.y && 
+        ball.y - ball.radius < player2Paddle.y + player2Paddle.height) {
         
-        // Distanza dal centro del paddle
+        // Controlla la direzione della palla e correggi la velocità
         let impactPoint = ball.y - (player2Paddle.y + player2Paddle.height / 2);
         let normalizedImpact = impactPoint / (player2Paddle.height / 2);
+        let bounceAngle = normalizedImpact * (Math.PI / 4);
+        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));
 
-        // Modifica la direzione della palla in base al punto di impatto
-        let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));  // Imposta la velocità: velocità massima al centro, minima ai bordi
         ball.dx = speed * Math.cos(bounceAngle);
         ball.dy = speed * Math.sin(bounceAngle);
 
         // Assicurati che la palla vada verso destra
         ball.dx = Math.abs(ball.dx);
     }
-    //paddle destro
-    else if (ball.x + ball.radius >  player1Paddle.x + 0.005 && 
-            ball.x + ball.radius <  player1Paddle.x +  player1Paddle.width - 0.005 && 
-            ball.y >  player1Paddle.y - 0.005 && 
-            ball.y <  player1Paddle.y +  player1Paddle.height + 0.005) {
 
-                let impactPoint = ball.y - (player1Paddle.y + player1Paddle.height / 2);
-                let normalizedImpact = impactPoint / (player1Paddle.height / 2);
-        
-                let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-                let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Imposta la velocità: velocità massima al centro, minima ai bordi
-                ball.dx = speed * Math.cos(bounceAngle);
-                ball.dy = speed * Math.sin(bounceAngle);
-        
-                // Assicurati che la palla vada verso sinistra
-                ball.dx = -Math.abs(ball.dx);
+    // Collisione con la racchetta destra (player1)
+    if (ball.x + ball.radius > player1Paddle.x && 
+        ball.x - ball.radius < player1Paddle.x + player1Paddle.width &&
+        ball.y + ball.radius > player1Paddle.y && 
+        ball.y - ball.radius < player1Paddle.y + player1Paddle.height) {
+
+        let impactPoint = ball.y - (player1Paddle.y + player1Paddle.height / 2);
+        let normalizedImpact = impactPoint / (player1Paddle.height / 2);
+        let bounceAngle = normalizedImpact * (Math.PI / 4);
+        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));
+
+        ball.dx = speed * Math.cos(bounceAngle);
+        ball.dy = speed * Math.sin(bounceAngle);
+
+        // Assicurati che la palla vada verso sinistra
+        ball.dx = -Math.abs(ball.dx);
     }
 
+    // Verifica se la pallina esce dal campo (a sinistra o a destra)
     if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
         if (ball.x - ball.radius < 0) {
             player1Score++;
@@ -262,7 +287,7 @@ function update() {
         resetBall();
     }
 
-    // Aggiorna la posizione delle paddle in base alla loro velocità (dy)
+    // Aggiorna la posizione delle paddle
     player2Paddle.y += player2Paddle.dy;
     player1Paddle.y += player1Paddle.dy;
 
@@ -281,27 +306,35 @@ function update() {
 }
 
 
+
 function winLose() {
+    // Controlla se qualcuno ha raggiunto il punteggio vincente (11)
     if (player1Score < 11 && player2Score < 11) {
         return;
-    }
-    else {
+    } else {
         running = false;
         ended = true;
+
+        const fontSize = canvas.width * 0.05; // Dimensione del font come 5% della larghezza del canvas
+        context.fillStyle = 'white';
+        context.font = `${fontSize}px Arial`;
+
         if (player2Score > player1Score) {
-            context.fillStyle = 'white';
-            context.font = '50px Arial';
-            context.fillText('You won!', (canvas.width / 2) / 2 - 100, canvas.height / 2);
-            context.fillText('You lost!', (canvas.width / 2) + (canvas.width / 2) / 2 - 100, canvas.height / 2);
-        }
-        else {
-            context.fillStyle = 'white';
-            context.font = '50px Arial';
-            context.fillText('You won!', (canvas.width / 2) + (canvas.width / 2) / 2 - 100, canvas.height / 2);
-            context.fillText('You lost!', (canvas.width / 2) / 2 - 100, canvas.height / 2);
+            // "You won!" per Player2
+            context.fillText('You won!', (canvas.width / 2) / 2 - fontSize * 2, canvas.height / 2);
+
+            // "You lost!" per Player1
+            context.fillText('You lost!', (canvas.width / 2) + (canvas.width / 2) / 2 - fontSize * 2, canvas.height / 2);
+        } else {
+            // "You won!" per Player1
+            context.fillText('You won!', (canvas.width / 2) + (canvas.width / 2) / 2 - fontSize * 2, canvas.height / 2);
+
+            // "You lost!" per Player2
+            context.fillText('You lost!', (canvas.width / 2) / 2 - fontSize * 2, canvas.height / 2);
         }
     }
 }
+
 
 // Funzione per gestire l'input del giocatore
 window.addEventListener('keydown', function (event) {
