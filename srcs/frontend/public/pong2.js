@@ -14,7 +14,7 @@ const baseBallSpeed = 6;
 
 
 // Configurazione dei margini in percentuale rispetto alla finestra
-const horizontalMarginRatio = 0.04; // Margine orizzontale (10% di larghezza)
+const horizontalMarginRatio = 0.04; // Margine orizzontale (4% di larghezza)
 const verticalMarginRatio = 0.07;   // Margine verticale (7% di altezza)
 
 
@@ -36,7 +36,7 @@ let maxSpeed;
 let minSpeed;
 
 function setBallSpeed() {
-    const availableWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
+    const availableWidth = canvas.width;
 
     // Calcola la velocità di base in base alla larghezza disponibile
     const speed = availableWidth * 0.007;
@@ -70,7 +70,7 @@ function resetBall() {
         dx: 0,  // Nessun movimento iniziale
         dy: 0
     };
-    
+    //console.log(`ballRadius: ${ballRadius}`); //debug
     ballMoving = false;  // La palla è ferma
     player1Paddle.y = canvas.height / 2 - paddleHeight / 2;
     player2Paddle.y = canvas.height / 2 - paddleHeight / 2;
@@ -117,10 +117,16 @@ function resizeCanvas() {
             canvasHeight = windowWidth / aspectRatio; // Mantieni il rapporto fisso
         }
     }
-
+    console.log(`CanvasWidth: ${canvasWidth}, canvasHeight: ${canvasHeight}`); //debug
     // Aggiorna le dimensioni del canvas mantenendo il rapporto fisso
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
+    if (canvasWidth >= 414)
+        canvas.width = canvasWidth;
+    else
+        canvas.width = 414;
+    if (canvasHeight >= 217)
+        canvas.height = canvasHeight;
+    else
+        canvas.height = 217;
 
     // Posiziona il canvas con i margini per centrarlo orizzontalmente e sopra il footer
     canvas.style.marginLeft = `${(window.innerWidth - canvasWidth) / 2}px`;
