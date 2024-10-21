@@ -68,7 +68,7 @@
 							<div class="invalid-feedback" data-translate="userError">Invalid username</div>
 						</div>
 						<div id="password-label" class="mb-1">
-							<label for="loginPassword" class="form-label">Password</label>
+							<label for="loginPassword" class="form-label" data-translate="password">Password</label>
 							<input type="password" class="form-control bg-dark text-white" id="loginPassword" required>
 							<div class="invalid-feedback" data-translate="passError">Wrong password</div>
 						</div>
@@ -80,7 +80,7 @@
 			<!-- Sign up Form -->
 			<div id="signup-form" class="card text-white bg-dark mb-3" style="display: none;">
 				<div class="card-body">
-					<h5 class="card-title" data-translate="signup">Sign up</h5>
+					<h5 class="card-title" data-translate="register">Sign up</h5>
 					<form class="needs-validation" novalidate>
 						<div id="email-label" class="mb-1">
 							<label for="signupEmail" class="form-label" data-translate="email">Email address</label>
@@ -169,12 +169,12 @@
 						<!-- Sezione 2: Scheda Info -->
 						<div class="col-md-4 mb-3">
 							<h5 class="card-title" data-translate="info">Info</h5>
-							<textarea id="profileDescription" class="form-control" rows="5" placeholder="Enter your description here..." readonly>This is a sample description.</textarea>
+							<textarea id="profileDescription" class="form-control bg-dark text-white" rows="5" placeholder="Enter your description here..." readonly>Enter your description here...</textarea>
 							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
 							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save" style="display: none;">Save</button>
 							<!-- Riassunto delle statistiche -->
 							<div class="mt-3">
-								<h5 class="card-title" data-translate="stats">General Stats</h5>
+								<h5 class="card-title" data-translate="stats">Stats</h5>
 								<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
 								<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
 								<ul id="recentGamesList" class="list-group">
@@ -184,7 +184,7 @@
 									<li class="list-group-item">Game 4: Win</li>
 									<li class="list-group-item">Game 5: Loss</li>
 								</ul>
-								<a href="#stats" class="btn btn-light mt-2" data-translate="viewStats">View Full Stats</a>
+								<button id="viewStatsBtn" type="button" class="btn btn-light mt-2" data-translate="viewStats">Full Stats</button>
 							</div>
 						</div>
 						<!-- Sezione 3: Lista di Amici -->
@@ -197,7 +197,6 @@
 								</li>
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									Friend02
-									<span class="badge bg-secondary">Offline</span>
 								</li>
 								<!-- Aggiungi altri amici qui -->
 							</ul>
@@ -206,15 +205,15 @@
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									Request01
 									<div>
-										<button class="btn btn-success btn-sm">Accept</button>
-										<button class="btn btn-danger btn-sm">Reject</button>
+										<button class="btn btn-success btn-sm" data-translate="accept">Accept</button>
+										<button class="btn btn-danger btn-sm" data-translate="reject">Reject</button>
 									</div>
 								</li>
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									Request02
 									<div>
-										<button class="btn btn-success btn-sm">Accept</button>
-										<button class="btn btn-danger btn-sm">Reject</button>
+										<button class="btn btn-success btn-sm" data-translate="accept">Accept</button>
+										<button class="btn btn-danger btn-sm" data-translate="reject">Reject</button>
 									</div>
 								</li>
 								<!-- Aggiungi altre richieste qui -->
@@ -241,7 +240,7 @@
 					<div class="row">
 						<!-- Colonna 1: Nome giocatore, foto profilo e riassunto delle statistiche -->
 						<div class="col-md-4 text-center">
-							<h5 class="card-title" data-translate="playerStats">Player Stats</h5>
+							<h5 class="card-title" data-translate="generalStats">Player Stats</h5>
 							<img id="profileImageStats" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 120px; height: 120px;">
 							<p id="playerName" class="mt-1">Player01</p>
 							<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
@@ -292,8 +291,8 @@
 			<div class="row justify-content-center mt-2">
 				<div class="col-3 d-flex justify-content-center mb-2">
 					<button id="play2-btn" type="button" class="btn btn-primary mx-1 flex-fill" data-translate="play">Play</button>
-					<button id="pause-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="pause">Pause</button>
-					<button id="resume-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
+					<button id="pause-btn" type="button" class="btn btn-info mx-1 flex-fill" style="display: none" data-translate="pause">Pause</button>
+					<button id="resume-btn" type="button" class="btn btn-info mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
 					<button id="restart-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</button>
 					<button id="quit-btn" type="button" class="btn btn-danger mx-1 flex-fill" data-translate="quit">Quit</button>
 				</div>

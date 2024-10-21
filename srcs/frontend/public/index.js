@@ -111,12 +111,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	function resetLoginInput() {
 		document.getElementById('loginUsername').value = '';
 		document.getElementById('loginPassword').value = '';
+		document.getElementById('loginUsername').classList.remove('is-invalid');
+		document.getElementById('loginPassword').classList.remove('is-invalid');
 	}
 
 	function resetSignupInput() {
 		document.getElementById('signupEmail').value = '';
 		document.getElementById('signupUsername').value = '';
 		document.getElementById('signupPassword').value = '';
+		document.getElementById('emailHelp').style.display = 'block';
+		document.getElementById('userHelp').style.display = 'block';
+		document.getElementById('passHelp').style.display = 'block';
+		document.getElementById('signupEmail').classList.remove('is-invalid');
+		document.getElementById('signupUsername').classList.remove('is-invalid');
+		document.getElementById('signupPassword').classList.remove('is-invalid');
 	}
 
 	function loginSuccess() {
@@ -211,8 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		setElementById('login-form','none');
 		resetLoginInput();
-		document.getElementById('loginUsername').classList.remove('is-invalid');
-		document.getElementById('loginPassword').classList.remove('is-invalid');
 		showLoginOnly();
 	});
 
@@ -220,12 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		setElementById('signup-form','none');
 		resetSignupInput();
-		document.getElementById('emailHelp').style.display = 'block';
-		document.getElementById('userHelp').style.display = 'block';
-		document.getElementById('passHelp').style.display = 'block';
-		document.getElementById('signupEmail').classList.remove('is-invalid');
-		document.getElementById('signupUsername').classList.remove('is-invalid');
-		document.getElementById('signupPassword').classList.remove('is-invalid');
 		showLoginOnly();
 	});
 
@@ -464,6 +464,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log('Descrizione salvata:', descriptionField.value);
 	});
 
+	document.getElementById('viewStatsBtn').addEventListener('click', function() {
+		hideProfile();
+		setElementById('stats','block');
+		setElementById('back6-btn','block');
+	});
 	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
 	const friendsList = [
 		{ name: 'Friend01', online: true },
