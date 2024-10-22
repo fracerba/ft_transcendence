@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = false; // Replace with actual login status check
+	let isLoggedIn = true; // Replace with actual login status check
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
@@ -483,9 +483,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		listItem.textContent = friend.name;
 
 		const statusBadge = document.createElement('span');
-		statusBadge.className = `badge ${friend.online ? 'bg-success' : 'bg-secondary'}`;
-		statusBadge.textContent = friend.online ? 'Online' : 'Offline';
-
+		if (friend.online) {
+			statusBadge.className = 'badge bg-success';
+			statusBadge.textContent = 'Online';
+		}
 		listItem.appendChild(statusBadge);
 		friendsListElement.appendChild(listItem);
 	});
@@ -505,7 +506,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		const actionsDiv = document.createElement('div');
 		const acceptButton = document.createElement('button');
-		acceptButton.className = 'btn btn-success btn-sm';
+		acceptButton.className = 'btn btn-success btn-sm me-1';
+		acceptButton.setAttribute('data-translate', 'accept');
 		acceptButton.textContent = 'Accept';
 		acceptButton.addEventListener('click', function() {
 			// Logica per accettare la richiesta
@@ -514,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		const rejectButton = document.createElement('button');
 		rejectButton.className = 'btn btn-danger btn-sm';
+		rejectButton.setAttribute('data-translate', 'reject');
 		rejectButton.textContent = 'Reject';
 		rejectButton.addEventListener('click', function() {
 			// Logica per rifiutare la richiesta
@@ -536,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const sentRequestsElement = document.getElementById('sentRequestsList');
 	sentRequests.forEach(request => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item';
+		listItem.className = 'list-group-item bg-dark text-white';
 		listItem.textContent = request.name;
 		sentRequestsElement.appendChild(listItem);
 	});
