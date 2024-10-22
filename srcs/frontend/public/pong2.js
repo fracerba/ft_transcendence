@@ -21,19 +21,17 @@ const verticalMarginRatio = 0.07;   // Margine verticale (7% di altezza)
 let paddleWidth, paddleHeight, ballRadius;
 let player1Paddle, player2Paddle, ball;
 let lastScorer = '';
-
-
-function setPaddleSpeed() {
-    let speed = 5;
-    const availableHeight = window.innerHeight * (1 - 2 * verticalMarginRatio);
-    if (normalHeight !== availableHeight)
-        speed = (availableHeight * speed) / normalHeight;
-    return speed;
-}
-
 let nowBallSpeed = 0;
+let paddleSpeed = 0;
 let maxSpeed;
 let minSpeed;
+
+function setPaddleSpeed() {
+
+    const availableHeight = canvas.height;
+    const speed = availableHeight * 0.0086;
+    return speed;
+}
 
 function setBallSpeed() {
     const availableWidth = canvas.width;
@@ -154,7 +152,8 @@ function resizeCanvas() {
         dy: 0
     };
 
-    // Aggiorna la velocità della pallina
+    // Aggiorna la velocità
+    paddleSpeed = setPaddleSpeed();
     nowBallSpeed = setBallSpeed();
     resetBall();
 }
@@ -338,7 +337,6 @@ function winLose() {
 
 // Funzione per gestire l'input del giocatore
 window.addEventListener('keydown', function (event) {
-    const paddleSpeed = setPaddleSpeed();
     switch (event.key) {
         case 'w':
             player2Paddle.dy = -paddleSpeed;
@@ -359,14 +357,27 @@ window.addEventListener('keyup', function (event) {
     switch (event.key) {
         case 'w':
         case 's':
-            player2Paddle.dy = 0;
+            // Se il tasto che hai rilasciato è "w" o "s", ferma il paddle
+            if (event.key === 'w' && player2Paddle.dy < 0) {
+                player2Paddle.dy = 0;
+            }
+            if (event.key === 's' && player2Paddle.dy > 0) {
+                player2Paddle.dy = 0;
+            }
             break;
         case 'ArrowUp':
         case 'ArrowDown':
-            player1Paddle.dy = 0;
+            // Se il tasto che hai rilasciato è "ArrowUp" o "ArrowDown", ferma il paddle
+            if (event.key === 'ArrowUp' && player1Paddle.dy < 0) {
+                player1Paddle.dy = 0;
+            }
+            if (event.key === 'ArrowDown' && player1Paddle.dy > 0) {
+                player1Paddle.dy = 0;
+            }
             break;
     }
 });
+
 
 function drawFrame() {
     drawField();
