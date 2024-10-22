@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = true; // Replace with actual login status check
+	let isLoggedIn = false; // Replace with actual login status check
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
@@ -233,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
+		setElementById('containerAll','none');
 		showPlayingFooter();
 		loadPongScript();
 	});
@@ -293,8 +294,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetFooterButtons();
-		showMainOnly();
 		showDefaultFooterblock();
+		setElementById('containerAll','block');
+		showMainOnly();
 		resetPongScript();
 	});
 
@@ -305,6 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		hideLeaderboard();
 		hideProfile();
 		hideStats();
+		setElementById('containerAll','block');
 		showDefaultFooterblock();
 		resetPongScript();
 		loginSuccess();
