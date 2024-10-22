@@ -164,25 +164,51 @@
 							<h4 class="card-title mt-2">Player01</h4>
 							<img id="profileImage" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
 							<input type="file" id="uploadImage" class="form-control mt-1" style="display: none;">
-							<button id="uploadImageBtn" type="button" class="btn btn-light mt-2" data-translate="uploadImage">Upload Image</button>
-						</div>
-						<!-- Sezione 2: Scheda Info -->
-						<div class="col-md-4 mb-3">
-							<h5 class="card-title" data-translate="info">Info</h5>
-							<textarea id="profileDescription" class="form-control bg-dark text-white" rows="5" placeholder="Enter your description here..." readonly>Enter your description here...</textarea>
-							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
-							<button id="saveDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="save" style="display: none;">Save</button>
+							<div>
+								<button id="uploadImageBtn" type="button" class="btn btn-success mt-2" data-translate="uploadImage">Upload Image</button>
+							</div>
 							<!-- Riassunto delle statistiche -->
 							<div class="mt-3">
 								<h5 class="card-title" data-translate="stats">Stats</h5>
 								<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
+							</div>
+						</div>
+						<!-- Sezione 2: Scheda Info -->
+						<div class="col-md-4 mb-3">
+							<h5 class="card-title" data-translate="info">Info</h5>
+							<textarea id="profileDescription" class="form-control bg-dark text-white-50" rows="5" readonly>Enter your description here...</textarea>
+							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
+							<button id="saveDescriptionBtn" type="button" class="btn btn-success mt-2" data-translate="save" style="display: none;">Save</button>
+							<!-- Lista delle partite recenti -->
+							<div class="mt-4">
 								<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
 								<ul id="recentGamesList" class="list-group">
-									<li class="list-group-item">Game 1: Win</li>
-									<li class="list-group-item">Game 2: Loss</li>
-									<li class="list-group-item">Game 3: Win</li>
-									<li class="list-group-item">Game 4: Win</li>
-									<li class="list-group-item">Game 5: Loss</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+										<div>
+											<div>Player01</div>
+											<div>Player02</div>
+										</div>
+										<div class="text-center">
+											<div>11</div>
+											<div>2</div>
+										</div>
+										<span class="badge bg-success" data-translate="win">Win</span>
+										<span class="badge bg-secondary" data-translate="online">Online</span>
+										<span> 22/12/2024</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+										<div>
+											<div>Player01</div>
+											<div>Player02</div>
+										</div>
+										<div class="text-center">
+											<div>5</div>
+											<div>11</div>
+										</div>
+										<span class="badge bg-danger" data-translate="loss">Loss</span>
+										<span class="badge bg-secondary" data-translate="local">Local</span>
+										<span> 22/12/2024</span>
+									</li>
 								</ul>
 								<button id="viewStatsBtn" type="button" class="btn btn-light mt-2" data-translate="viewStats">Full Stats</button>
 							</div>
@@ -191,25 +217,25 @@
 						<div class="col-md-4">
 							<h5 class="card-title" data-translate="friends">Friends</h5>
 							<ul id="friendsList" class="list-group mb-3">
-								<li class="list-group-item d-flex justify-content-between align-items-center">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
 									Friend01
 									<span class="badge bg-success">Online</span>
 								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
 									Friend02
 								</li>
 								<!-- Aggiungi altri amici qui -->
 							</ul>
 							<h6 class="card-title" data-translate="friendRequests">Friend Requests</h6>
 							<ul id="friendRequestsList" class="list-group mb-3">
-								<li class="list-group-item d-flex justify-content-between align-items-center">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
 									Request01
 									<div>
 										<button class="btn btn-success btn-sm" data-translate="accept">Accept</button>
 										<button class="btn btn-danger btn-sm" data-translate="reject">Reject</button>
 									</div>
 								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
 									Request02
 									<div>
 										<button class="btn btn-success btn-sm" data-translate="accept">Accept</button>
@@ -220,8 +246,8 @@
 							</ul>
 							<h6 class="card-title" data-translate="sentRequests">Sent Requests</h6>
 							<ul id="sentRequestsList" class="list-group">
-								<li class="list-group-item">SentRequest01</li>
-								<li class="list-group-item">SentRequest02</li>
+								<li class="list-group-item bg-dark text-white">SentRequest01</li>
+								<li class="list-group-item bg-dark text-white">SentRequest02</li>
 								<!-- Aggiungi altre richieste inviate qui -->
 							</ul>
 						</div>

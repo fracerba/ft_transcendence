@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const friendsListElement = document.getElementById('friendsList');
 	friendsList.forEach(friend => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = friend.name;
 
 		const statusBadge = document.createElement('span');
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const friendRequestsElement = document.getElementById('friendRequestsList');
 	friendRequests.forEach(request => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = request.name;
 
 		const actionsDiv = document.createElement('div');
@@ -551,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const matchesListElement = document.getElementById('matchesList');
 	matchesList.forEach(match => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = match.opponent;
 
 		const resultBadge = document.createElement('span');
