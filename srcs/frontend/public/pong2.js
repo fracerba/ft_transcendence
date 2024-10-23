@@ -188,6 +188,17 @@ function drawBall(ball) {
 	context.closePath();
 }
 
+// Funzione per calcolare l'impatto della palla sulla racchetta
+function calcBallImpact(paddleHeight, paddleY) {
+	let impactPoint = ball.y - (paddleY + paddleHeight / 2);
+	let normalizedImpact = impactPoint / (paddleHeight / 2);
+	let bounceAngle = normalizedImpact * (Math.PI / 4); // 45 gradi di angolo di rimbalzo massimo
+	let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Velocità basata sull'impatto
+
+	ball.dx = speed * Math.cos(bounceAngle);
+	ball.dy = speed * Math.sin(bounceAngle);
+}
+
 // Funzione per aggiornare la posizione della palla e delle paddle
 function update() {
 	// Aggiorna la posizione della palla
@@ -223,15 +234,7 @@ function update() {
 		ball.y + ball.radius > player2Paddle.y && 
 		ball.y - ball.radius < player2Paddle.y + player2Paddle.height) {
 		
-		// Controlla la direzione della palla e correggi la velocità
-		let impactPoint = ball.y - (player2Paddle.y + player2Paddle.height / 2);
-		let normalizedImpact = impactPoint / (player2Paddle.height / 2);
-		let bounceAngle = normalizedImpact * (Math.PI / 4); // 45 gradi di angolo di rimbalzo massimo
-		let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Velocità basata sull'impatto
-
-		ball.dx = speed * Math.cos(bounceAngle);
-		ball.dy = speed * Math.sin(bounceAngle);
-
+		calcBallImpact(player2Paddle.height, player2Paddle.y);
 		// Assicurati che la palla vada verso destra
 		ball.dx = Math.abs(ball.dx);
 	}
@@ -241,14 +244,7 @@ function update() {
 		ball.y + ball.radius > player1Paddle.y && 
 		ball.y - ball.radius < player1Paddle.y + player1Paddle.height) {
 
-		let impactPoint = ball.y - (player1Paddle.y + player1Paddle.height / 2);
-		let normalizedImpact = impactPoint / (player1Paddle.height / 2);
-		let bounceAngle = normalizedImpact * (Math.PI / 4); // 45 gradi di angolo di rimbalzo massimo
-		let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Velocità basata sull'impatto
-
-		ball.dx = speed * Math.cos(bounceAngle);
-		ball.dy = speed * Math.sin(bounceAngle);
-
+		calcBallImpact(player1Paddle.height, player1Paddle.y);
 		// Assicurati che la palla vada verso sinistra
 		ball.dx = -Math.abs(ball.dx);
 	}
