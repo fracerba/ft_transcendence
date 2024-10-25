@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = false; // Replace with actual login status check
+	let isLoggedIn = true; // Replace with actual login status check
+	let containerStatus = 0;
+	let footerStatus = 'default';
+	// default: default-footer
+	// playing: initial playing-footer
+	// pause: playing-footer showing pause-btn
+	// resume: playing-footer showing resume-btn
+	// online: playing-footer showing friend-btn
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
@@ -91,13 +98,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function showPlayingFooter() {
+		footerStatus = 'playing';
 		setElementById('pongCanvas','block');
+		setElementById('containerAll','none');
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
+		setElementById('friend-btn','none');
 	}
 
-	function showDefaultFooterblock() {
+	function showOnlineFooter() {
+		footerStatus = 'online';
+		setElementById('pongCanvas','block');
+		setElementById('containerAll','none');
+		setElementById('default-footer','none');
+		setElementById('playing-footer','block');
+		setElementById('play2-btn','none');
+		setElementById('friend-btn','block');
+		setElementById('restart-btn','none');
+	}
+
+	function showDefaultFooter() {
+		footerStatus = 'default';
 		setElementById('pongCanvas','none');
+		setElementById('containerAll','block');
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
 	}
@@ -106,6 +129,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('play2-btn','block');
 		setElementById('pause-btn','none');
 		setElementById('resume-btn','none');
+		setElementById('restart-btn','block');
+		setElementById('quit-btn','block');
+		setElementById('quitMessage','none');
+		setElementById('quitYes-btn','none');
+		setElementById('quitNo-btn','none');
 	}
 
 	function resetLoginInput() {
@@ -233,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		setElementById('containerAll','none');
 		showPlayingFooter();
 		loadPongScript();
 	});
@@ -241,9 +268,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		// showPlayingFooter();
+		showOnlineFooter();
+		loadPongScript();
 		// startPongScript();
-		// loadPongScript();
 	});
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
@@ -266,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
+		footerStatus = 'pause';
 		setElementById('play2-btn','none');
 		setElementById('pause-btn','block');
 		setElementById('resume-btn','none');
@@ -274,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('pause-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		pausePongScript();
+		footerStatus = 'resume';
 		setElementById('pause-btn','none');
 		setElementById('resume-btn','block');
 	});
@@ -281,23 +310,56 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('resume-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
+		footerStatus = 'pause';
 		setElementById('pause-btn','block');
 		setElementById('resume-btn','none');
 	});
 
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		footerStatus = 'playing';
 		resetPongScript();
 		resetFooterButtons();
 	});
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		setElementById('play2-btn','none');
+		setElementById('pause-btn','none');
+		setElementById('resume-btn','none');
+		setElementById('restart-btn','none');
+		setElementById('friend-btn','none');
+		setElementById('quit-btn','none');
+		setElementById('quitMessage','block');
+		setElementById('quitYes-btn','block');
+		setElementById('quitNo-btn','block');
+	});
+
+	document.getElementById('quitYes-btn').addEventListener('click', function(event) {
+		event.preventDefault();
 		resetFooterButtons();
-		showDefaultFooterblock();
-		setElementById('containerAll','block');
-		showMainOnly();
+		showDefaultFooter();
+		showPlayButtons();
 		resetPongScript();
+	});
+
+	document.getElementById('quitNo-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		if (footerStatus === 'playing') {
+			setElementById('play2-btn','block');
+		} else if (footerStatus === 'pause') {
+			setElementById('pause-btn','block');
+		} else if (footerStatus === 'resume') {
+			setElementById('resume-btn','block');
+		} else if (footerStatus === 'online') {
+			setElementById('friend-btn','block');
+		}
+		if (footerStatus !== 'online')
+			setElementById('restart-btn','block');
+		setElementById('quit-btn','block');
+		setElementById('quitMessage','none');
+		setElementById('quitYes-btn','none');
+		setElementById('quitNo-btn','none');
 	});
 
 	//utils buttons
@@ -307,8 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		hideLeaderboard();
 		hideProfile();
 		hideStats();
-		setElementById('containerAll','block');
-		showDefaultFooterblock();
+		showDefaultFooter();
 		resetPongScript();
 		loginSuccess();
 	});

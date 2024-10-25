@@ -160,7 +160,7 @@
 				<div class="card-body">
 					<div class="row">
 						<!-- Sezione 1: Immagine e Nome Profilo -->
-						<div class="col-md-4 mb-3 text-center">
+						<div class="col-md-3 mb-3 text-center">
 							<h4 class="card-title mt-2">Player01</h4>
 							<img id="profileImage" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
 							<input type="file" id="uploadImage" class="form-control mt-1" style="display: none;">
@@ -174,7 +174,7 @@
 							</div>
 						</div>
 						<!-- Sezione 2: Scheda Info -->
-						<div class="col-md-4 mb-3">
+						<div class="col-md-5 mb-3">
 							<h5 class="card-title" data-translate="info">Info</h5>
 							<textarea id="profileDescription" class="form-control bg-dark text-white-50" rows="5" readonly>Enter your description here...</textarea>
 							<button id="editDescriptionBtn" type="button" class="btn btn-light mt-2" data-translate="edit">Edit</button>
@@ -274,13 +274,34 @@
 						<!-- Colonna 2: Partite recenti -->
 						<div class="col-md-4">
 							<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
-							<ul id="recentGamesList" class="list-group">
-								<li class="list-group-item">Game 1: Win</li>
-								<li class="list-group-item">Game 2: Loss</li>
-								<li class="list-group-item">Game 3: Win</li>
-								<li class="list-group-item">Game 4: Win</li>
-								<li class="list-group-item">Game 5: Loss</li>
-							</ul>
+								<ul id="recentGamesList" class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+										<div>
+											<div>Player01</div>
+											<div>Player02</div>
+										</div>
+										<div class="text-center">
+											<div>11</div>
+											<div>2</div>
+										</div>
+										<span class="badge bg-success" data-translate="win">Win</span>
+										<span class="badge bg-secondary" data-translate="online">Online</span>
+										<span> 22/12/2024</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+										<div>
+											<div>Player01</div>
+											<div>Player02</div>
+										</div>
+										<div class="text-center">
+											<div>5</div>
+											<div>11</div>
+										</div>
+										<span class="badge bg-danger" data-translate="loss">Loss</span>
+										<span class="badge bg-secondary" data-translate="local">Local</span>
+										<span> 22/12/2024</span>
+									</li>
+								</ul>
 						</div>
 						<!-- Colonna 3: Risultati per modalità -->
 						<div class="col-md-4">
@@ -319,8 +340,12 @@
 					<button id="play2-btn" type="button" class="btn btn-primary mx-1 flex-fill" data-translate="play">Play</button>
 					<button id="pause-btn" type="button" class="btn btn-info mx-1 flex-fill" style="display: none" data-translate="pause">Pause</button>
 					<button id="resume-btn" type="button" class="btn btn-info mx-1 flex-fill" style="display: none" data-translate="resume">Resume</button>
+					<button id="friend-btn" type="button" class="btn btn-success mx-1 flex-fill" style="display: none" data-translate="sendFriend">Send Friend Request</button>
 					<button id="restart-btn" type="button" class="btn btn-secondary mx-1 flex-fill" data-translate="restart">Restart</button>
 					<button id="quit-btn" type="button" class="btn btn-danger mx-1 flex-fill" data-translate="quit">Quit</button>
+					<button id="quitMessage" type="button" class="btn btn-dark" disabled style="display: none" data-translate="quitMessage">Are you sure you want to quit?</button>
+					<button id="quitYes-btn" type="button" class="btn btn-danger mx-1 flex-fill" style="display: none" data-translate="quit">Quit</button>
+					<button id="quitNo-btn" type="button" class="btn btn-secondary mx-1 flex-fill" style="display: none" data-translate="back">Back</button>
 				</div>
 			</div>
 		</div>
