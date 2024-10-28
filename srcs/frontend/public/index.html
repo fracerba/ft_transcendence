@@ -185,11 +185,11 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-4 text-center">
+									<div class="col-5 text-center">
 										<div class="text-white fw-bold" data-translate="friends">Friends</div>
 										<div>4</div>
 									</div>
-									<div class="col-8 text-center">
+									<div class="col-7 text-center">
 										<div class="text-white fw-bold" data-translate="tournamentWon">Tournaments won</div>
 										<div>0</div>
 									</div>
@@ -288,14 +288,37 @@
 				<div class="card-body">
 					<div class="row">
 						<!-- Colonna 1: Nome giocatore, foto profilo e riassunto delle statistiche -->
-						<div class="col-md-4 text-center">
+						<div class="col-md-3 text-center">
 							<h5 class="card-title" data-translate="generalStats">Player Stats</h5>
 							<img id="profileImageStats" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 120px; height: 120px;">
 							<p id="playerName" class="mt-1">Player01</p>
-							<p id="generalStats">Wins: 10, Losses: 5, Win Rate: 66%</p>
+							<div class="row">
+								<div class="col text-center">
+									<div class="text-white fw-bold" data-translate="games">Games</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white fw-bold" data-translate="wins">Wins</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white fw-bold" data-translate="winrate">Win rate</div>
+									<div>100%</div>
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-5 text-center">
+									<div class="text-white fw-bold" data-translate="friends">Friends</div>
+									<div>4</div>
+								</div>
+								<div class="col-7 text-center">
+									<div class="text-white fw-bold" data-translate="tournamentWon">Tournaments won</div>
+									<div>0</div>
+								</div>
+							</div>
 						</div>
 						<!-- Colonna 2: Partite recenti -->
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
 								<ul id="recentGamesList" class="list-group">
 									<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
@@ -329,11 +352,67 @@
 						<!-- Colonna 3: Risultati per modalità -->
 						<div class="col-md-4">
 							<h5 class="card-title" data-translate="modeResults">Mode Results</h5>
-							<ul id="modeResultsList" class="list-group">
-								<li class="list-group-item">Mode 1: 5 Wins, 2 Losses</li>
-								<li class="list-group-item">Mode 2: 3 Wins, 3 Losses</li>
-								<li class="list-group-item">Mode 3: 2 Wins, 0 Losses</li>
-							</ul>
+							<div class="row">
+								<div class="text-white fw-bold mb-1" data-translate="localGames">Local games</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="games">Games</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="wins">Wins</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="winrate">Win rate</div>
+									<div>100%</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="text-white fw-bold mb-1" data-translate="onlineGames">Online games</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="games">Games</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="wins">Wins</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="winrate">Win rate</div>
+									<div>100%</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="text-white fw-bold mb-1" data-translate="botGames">Games against bot</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="games">Games</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="wins">Wins</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="winrate">Win rate</div>
+									<div>100%</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="text-white fw-bold mb-1" data-translate="tournamentGames">Tournament matches</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="games">Games</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="wins">Wins</div>
+									<div>2</div>
+								</div>
+								<div class="col text-center">
+									<div class="text-white" data-translate="winrate">Win rate</div>
+									<div>100%</div>
+								</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = true; // Replace with actual login status check
+	let isLoggedIn = false; // Replace with actual login status check
 	let containerStatus = 0;
 	let footerStatus = 'default';
 	// default: default-footer
