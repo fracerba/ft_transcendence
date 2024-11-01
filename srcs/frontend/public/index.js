@@ -6,95 +6,47 @@ document.addEventListener('DOMContentLoaded', function() {
 	// playing: initial playing-footer
 	// pause: playing-footer showing pause-btn
 	// resume: playing-footer showing resume-btn
-	// online: playing-footer showing friend-btn
+	// online: playing-footer showing friend-btn	
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
 	}
 
-	function showMainButtons() {
-		setElementById('play-btn','block');
-		setElementById('leaderboard-btn','block');
+	const navLinks = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
+
+    function navigateTo(pageId) {
+        pages.forEach(page => {
+            page.style.display = page.id === pageId ? 'block' : 'none';
+        });
+		if (pageId === 'home') {
+			showHome();
+		}
+    }
+
+    function handleNavigation(event) {
+        event.preventDefault();
+        const pageId = event.target.getAttribute('data-link');
+        history.pushState({ pageId }, '', `#${pageId}`);
+        navigateTo(pageId);
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', handleNavigation);
+    });
+
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.pageId) {
+            navigateTo(event.state.pageId);
+        }
+    });
+
+	function showHome() {
+		setElementById('home','block');
 		setElementById('stats-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
 		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
-	}
-
-	function showLoginButtons() {
-		setElementById('login2-btn','block');
-		setElementById('register-btn','block');
-		setElementById('back-btn','block');
-	}
-
-	function showPlayButtons() {
-		setElementById('local-match-btn','block');
-		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
-		setElementById('bot-match-btn','block');
-		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
-		setElementById('back-btn','block');
-	}
-
-	function hideMainButtons() {
-		setElementById('play-btn','none');
-		setElementById('leaderboard-btn','none');
-		setElementById('stats-btn','none');
-		setElementById('profile-btn','none');
-		setElementById('login-btn','none');
-		setElementById('logout-btn','none');
-	}
-
-	function hideLoginButtons() {
-		setElementById('login2-btn','none');
-		setElementById('register-btn','none');
-		setElementById('back-btn','none');
-	}
-
-	function hidePlayButtons() {
-		setElementById('local-match-btn','none');
-		setElementById('online-match-btn','none');
-		setElementById('bot-match-btn','none');
-		setElementById('tournament-btn','none');
-		setElementById('back-btn','none');
-	}
-
-	function hideLeaderboard() {
-		setElementById('leaderboard','none');
-		setElementById('back4-btn','none');
-	}
-
-	function hideProfile() {
-		setElementById('profile','none');
-		setElementById('back5-btn','none');
-	}
-
-	function hideStats() {
-		setElementById('stats','none');
-		setElementById('back6-btn','none');
-	}
-
-	function showMainOnly() {
-		showMainButtons();
-		hideLoginButtons();
-		hidePlayButtons();
-	}
-
-	function showLoginOnly() {
-		hideMainButtons();
-		hidePlayButtons();
-		showLoginButtons();
-	}
-
-	function showPlayOnly() {
-		hideMainButtons();
-		hideLoginButtons();
-		showPlayButtons();
-	}
-
-	function hideAll() {
-		hideMainButtons();
-		hideLoginButtons();
-		hidePlayButtons();
 	}
 
 	function showPlayingFooter() {
@@ -160,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetLoginInput();
 		setElementById('signup-form','none');
 		resetSignupInput();
-		showMainOnly();
+		showHome();
 	}
 
 	function loadPongScript() {
@@ -192,54 +144,59 @@ document.addEventListener('DOMContentLoaded', function() {
 	//main buttons
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showPlayOnly();
+		setElementById('home','none');
+		setElementById('game','block');
+		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
+		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
 	});
 
 	document.getElementById('leaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('home','none');
 		setElementById('leaderboard','block');
-		setElementById('back4-btn','block');
 	});
 	
 	document.getElementById('profile-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('home','none');
 		setElementById('profile','block');
-		setElementById('back5-btn','block');
-		// showProfile();
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('home','none');
 		setElementById('stats','block');
-		setElementById('back6-btn','block');
-		// showStats();
 	});
 	
 	document.getElementById('login-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showLoginOnly();
+		setElementById('home','none');
+		setElementById('login','block');
 	});
 
 	document.getElementById('logout-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		isLoggedIn = false;
-		showMainOnly();
+		showHome();
 	});
 
 
 	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('login','none');
 		setElementById('login-form','block');
+	});
+
+	document.getElementById('login42-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('login','none');
+		//aggiungere login con 42
 	});
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('login','none');
 		setElementById('signup-form','block');
 	});
 
@@ -247,45 +204,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		setElementById('login-form','none');
 		resetLoginInput();
-		showLoginOnly();
+		setElementById('login','block');
 	});
 
 	document.getElementById('back3-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('signup-form','none');
 		resetSignupInput();
-		showLoginOnly();
+		setElementById('login','block');
 	});
 
 	//play buttons
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('game','none');
 		showPlayingFooter();
 		loadPongScript();
 	});
 
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('game','none');
 		showOnlineFooter();
 		loadPongScript();
-		// startPongScript();
 	});
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		// showPlayingFooter();
-		// startPongScript();
+		setElementById('game','none');
+		showPlayingFooter();
 		// loadPongScript();
 	});
 
 	document.getElementById('tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		setElementById('game','none');
 		// showPlayingFooter();
-		// startPongScript();
 		// loadPongScript();
 	});
 
@@ -339,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		resetFooterButtons();
 		showDefaultFooter();
-		showPlayButtons();
+		setElementById('game','block');
 		resetPongScript();
 	});
 
@@ -366,52 +320,49 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetFooterButtons();
-		hideLeaderboard();
-		hideProfile();
-		hideStats();
 		showDefaultFooter();
 		resetPongScript();
-		loginSuccess();
+		setElementById('game','none');
+		setElementById('login','none');
+		setElementById('leaderboard','none');
+		setElementById('profile','none');
+		setElementById('stats','none');
+		setElementById('login-form','none');
+		setElementById('signup-form','none');
+		resetLoginInput();
+		resetSignupInput();
+		showHome();
 	});
 
 	document.getElementById('back-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showMainOnly();
+		setElementById('login','none');
+		showHome();
+	});
+
+	document.getElementById('back1-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('game','none');
+		showHome();
 	});
 
 	document.getElementById('back4-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideLeaderboard();
-		showMainOnly();
+		setElementById('leaderboard','none');
+		showHome();
 	});
 
 	document.getElementById('back5-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideProfile();
-		showMainOnly();
+		setElementById('profile','none');
+		showHome();
 	});
 
 	document.getElementById('back6-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideStats();
-		showMainOnly();
+		setElementById('stats','none');
+		showHome();
 	});
-	  
-	// 	// Fetch all the forms we want to apply custom Bootstrap validation styles to
-	// 	const forms = document.querySelectorAll('.needs-validation')
-	  
-	// 	// Loop over them and prevent submission
-	// 	Array.from(forms).forEach(form => {
-	// 	  form.addEventListener('submit', event => {
-	// 		if (!form.checkValidity()) {
-	// 		  event.preventDefault()
-	// 		  event.stopPropagation()
-	// 		}
-	  
-	// 		form.classList.add('was-validated')
-	// 	  }, false)
-	// 	})
-	//   })()
 
 	// Form validation functions
 	function validateEmail(email) {
@@ -451,7 +402,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (isValid) {
 			isLoggedIn = true;
-			loginSuccess();
+			setElementById('login-form','none');
+			resetLoginInput();
+			showHome();
 		}
 	});
 
@@ -491,7 +444,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (isValid) {
 			isLoggedIn = true;
 			//aggiungere utente al database
-			loginSuccess();
+			setElementById('signup-form','none');
+			resetSignupInput();
+			showHome();
 		}
 	});
 
@@ -529,9 +484,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById('viewStatsBtn').addEventListener('click', function() {
-		hideProfile();
+		setElementById('profile','none');
 		setElementById('stats','block');
-		setElementById('back6-btn','block');
 	});
 	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
 	const friendsList = [
@@ -546,12 +500,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = friend.name;
 
-		const statusBadge = document.createElement('span');
 		if (friend.online) {
+			const statusBadge = document.createElement('span');
 			statusBadge.className = 'badge bg-success';
+			statusBadge.setAttribute('data-translate', 'online');
 			statusBadge.textContent = 'Online';
+			listItem.appendChild(statusBadge);
 		}
-		listItem.appendChild(statusBadge);
 		friendsListElement.appendChild(listItem);
 	});
 
@@ -610,33 +565,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Esempio di lista di partite (puoi popolare dinamicamente questa lista dal backend)
 	const matchesList = [
-		{ opponent: 'Opponent01', result: 'Win' },
-		{ opponent: 'Opponent02', result: 'Loss' },
+		{ player1: 'Player01', player2: 'Player02', score1: '11', score2:'8', result: 'Win', mode: 'Online', date: '02/10/2023' },
+		{ player1: 'Player01', player2: 'AM', score1: '5', score2:'11', result: 'Loss', mode: 'Bot', date: '01/10/2023' },
 		// Aggiungi altre partite qui
 	];
 
-	const matchesListElement = document.getElementById('matchesList');
+	const matchesListElement = document.getElementById('recentGamesList');
+	const matchesListElement2 = document.getElementById('recentGamesList2');
 	matchesList.forEach(match => {
 		const listItem = document.createElement('li');
 		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
-		listItem.textContent = match.opponent;
+
+		const actionsDiv = document.createElement('div');
+		const player1Div = document.createElement('div');
+		player1Div.textContent = match.player1;
+		actionsDiv.appendChild(player1Div);
+		const player2Div = document.createElement('div');
+		player2Div.textContent = match.player2;
+		actionsDiv.appendChild(player2Div);
+		listItem.appendChild(actionsDiv);
+
+		const actions2Div = document.createElement('div');
+		actions2Div.className = 'text-center';
+		const score1Div = document.createElement('div');
+		score1Div.textContent = match.score1;
+		actions2Div.appendChild(score1Div);
+		const score2Div = document.createElement('div');
+		score2Div.textContent = match.score2;
+		actions2Div.appendChild(score2Div);
+		listItem.appendChild(actions2Div);
 
 		const resultBadge = document.createElement('span');
-		resultBadge.className = `badge ${match.result === 'Win' ? 'bg-success' : 'bg-danger'}`;
+		resultBadge.className = match.result === 'Win' ? 'badge bg-success' : 'badge bg-danger';
+		resultBadge.setAttribute('data-translate', match.result.toLowerCase());
 		resultBadge.textContent = match.result;
-
 		listItem.appendChild(resultBadge);
+
+		const modeBadge = document.createElement('span');
+		modeBadge.className = 'badge bg-secondary';
+		modeBadge.textContent = match.mode;
+		modeBadge.setAttribute('data-translate', match.mode.toLowerCase());
+		listItem.appendChild(modeBadge);
+
+		const dateBadge = document.createElement('span');
+		dateBadge.textContent = match.date;
+		listItem.appendChild(dateBadge);
+
 		matchesListElement.appendChild(listItem);
+		matchesListElement2.appendChild(listItem.cloneNode(true));
 	});
 
-	// Esempio di statistiche (puoi popolare dinamicamente queste statistiche dal backend)
-	const stats = {
-		totalMatches: 10,
-		wins: 5,
-		losses: 3,
-	};
+	// // Esempio di statistiche (puoi popolare dinamicamente queste statistiche dal backend)
+	// const stats = {
+	// 	totalMatches: 10,
+	// 	wins: 5,
+	// 	losses: 3,
+	// };
 
-	document.getElementById('totalMatches').textContent = stats.totalMatches;
-	document.getElementById('wins').textContent = stats.wins;
-	document.getElementById('losses').textContent = stats.losses;
+	// document.getElementById('games').textContent = stats.totalMatches;
+	// document.getElementById('wins').textContent = stats.wins;
+	// document.getElementById('losses').textContent = stats.losses;
 });
