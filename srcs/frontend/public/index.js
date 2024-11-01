@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById(id).style.display = status;
 	}
 
-	const navLinks = document.querySelectorAll('.nav-link');
+	// const navLinks = document.querySelectorAll('.nav-link');
     const pages = document.querySelectorAll('.page');
 
     function navigateTo(pageId) {
@@ -24,16 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
     }
 
-    function handleNavigation(event) {
-        event.preventDefault();
-        const pageId = event.target.getAttribute('data-link');
+    function handleNavigation(pageId) {
+        // event.preventDefault();
         history.pushState({ pageId }, '', `#${pageId}`);
         navigateTo(pageId);
     }
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', handleNavigation);
-    });
+    // navLinks.forEach(link => {
+    //     link.addEventListener('click', handleNavigation);
+    // });
 
     window.addEventListener('popstate', (event) => {
         if (event.state && event.state.pageId) {
@@ -41,8 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+	const initialPage = window.location.hash.replace('#', '') || 'home';
+	handleNavigation(initialPage);
+
 	function showHome() {
-		setElementById('home','block');
 		setElementById('stats-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
@@ -107,14 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('signupPassword').classList.remove('is-invalid');
 	}
 
-	function loginSuccess() {
-		setElementById('login-form','none');
-		resetLoginInput();
-		setElementById('signup-form','none');
-		resetSignupInput();
-		showHome();
-	}
-
 	function loadPongScript() {
 		const script = document.createElement('script');
 		script.id = 'pong-script';
@@ -144,48 +137,42 @@ document.addEventListener('DOMContentLoaded', function() {
 	//main buttons
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('home','none');
-		setElementById('game','block');
+		handleNavigation('game');
 		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
 	});
 
 	document.getElementById('leaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('home','none');
-		setElementById('leaderboard','block');
+		handleNavigation('leaderboard');
 	});
 	
 	document.getElementById('profile-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('home','none');
-		setElementById('profile','block');
+		handleNavigation('profile');
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('home','none');
-		setElementById('stats','block');
+		handleNavigation('stats');
 	});
 	
 	document.getElementById('login-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('home','none');
-		setElementById('login','block');
+		handleNavigation('login');
 	});
 
 	document.getElementById('logout-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		isLoggedIn = false;
-		showHome();
+		handleNavigation('home');
 	});
 
 
 	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('login','none');
-		setElementById('login-form','block');
+		handleNavigation('login-form');
 	});
 
 	document.getElementById('login42-btn').addEventListener('click', function(event) {
@@ -196,22 +183,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('login','none');
-		setElementById('signup-form','block');
+		handleNavigation('signup-form');
+	});
+
+	document.getElementById('back-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('home');
 	});
 
 	document.getElementById('back2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('login-form','none');
+		handleNavigation('login');
 		resetLoginInput();
-		setElementById('login','block');
 	});
 
 	document.getElementById('back3-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('signup-form','none');
+		handleNavigation('login');
 		resetSignupInput();
-		setElementById('login','block');
 	});
 
 	//play buttons
@@ -224,9 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('game','none');
-		showOnlineFooter();
-		loadPongScript();
+		handleNavigation('online');
 	});
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
@@ -238,12 +225,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('game','none');
-		// showPlayingFooter();
-		// loadPongScript();
+		handleNavigation('tournament');
 	});
 
-	//game buttons
+	document.getElementById('back1-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('home');
+	});
+
+	//online mode buttons
+	document.getElementById('new-online-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('online','none');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('join-online-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('online','none');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('back7-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('game');
+	});
+
+	//tournament mode buttons
+	document.getElementById('create-tournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('tournament','none');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('tournament','none');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('back8-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('game');
+	});
+
+	//in-game buttons
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
@@ -322,46 +352,24 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetFooterButtons();
 		showDefaultFooter();
 		resetPongScript();
-		setElementById('game','none');
-		setElementById('login','none');
-		setElementById('leaderboard','none');
-		setElementById('profile','none');
-		setElementById('stats','none');
-		setElementById('login-form','none');
-		setElementById('signup-form','none');
+		handleNavigation('home');
 		resetLoginInput();
 		resetSignupInput();
-		showHome();
-	});
-
-	document.getElementById('back-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		setElementById('login','none');
-		showHome();
-	});
-
-	document.getElementById('back1-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		setElementById('game','none');
-		showHome();
 	});
 
 	document.getElementById('back4-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('leaderboard','none');
-		showHome();
+		handleNavigation('home');
 	});
 
 	document.getElementById('back5-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('profile','none');
-		showHome();
+		handleNavigation('home');
 	});
 
 	document.getElementById('back6-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('stats','none');
-		showHome();
+		handleNavigation('home');
 	});
 
 	// Form validation functions
@@ -402,9 +410,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (isValid) {
 			isLoggedIn = true;
-			setElementById('login-form','none');
+			handleNavigation('home');
 			resetLoginInput();
-			showHome();
 		}
 	});
 
@@ -444,9 +451,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (isValid) {
 			isLoggedIn = true;
 			//aggiungere utente al database
-			setElementById('signup-form','none');
+			handleNavigation('home');
 			resetSignupInput();
-			showHome();
 		}
 	});
 
