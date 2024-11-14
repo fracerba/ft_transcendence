@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (pageId === 'home') {
 			showHome();
 		}
+		if (pageId === 'game') {
+			showGame();
+		}
     }
 
     function handleNavigation(pageId) {
@@ -50,6 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
 	}
 
+	function showGame() {
+		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
+		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
+	}
+
 	function showPlayingFooter() {
 		footerStatus = 'playing';
 		setElementById('pongCanvas','block');
@@ -61,10 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function showOnlineFooter() {
 		footerStatus = 'online';
-		setElementById('pongCanvas','block');
-		setElementById('containerAll','none');
-		setElementById('default-footer','none');
-		setElementById('playing-footer','block');
 		setElementById('play2-btn','none');
 		setElementById('friend-btn','block');
 		setElementById('restart-btn','none');
@@ -76,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('containerAll','block');
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
+		setElementById('quit-footer','none');
 	}
 
 	function resetFooterButtons() {
@@ -83,10 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('pause-btn','none');
 		setElementById('resume-btn','none');
 		setElementById('restart-btn','block');
-		setElementById('quit-btn','block');
-		setElementById('quitMessage','none');
-		setElementById('quitYes-btn','none');
-		setElementById('quitNo-btn','none');
 	}
 
 	function resetLoginInput() {
@@ -237,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('new-online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('online','none');
+		showPlayingFooter();
 		showOnlineFooter();
 		loadPongScript();
 	});
@@ -244,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('join-online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('online','none');
+		showPlayingFooter();
 		showOnlineFooter();
 		loadPongScript();
 	});
@@ -308,15 +311,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('play2-btn','none');
-		setElementById('pause-btn','none');
-		setElementById('resume-btn','none');
-		setElementById('restart-btn','none');
-		setElementById('friend-btn','none');
-		setElementById('quit-btn','none');
-		setElementById('quitMessage','block');
-		setElementById('quitYes-btn','block');
-		setElementById('quitNo-btn','block');
+		setElementById('playing-footer','none');
+		setElementById('quit-footer','block');
 	});
 
 	document.getElementById('quitYes-btn').addEventListener('click', function(event) {
@@ -328,22 +324,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById('quitNo-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		if (footerStatus === 'playing') {
-			setElementById('play2-btn','block');
-		} else if (footerStatus === 'pause') {
-			setElementById('pause-btn','block');
-		} else if (footerStatus === 'resume') {
-			setElementById('resume-btn','block');
-		} else if (footerStatus === 'online') {
-			setElementById('friend-btn','block');
-		}
-		if (footerStatus !== 'online')
-			setElementById('restart-btn','block');
-		setElementById('quit-btn','block');
-		setElementById('quitMessage','none');
-		setElementById('quitYes-btn','none');
-		setElementById('quitNo-btn','none');
+		setElementById('playing-footer','block');
+		setElementById('quit-footer','none');
 	});
 
 	//utils buttons
