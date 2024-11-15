@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = false; // Replace with actual login status check
+	let isLoggedIn = true; // Replace with actual login status check
 	let containerStatus = 0;
-	let footerStatus = 'default';
 	// default: default-footer
 	// playing: initial playing-footer
 	// pause: playing-footer showing pause-btn
@@ -59,23 +58,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function showPlayingFooter() {
-		footerStatus = 'playing';
 		setElementById('pongCanvas','block');
 		setElementById('containerAll','none');
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
+		setElementById('play2-btn','block');
 		setElementById('friend-btn','none');
 	}
 
 	function showOnlineFooter() {
-		footerStatus = 'online';
 		setElementById('play2-btn','none');
 		setElementById('friend-btn','block');
 		setElementById('restart-btn','none');
 	}
 
 	function showDefaultFooter() {
-		footerStatus = 'default';
 		setElementById('pongCanvas','none');
 		setElementById('containerAll','block');
 		setElementById('default-footer','block');
@@ -237,23 +234,28 @@ document.addEventListener('DOMContentLoaded', function() {
 	//online mode buttons
 	document.getElementById('new-online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('online','none');
-		showPlayingFooter();
-		showOnlineFooter();
-		loadPongScript();
+		// setElementById('online','none');
+		// showPlayingFooter();
+		// showOnlineFooter();
+		// loadPongScript();
 	});
 
 	document.getElementById('join-online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('online','none');
-		showPlayingFooter();
-		showOnlineFooter();
-		loadPongScript();
+		handleNavigation('onlinematches');
 	});
 
 	document.getElementById('back7-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('game');
+	});
+
+	document.getElementById('join-online-match-btn2').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('onlinematches','none');
+		showPlayingFooter();
+		showOnlineFooter();
+		loadPongScript();
 	});
 
 	//tournament mode buttons
@@ -276,11 +278,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('game');
 	});
 
+	document.getElementById('back9-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('online');
+	});
+
 	//in-game buttons
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
-		footerStatus = 'pause';
 		setElementById('play2-btn','none');
 		setElementById('pause-btn','block');
 		setElementById('resume-btn','none');
@@ -289,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('pause-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		pausePongScript();
-		footerStatus = 'resume';
 		setElementById('pause-btn','none');
 		setElementById('resume-btn','block');
 	});
@@ -297,14 +302,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('resume-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
-		footerStatus = 'pause';
 		setElementById('pause-btn','block');
 		setElementById('resume-btn','none');
 	});
 
 	document.getElementById('restart-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		footerStatus = 'playing';
 		resetPongScript();
 		resetFooterButtons();
 	});
@@ -319,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		resetFooterButtons();
 		showDefaultFooter();
-		setElementById('game','block');
+		handleNavigation('game');
 		resetPongScript();
 	});
 
