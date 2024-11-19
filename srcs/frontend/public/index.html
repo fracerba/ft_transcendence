@@ -54,7 +54,7 @@
 				<button id="login2-btn" type="button" class="btn btn-dark" data-translate="login">Log in</button>
 				<button id="login42-btn" type="button" class="btn btn-dark" data-translate="login42">Log in with 42</button>
 				<button id="register-btn" type="button" class="btn btn-dark" data-translate="register">Sign up</button>
-				<button id="back-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<button id="backLogin-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
 		<!-- Game -->
@@ -64,7 +64,7 @@
 				<button id="online-match-btn" type="button" class="btn btn-dark" data-translate="onlineMatch">Play online</button>
 				<button id="bot-match-btn" type="button" class="btn btn-dark" data-translate="botMatch">Play against bot</button>
 				<button id="tournament-btn" type="button" class="btn btn-dark" data-translate="tournament">Tournament</button>
-				<button id="back1-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<button id="backGame-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
 		<!-- Online -->
@@ -72,7 +72,7 @@
 			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
 				<button id="new-online-match-btn" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-translate="createMatch">New match</button>
 				<button id="join-online-match-btn" type="button" class="btn btn-dark" data-translate="joinMatch">Join match</button>
-				<button id="back7-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<button id="backOnline-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 				<!-- Modal -->
 				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
@@ -99,7 +99,7 @@
 			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 				<div class="card text-white bg-dark mb-2">
 					<div class="card-body">
-						<h5 class="card-title" data-translate="joinMatch">Join match</h5>
+						<h5 class="card-title mb-1" data-translate="joinMatch">Join match</h5>
 						<ul id="onlineGamesList" class="list-group">
 							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
 								Player01
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 			<div class="d-grid gap-2 col-2 mx-auto">
-				<button id="back9-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<button id="backOnlineMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
 		<!-- Tournament -->
@@ -126,7 +126,34 @@
 			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
 				<button id="create-tournament-btn" type="button" class="btn btn-dark" data-translate="createTournament">Create new tournament</button>
 				<button id="join-tournament-btn" type="button" class="btn btn-dark" data-translate="joinTournament">Join tournament</button>
-				<button id="back8-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<button id="backTournament-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+			</div>
+		</section>
+		<!-- Tournament List -->
+		<section id="tournamentmatches" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-2">
+					<div class="card-body">
+						<h5 class="card-title mb-1" data-translate="joinTournament">Join tournament</h5>
+						<ul id="tournamentGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player01 5/6 Player01
+								<div>
+									<button id="join-tournament-match-btn2" class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								DAJEROMA 3/8 Player02
+								<div>
+									<button class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="d-grid gap-2 col-2 mx-auto">
+				<button id="backTournamentMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
 	<!-- Login -->
@@ -148,7 +175,7 @@
 								<div class="invalid-feedback" data-translate="passError">Wrong password</div>
 							</div>
 							<button id="login-submit-btn" type="submit" class="btn btn-success me-2s mt-1" data-translate="login">Log in</button>
-							<button id="back2-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+							<button id="backLoginForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
 						</form>
 					</div>
 				</div>
@@ -180,7 +207,22 @@
 								<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 							</div>
 							<button id="signup-submit-btn" type="submit" class="btn btn-success me-2 mt-1" data-translate="submit">Submit</button>
-							<button id="back3-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+							<button id="backSignupForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+							<div class="modal fade" id="nicknameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="nicknameModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content bg-dark text-white">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="nickError" data-translate="nickError">Error</h1>
+									</div>
+									<div class="modal-body d-flex align-items-center">
+										<div data-translate="nicknameInUseMessage">This nickname is already taken. Please choose another one.</div>
+									</div>
+									<div class="modal-footer justify-content-center">
+										<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-translate="back">Back</button>
+									</div>
+								</div>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -231,7 +273,7 @@
 					</div>
 				</div>
 				<div class="d-grid gap-2 col-4 mx-auto">
-					<button id="back4-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+					<button id="backLeaderboard-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 				</div>
 			</div>
 		</section>
@@ -361,7 +403,7 @@
 					</div>
 				</div>
 				<div class="d-grid gap-2 col-2 mx-auto">
-					<button id="back5-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+					<button id="backProfile-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 				</div>
 			</div>
 		</section>
@@ -503,7 +545,7 @@
 					</div>
 				</div>
 				<div class="d-grid gap-2 col-2 mx-auto">
-					<button id="back6-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+					<button id="backStats-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 				</div>
 			</div>
 		</section>

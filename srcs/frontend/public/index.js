@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-	let isLoggedIn = true; // Replace with actual login status check
+	let isLoggedIn = false; // Replace with actual login status check
 	let containerStatus = 0;
 	// default: default-footer
 	// playing: initial playing-footer
@@ -184,18 +184,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('signup-form');
 	});
 
-	document.getElementById('back-btn').addEventListener('click', function(event) {
+	document.getElementById('backLogin-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
 
-	document.getElementById('back2-btn').addEventListener('click', function(event) {
+	document.getElementById('backLoginForm-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('login');
 		resetLoginInput();
 	});
 
-	document.getElementById('back3-btn').addEventListener('click', function(event) {
+	document.getElementById('backSignupForm-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('login');
 		resetSignupInput();
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('tournament');
 	});
 
-	document.getElementById('back1-btn').addEventListener('click', function(event) {
+	document.getElementById('backGame-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('onlinematches');
 	});
 
-	document.getElementById('back7-btn').addEventListener('click', function(event) {
+	document.getElementById('backOnline-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('game');
 	});
@@ -258,6 +258,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		loadPongScript();
 	});
 
+	document.getElementById('backOnlineMatches-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('online');
+	});
+
 	//tournament mode buttons
 	document.getElementById('create-tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
@@ -268,19 +273,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		handleNavigation('tournamentmatches');
+	});
+
+	document.getElementById('backTournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('game');
+	});
+
+	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
 		setElementById('tournament','none');
 		showOnlineFooter();
 		loadPongScript();
 	});
 
-	document.getElementById('back8-btn').addEventListener('click', function(event) {
+	document.getElementById('backTournamentMatches-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		handleNavigation('game');
-	});
-
-	document.getElementById('back9-btn').addEventListener('click', function(event) {
-		event.preventDefault();
-		handleNavigation('online');
+		handleNavigation('tournament');
 	});
 
 	//in-game buttons
@@ -342,17 +352,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetSignupInput();
 	});
 
-	document.getElementById('back4-btn').addEventListener('click', function(event) {
+	document.getElementById('backLeaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
 
-	document.getElementById('back5-btn').addEventListener('click', function(event) {
+	document.getElementById('backProfile-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
 
-	document.getElementById('back6-btn').addEventListener('click', function(event) {
+	document.getElementById('backStats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
@@ -371,6 +381,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
 	}
 	
+	function isNicknameInUse(nickname) {
+		// Logica per controllare se il nickname è già in uso
+		if (nickname === 'AM') {
+			return true;
+		}
+		return false;
+	}
+
+	function showNicknameModal() {
+		const nicknameModal = new bootstrap.Modal(document.getElementById('nicknameModal'));
+		nicknameModal.show();
+	}
+
 	// Form validation for Login
 	document.getElementById('login-form').addEventListener('submit', function(event) {
 		event.preventDefault();
@@ -433,6 +456,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('passHelp').style.display = 'block';
 			document.getElementById('signupPassword').classList.remove('is-invalid');
 		}
+		if (isValid && isNicknameInUse(username)) {
+			isValid = false;
+			showNicknameModal();
+			document.getElementById('userHelp').style.display = 'none';
+			document.getElementById('signupUsername').classList.add('is-invalid');
+		}
 		if (isValid) {
 			isLoggedIn = true;
 			//aggiungere utente al database
@@ -475,8 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById('viewStatsBtn').addEventListener('click', function() {
-		setElementById('profile','none');
-		setElementById('stats','block');
+		handleNavigation('stats');
 	});
 	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
 	const friendsList = [
