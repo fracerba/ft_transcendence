@@ -266,9 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	//tournament mode buttons
 	document.getElementById('create-tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('tournament','none');
-		showOnlineFooter();
-		loadPongScript();
+		handleNavigation('tournament-form');
 	});
 
 	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
@@ -281,9 +279,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('game');
 	});
 
-	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
+	document.getElementById('tournament-form-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('tournament-form','none');
+		showPlayingFooter();
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('backTournamentForm-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournament');
+	});
+
+	document.getElementById('join-tournament-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		setElementById('tournament','none');
+		showPlayingFooter();
 		showOnlineFooter();
 		loadPongScript();
 	});
@@ -337,6 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById('quitNo-btn').addEventListener('click', function(event) {
+		event.preventDefault();
 		setElementById('playing-footer','block');
 		setElementById('quit-footer','none');
 	});

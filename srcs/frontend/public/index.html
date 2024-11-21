@@ -67,7 +67,7 @@
 				<button id="backGame-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
-		<!-- Online -->
+	<!-- Online -->
 		<section id="online" class="page" style="display: none;">
 			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
 				<button id="new-online-match-btn" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-translate="createMatch">New match</button>
@@ -97,7 +97,7 @@
 		<!-- Online List -->
 		<section id="onlinematches" class="page" style="display: none;">
 			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
-				<div class="card text-white bg-dark mb-2">
+				<div class="card text-white bg-dark mb-1">
 					<div class="card-body">
 						<h5 class="card-title mb-1" data-translate="joinMatch">Join match</h5>
 						<ul id="onlineGamesList" class="list-group">
@@ -116,12 +116,12 @@
 						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="d-grid gap-2 col-2 mx-auto">
-				<button id="backOnlineMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backOnlineMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
 			</div>
 		</section>
-		<!-- Tournament -->
+	<!-- Tournament -->
 		<section id="tournament" class="page" style="display: none;">
 			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
 				<button id="create-tournament-btn" type="button" class="btn btn-dark" data-translate="createTournament">Create new tournament</button>
@@ -129,21 +129,70 @@
 				<button id="backTournament-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
 		</section>
+		<!-- Create Tournament -->
+		<section id="tournament-form" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-3">
+					<div class="card-body">
+						<h5 class="card-title" data-translate="createTournament">Create new tournament</h5>
+						<form class="needs-validation" novalidate>
+							<div id="tournament-label" class="mb-1">
+								<label for="tournamentName" class="form-label" data-translate="tournamentName">Tournament name</label>
+								<input type="name" class="form-control bg-dark text-white" id="tournamentName" required>
+								<div class="invalid-feedback" data-translate="tournamentError">Can't be blank</div>
+							</div>
+							<div id="players-label" class="mb-1 mt-2">
+								<label for="tournamentPlayers" class="form-label" data-translate="tournamentPlayers">Number of players</label>
+								<select class="form-select bg-dark text-white" aria-label="tournament player select" form-select-indicator-color="white">
+									<option selected>-</option>
+									<option value="1">3</option>
+									<option value="2">4</option>
+									<option value="3">5</option>
+									<option value="4">6</option>
+									<option value="5">7</option>
+									<option value="6">8</option>
+								</select>
+							</div>
+							<div>
+								<button id="tournament-form-btn" type="button" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create new tournament</button>
+								<button id="backTournamentForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
 		<!-- Tournament List -->
 		<section id="tournamentmatches" class="page" style="display: none;">
 			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
-				<div class="card text-white bg-dark mb-2">
+				<div class="card text-white bg-dark mb-1">
 					<div class="card-body">
 						<h5 class="card-title mb-1" data-translate="joinTournament">Join tournament</h5>
 						<ul id="tournamentGamesList" class="list-group">
 							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
-								Player01 5/6 Player01
+								<div id="tournamentName">
+									Player01
+								</div>
+								<div id="tournamentNumber">
+									5/6
+								</div>
+								<div id="tournamentCreator">
+									Player01
+								</div>
 								<div>
-									<button id="join-tournament-match-btn2" class="btn btn-success btn-sm" data-translate="join">Join</button>
+									<button id="join-tournament-match-btn" class="btn btn-success btn-sm" data-translate="join">Join</button>
 								</div>
 							</li>
 							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
-								DAJEROMA 3/8 Player02
+								<div id="tournamentName">
+									DAJEROMA
+								</div>
+								<div id="tournamentNumber">
+									3/8
+								</div>
+								<div id="tournamentCreator">
+									Player02
+								</div>
 								<div>
 									<button class="btn btn-success btn-sm" data-translate="join">Join</button>
 								</div>
@@ -151,9 +200,9 @@
 						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="d-grid gap-2 col-2 mx-auto">
-				<button id="backTournamentMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backTournamentMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
 			</div>
 		</section>
 	<!-- Login -->
@@ -169,12 +218,12 @@
 								<input type="username" class="form-control bg-dark text-white" id="loginUsername" required>
 								<div class="invalid-feedback" data-translate="userError">Invalid username</div>
 							</div>
-							<div id="password-label" class="mb-1">
+							<div id="password-label" class="mb-1 mt-2">
 								<label for="loginPassword" class="form-label" data-translate="password">Password</label>
 								<input type="password" class="form-control bg-dark text-white" id="loginPassword" required>
 								<div class="invalid-feedback" data-translate="passError">Wrong password</div>
 							</div>
-							<button id="login-submit-btn" type="submit" class="btn btn-success me-2s mt-1" data-translate="login">Log in</button>
+							<button id="login-submit-btn" type="submit" class="btn btn-success me-1 mt-1" data-translate="login">Log in</button>
 							<button id="backLoginForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
 						</form>
 					</div>
@@ -206,7 +255,7 @@
 								<div id="passHelp" class="form-text text-white-50" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 								<div class="invalid-feedback" data-translate="passHelp">Password should have at least 8 characters, one capital letter, one number</div>
 							</div>
-							<button id="signup-submit-btn" type="submit" class="btn btn-success me-2 mt-1" data-translate="submit">Submit</button>
+							<button id="signup-submit-btn" type="submit" class="btn btn-success me-1 mt-1" data-translate="submit">Submit</button>
 							<button id="backSignupForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
 							<div class="modal fade" id="nicknameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="nicknameModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
@@ -410,7 +459,7 @@
 	<!-- Stats -->
 		<section id="stats" class="page" style="display: none;">
 			<div class="d-grid gap-1 col-12 col-lg-10 col-xl-8 mx-auto">
-				<div class="card text-white bg-dark mb-2">
+				<div class="card text-white bg-dark mb-1">
 					<div class="card-header" data-translate="stats">Stats</div>
 					<div class="card-body">
 						<div class="row">
@@ -538,7 +587,6 @@
 										<div class="text-white" data-translate="winrate">Win rate</div>
 										<div>33.3%</div>
 									</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -550,6 +598,7 @@
 			</div>
 		</section>
 	</div>
+	<!-- Footer -->
 	<footer id="default-footer" class="bg-dark mt-auto">
 		<div class="container-fluid">
 		  <div class="row justify-content-center mt-3">
