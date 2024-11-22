@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleNavigation(pageId) {
-        // event.preventDefault();
         history.pushState({ pageId }, '', `#${pageId}`);
         navigateTo(pageId);
     }

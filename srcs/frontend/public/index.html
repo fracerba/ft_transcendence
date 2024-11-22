@@ -84,7 +84,7 @@
 							<div class="spinner-border text-light me-3" role="status">
 								<span class="visually-hidden">Loading...</span>
 							</div>
-							<div>Waiting for opponent to join the match...</div>
+							<div data-translate="waintingOpponent">Waiting for opponent to join the match...</div>
 						</div>
 						<div class="modal-footer justify-content-center">
 							<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-translate="back">Back</button>
@@ -124,7 +124,7 @@
 	<!-- Tournament -->
 		<section id="tournament" class="page" style="display: none;">
 			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
-				<button id="create-tournament-btn" type="button" class="btn btn-dark" data-translate="createTournament">Create new tournament</button>
+				<button id="create-tournament-btn" type="button" class="btn btn-dark" data-translate="createTournament">Create tournament</button>
 				<button id="join-tournament-btn" type="button" class="btn btn-dark" data-translate="joinTournament">Join tournament</button>
 				<button id="backTournament-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 			</div>
@@ -134,7 +134,7 @@
 			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 				<div class="card text-white bg-dark mb-3">
 					<div class="card-body">
-						<h5 class="card-title" data-translate="createTournament">Create new tournament</h5>
+						<h5 class="card-title" data-translate="createTournament">Create tournament</h5>
 						<form class="needs-validation" novalidate>
 							<div id="tournament-label" class="mb-1">
 								<label for="tournamentName" class="form-label" data-translate="tournamentName">Tournament name</label>
@@ -154,7 +154,7 @@
 								</select>
 							</div>
 							<div>
-								<button id="tournament-form-btn" type="button" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create new tournament</button>
+								<button id="tournament-form-btn" type="button" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create tournament</button>
 								<button id="backTournamentForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
 							</div>
 						</form>
@@ -202,6 +202,47 @@
 				</div>
 				<div class="d-grid gap-2 col-4 mx-auto">
 					<button id="backTournamentMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
+			</div>
+		</section>
+		<!-- Tournament Waiting List -->
+		<section id="tournamentRoom" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-2">Tournament name</h5>
+						<ul id="tournamentGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player01
+								<span class="badge bg-success" data-translate="creator">Creator</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player02
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player03
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player04
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								--
+							</li>
+						</ul>
+						<div class="text-center">
+							<button id="tournamentStart" type="button" class="btn btn-success me-1 mt-2" disabled data-translate="startTournament">Start tournament</button>
+							<button id="backTournament" type="button" class="btn btn-danger mt-2" data-translate="quit">Quit</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
