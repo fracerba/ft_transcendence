@@ -379,11 +379,69 @@ window.pongGame = {
 	}
 };
 
-// Aggiungi un listener per il ridimensionamento della finestra
 window.addEventListener('resize', function() {
-	resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
-	gameLoop(); // Continua il gioco se è in esecuzione
+    resizeCanvas(); // Aggiorna il canvas
+    if (isMobileDevice()) {
+        enableTouchControls(); // Riassegna i controlli touch
+    }
+    gameLoop(); // Continua il gioco se è in esecuzione
 });
 
+
+// Inizializza il canvas
 resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
+
+// Funzione per rilevare dispositivi mobili
+function isMobileDevice() {
+	return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+}
+
+// Rileva il dispositivo mobile e abilita i controlli touch
+if (isMobileDevice()) {
+    enableTouchControls(); // Abilita i controlli touch
+}
+
+// Funzione per gestire i controlli touch
+function enableTouchControls() {
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const leftTouchZone = document.createElement('div');
+    const rightTouchZone = document.createElement('div');
+
+    // Stile delle aree touch
+    [leftTouchZone, rightTouchZone].forEach(zone => {
+        zone.style.position = 'absolute';
+        zone.style.top = '0';
+        zone.style.width = '50%';
+        zone.style.height = '100%';
+        zone.style.zIndex = '100'; // Sopra il canvas
+        zone.style.opacity = '0'; // Invisibile
+        document.body.appendChild(zone);
+    });
+
+    leftTouchZone.style.left = '0'; 
+    rightTouchZone.style.right = '0'; 
+
+    // Paddle sinistra (Player 2)
+    leftTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+    leftTouchZone.addEventListener('touchmove', (e) => {
+        touchEndY = e.touches[0].clientY;
+        const deltaY = touchEndY - touchStartY;
+        player2Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
+        touchStartY = touchEndY;
+    });
+    leftTouchZone.addEventListener('touchend', () => { player2Paddle.dy = 0; });
+
+    // Paddle destra (Player 1)
+    rightTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+    rightTouchZone.addEventListener('touchmove', (e) => {
+        touchEndY = e.touches[0].clientY;
+        const deltaY = touchEndY - touchStartY;
+        player1Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
+        touchStartY = touchEndY;
+    });
+    rightTouchZone.addEventListener('touchend', () => { player1Paddle.dy = 0; });
+}
+
 drawFrame();
