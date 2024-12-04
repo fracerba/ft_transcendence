@@ -30,6 +30,10 @@
 					</li>
 				</ul>
 			</div>
+			<form id="navbarSearch" class="d-flex" role="search">
+				<input class="form-control me-2" type="search" placeholder="Search players" aria-label="Search">
+				<button id="search-players-btn" class="btn btn-light" type="submit" data-translate="search">Search</button>
+			</form>
 		</div>
 	</nav>
 	<div class="container-fluid">
@@ -143,7 +147,7 @@
 							</div>
 							<div id="players-label" class="mb-1 mt-2">
 								<label for="tournamentPlayers" class="form-label" data-translate="tournamentPlayers">Number of players</label>
-								<select class="form-select bg-dark text-white" aria-label="tournament player select" form-select-indicator-color="white">
+								<select class="form-select bg-dark text-white" aria-label="tournament player select" id="tournamentSelect" required>
 									<option selected>-</option>
 									<option value="1">3</option>
 									<option value="2">4</option>
@@ -152,11 +156,10 @@
 									<option value="5">7</option>
 									<option value="6">8</option>
 								</select>
+								<div class="invalid-feedback" data-translate="selectError">Select a number</div>
 							</div>
-							<div>
-								<button id="tournament-form-btn" type="button" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create tournament</button>
-								<button id="backTournamentForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
-							</div>
+							<button id="tournament-form-btn" type="submit" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create tournament</button>
+							<button id="backTournamentForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
 						</form>
 					</div>
 				</div>
@@ -206,7 +209,7 @@
 			</div>
 		</section>
 		<!-- Tournament Waiting List -->
-		<section id="tournamentRoom" class="page" style="display: none;">
+		<section id="tournamentroom" class="page" style="display: none;">
 			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 				<div class="card text-white bg-dark mb-1">
 					<div class="card-body">
@@ -240,7 +243,7 @@
 						</ul>
 						<div class="text-center">
 							<button id="tournamentStart" type="button" class="btn btn-success me-1 mt-2" disabled data-translate="startTournament">Start tournament</button>
-							<button id="backTournament" type="button" class="btn btn-danger mt-2" data-translate="quit">Quit</button>
+							<button id="backTournamentRoom" type="button" class="btn btn-danger mt-2" data-translate="quit">Quit</button>
 						</div>
 					</div>
 				</div>
@@ -635,6 +638,33 @@
 				</div>
 				<div class="d-grid gap-2 col-2 mx-auto">
 					<button id="backStats-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
+			</div>
+		</section>
+	<!-- Search Players -->
+		<section id="search" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-2" data-translate="searchPlayers">Search players</h5>
+						<ul id="onlineGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player01
+								<div>
+									<button id="viewProfile" class="btn btn-success btn-sm" data-translate="viewProfile">View profile</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player02
+								<div>
+									<button id="viewProfile" class="btn btn-success btn-sm" data-translate="viewProfile">View profile</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backSearchPlayers-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
 				</div>
 			</div>
 		</section>

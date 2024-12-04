@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
 		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
+		setSearchingPlayers();
 	}
 
 	function showGame() {
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function showPlayingFooter() {
 		setElementById('pongCanvas','block');
 		setElementById('containerAll','none');
+		setSearchingPlayers();
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
 		setElementById('play2-btn','block');
@@ -74,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function showDefaultFooter() {
 		setElementById('pongCanvas','none');
 		setElementById('containerAll','block');
+		setSearchingPlayers();
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
 		setElementById('quit-footer','none');
@@ -103,6 +106,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('signupEmail').classList.remove('is-invalid');
 		document.getElementById('signupUsername').classList.remove('is-invalid');
 		document.getElementById('signupPassword').classList.remove('is-invalid');
+	}
+
+	function resetTournamentInput() {
+		document.getElementById('tournamentName').value = '';
+		document.getElementById('tournamentSelect').value = '-';
+		document.getElementById('tournamentName').classList.remove('is-invalid');
+		document.getElementById('tournamentSelect').classList.remove('is-invalid');
+	}
+
+	function setSearchingPlayers() {
+		if (isLoggedIn) {
+			document.getElementById('search-players-btn').classList.remove('disabled');
+		}
+		else {
+			document.getElementById('search-players-btn').classList.add('disabled');
+		}
 	}
 
 	function loadPongScript() {
@@ -278,25 +297,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('game');
 	});
 
-	document.getElementById('tournament-form-btn').addEventListener('click', function(event) {
+	document.getElementById('backTournamentForm-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('tournament-form','none');
+		handleNavigation('tournament');
+		resetTournamentInput();
+	});
+
+	document.getElementById('tournamentStart').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('tournamentroom','none');
 		showPlayingFooter();
 		showOnlineFooter();
 		loadPongScript();
 	});
 
-	document.getElementById('backTournamentForm-btn').addEventListener('click', function(event) {
+	document.getElementById('backTournamentRoom').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('tournament');
 	});
 
 	document.getElementById('join-tournament-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('tournament','none');
-		showPlayingFooter();
-		showOnlineFooter();
-		loadPongScript();
+		handleNavigation('tournamentroom');
 	});
 
 	document.getElementById('backTournamentMatches-btn').addEventListener('click', function(event) {
@@ -362,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('home');
 		resetLoginInput();
 		resetSignupInput();
+		resetTournamentInput();
 	});
 
 	document.getElementById('backLeaderboard-btn').addEventListener('click', function(event) {
@@ -375,6 +398,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById('backStats-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('home');
+	});
+
+	document.getElementById('backSearchPlayers-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('home');
 	});
@@ -393,6 +421,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
 	}
 	
+	function validateName(name) {
+		return (name.length > 0);
+	}
+
+	function validateNumber(number) {
+		return (number !== '-');
+	}
+
 	function isNicknameInUse(nickname) {
 		// Logica per controllare se il nickname è già in uso
 		if (nickname === 'AM') {
@@ -482,6 +518,40 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
+	// Form validation for Tournament
+	document.getElementById('tournament-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const name = document.getElementById('tournamentName').value;
+		const number = document.getElementById('tournamentSelect').value;
+
+		let isValid = true;
+
+		if (!validateName(name)) {
+			isValid = false;
+			document.getElementById('tournamentName').classList.add('is-invalid');
+		} else {
+			document.getElementById('tournamentName').classList.remove('is-invalid');
+		}
+		if (!validateNumber(number)) {
+			isValid = false;
+			document.getElementById('tournamentSelect').classList.add('is-invalid');
+		} else {
+			document.getElementById('tournamentSelect').classList.remove('is-invalid');
+		}
+		if (isValid) {
+			handleNavigation('tournamentroom');
+			resetTournamentInput();
+		}
+	});
+
+	// Ricerca giocatori
+	document.getElementById('navbarSearch').addEventListener('submit', function(event) {
+		event.preventDefault();
+		// const searchInput = document.getElementById('searchInput').value;
+		// Logica per cercare i giocatori
+		handleNavigation('search');
+	});
+
 	// Gestione del caricamento dell'immagine del profilo
 	document.getElementById('uploadImageBtn').addEventListener('click', function() {
 		document.getElementById('uploadImage').click();
@@ -493,6 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const reader = new FileReader();
 			reader.onload = function(e) {
 				document.getElementById('profileImage').src = e.target.result;
+				document.getElementById('profileImageStats').src = e.target.result;
 			};
 			reader.readAsDataURL(file);
 		}
