@@ -1,11 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	let isLoggedIn = false; // Replace with actual login status check
-	let containerStatus = 0;
-	// default: default-footer
-	// playing: initial playing-footer
-	// pause: playing-footer showing pause-btn
-	// resume: playing-footer showing resume-btn
-	// online: playing-footer showing friend-btn	
+	let current = 'home';
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
@@ -24,16 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (pageId === 'game') {
 			showGame();
 		}
+		if (pageId === 'pong') {
+			showPlayingFooter();
+		}
+		if (pageId !== 'pong' && current === 'pong') {
+			showDefaultFooter();
+			resetPongScript();
+		}
+		current = pageId;
     }
 
     function handleNavigation(pageId) {
         history.pushState({ pageId }, '', `#${pageId}`);
         navigateTo(pageId);
     }
-
-    // navLinks.forEach(link => {
-    //     link.addEventListener('click', handleNavigation);
-    // });
 
     window.addEventListener('popstate', (event) => {
         if (event.state && event.state.pageId) {
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
 		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
-		setSearchingPlayers();
+		setSearchingPlayers(false);
 	}
 
 	function showGame() {
@@ -60,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function showPlayingFooter() {
 		setElementById('pongCanvas','block');
 		setElementById('containerAll','none');
-		setSearchingPlayers();
+		setSearchingPlayers(true);
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
-		setElementById('play2-btn','block');
+		resetFooterButtons();
 		setElementById('friend-btn','none');
 	}
 
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function showDefaultFooter() {
 		setElementById('pongCanvas','none');
 		setElementById('containerAll','block');
-		setSearchingPlayers();
+		setSearchingPlayers(false);
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
 		setElementById('quit-footer','none');
@@ -115,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('tournamentSelect').classList.remove('is-invalid');
 	}
 
-	function setSearchingPlayers() {
-		if (isLoggedIn) {
+	function setSearchingPlayers(inGame) {
+		if (isLoggedIn || !inGame) {
 			document.getElementById('search-players-btn').classList.remove('disabled');
 		}
 		else {
@@ -154,8 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		handleNavigation('game');
-		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
-		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
 	});
 
 	document.getElementById('leaderboard-btn').addEventListener('click', function(event) {
@@ -183,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		isLoggedIn = false;
 		handleNavigation('home');
 	});
-
 
 	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
@@ -222,8 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	//play buttons
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('game','none');
-		showPlayingFooter();
+		handleNavigation('pong');
 		loadPongScript();
 	});
 
@@ -234,8 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('game','none');
-		showPlayingFooter();
+		handleNavigation('pong');
 		// loadPongScript();
 	});
 
@@ -270,8 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('join-online-match-btn2').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('onlinematches','none');
-		showPlayingFooter();
+		handleNavigation('pong');
 		showOnlineFooter();
 		loadPongScript();
 	});
@@ -305,8 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('tournamentStart').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('tournamentroom','none');
-		showPlayingFooter();
+		handleNavigation('pong');
 		showOnlineFooter();
 		loadPongScript();
 	});
