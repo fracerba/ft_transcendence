@@ -1,0 +1,95 @@
+# version: '3.9'
+
+services:
+  postgres:
+    container_name: pong2_db
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - mighty_pong_net
+    ports:
+      - "5432:5432"
+
+  web:
+    container_name: pong2
+    build: ./srcs
+    command: ["/app/setup.sh"]
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - DEVELOPMENT=True
+      - DJANGO_SECRET_KEY
+      - DJANGO_SETTINGS_MODULE
+      - ADMIN_USER
+      - ADMIN_PASSWORD
+      - ADMIN_EMAIL
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - POSTGRES_PORT=5432
+      - OAUTH2_CLIENT_ID
+      - OAUTH2_CLIENT_SECRET
+      - OAUTH2_REDIRECT_URI
+    volumes:
+      - ./config/ssl:/etc/ssl
+    networks:
+      - mighty_pong_net
+    ports:
+      - "8000:8000"
+      - "3000:3000"
+    restart: on-failure
+
+  #---------------------LOGGING
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    volumes:
+      - ./elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - mighty_pong_net
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.9.1
+    container_name: logstash
+    volumes:
+      - ./elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - mighty_pong_net
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.1
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - mighty_pong_net
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+volumes:
+  postgres_data:
+
+networks:
+  mighty_pong_net:
+    driver: bridge

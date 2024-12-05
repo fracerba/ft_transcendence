@@ -12,23 +12,10 @@ build/
 *.py[cod]
 
 # Django specific
-*.log
-*.pot
-*.pyc
-*.pyo
-*.pyd
-__pycache__/
-db.sqlite3
 .env
 media/
-
-# React specific
-node_modules/
-build/
-*.log
-*.cache
-*.eslintcache
-*.env
+staticfiles/
+migrations/
 
 # Docker specific
 docker-compose.override.yml
@@ -37,9 +24,18 @@ docker-compose.local.yml
 # IDE/editor specific
 .vscode/
 .idea/
-*.sublime-workspace
 *.sublime-project
+*.sublime-workspace
 
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# Ignore secret files
+.env
+.pem
+
+# Node.js specific
+package-lock.json
+
+

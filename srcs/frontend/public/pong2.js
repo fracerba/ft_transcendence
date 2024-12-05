@@ -54,84 +54,72 @@ function setBallSpeed() {
     return speed;
 }
 
-let TimeoutId = null;  // Variabile globale per l'ID del timeout
+let TimeoutId = null;
 
 function resetBall() {
-    // Se esiste un timeout precedente, annullalo
     if (TimeoutId !== null) {
         clearTimeout(TimeoutId);
     }
 
-    // Imposta la palla nella posizione iniziale senza movimento
     ball = {
         x: canvas.width / 2,
         y: canvas.height / 2,
         radius: ballRadius,
-        dx: 0,  // Nessun movimento iniziale
+        dx: 0,  
         dy: 0
     };
     
-    ballMoving = false;  // La palla è ferma
+    ballMoving = false; 
     player1Paddle.y = canvas.height / 2 - paddleHeight / 2;
     player2Paddle.y = canvas.height / 2 - paddleHeight / 2;
     
-    // Imposta un nuovo timeout per far ripartire la palla dopo 1 secondo
     TimeoutId = setTimeout(() => {
         if (lastScorer === 'player')
             ball.dx = nowBallSpeed;
         else if (lastScorer === 'ai')
             ball.dx = -nowBallSpeed;
         else
-            ball.dx = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);  // Direzione casuale se non ci sono goal precedenti
+            ball.dx = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);
 
         ball.dy = nowBallSpeed * (Math.random() < 0.5 ? 1 : -1);
-        ballMoving = true;  // La palla può muoversi
-    }, 1000);  // 1000 millisecondi = 1 secondo
+        ballMoving = true;  
+    }, 1000);
 }
 
 
 function resizeCanvas() {
     if (animationId) {
-        cancelAnimationFrame(animationId);  // Ferma l'animazione corrente
+        cancelAnimationFrame(animationId);
     }
 
-    // Imposta un rapporto fisso
     const aspectRatio = 19 / 10;
 
-    // Ottieni le dimensioni della finestra disponibile
     const windowWidth = window.innerWidth * (1 - 2 * horizontalMarginRatio);
-    const windowHeight = window.innerHeight - 110; // Sottrai l'altezza del footer
+    const windowHeight = window.innerHeight - 110; 
 
-    // Calcola la larghezza e l'altezza del canvas mantenendo il rapporto fisso
     let canvasWidth = windowWidth;
     let canvasHeight = windowWidth / aspectRatio;
 
-    // Se l'altezza calcolata è maggiore dello spazio disponibile, ridimensiona in base all'altezza
     if (canvasHeight > windowHeight) {
         canvasHeight = windowHeight;
         canvasWidth = windowHeight * aspectRatio;
 
-        // Controlla se la nuova larghezza è maggiore della larghezza disponibile
         if (canvasWidth > windowWidth) {
             canvasWidth = windowWidth;
-            canvasHeight = windowWidth / aspectRatio; // Mantieni il rapporto fisso
+            canvasHeight = windowWidth / aspectRatio; 
         }
     }
 
-    // Aggiorna le dimensioni del canvas mantenendo il rapporto fisso
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    // Posiziona il canvas con i margini per centrarlo orizzontalmente e sopra il footer
     canvas.style.marginLeft = `${(window.innerWidth - canvasWidth) / 2}px`;
     canvas.style.marginTop = `0px`;
 
-    // Calcola le nuove dimensioni delle racchette e della palla
     paddleWidth = canvas.width * 0.013;
     paddleHeight = canvas.height * 0.15;
     ballRadius = canvas.width * 0.008;
 
-    // Aggiorna le dimensioni e le posizioni delle paddle
     player2Paddle = {
         x: 10,
         y: canvas.height / 2 - paddleHeight / 2,
@@ -148,14 +136,12 @@ function resizeCanvas() {
         dy: 0
     };
 
-    // Aggiorna la velocità della pallina
     nowBallSpeed = setBallSpeed();
     resetBall();
 }
 
 
 
-// Funzione per disegnare il campo
 function drawField() {
     context.fillStyle = 'black';
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -177,13 +163,11 @@ function drawScore() {
     context.fillText("Player02", canvas.width / 2 + 15, canvas.height - 20);
 }
 
-// Funzione per disegnare una racchetta
 function drawPaddle(paddle) {
     context.fillStyle = 'white';
     context.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
-// Funzione per disegnare la palla
 function drawBall(ball) {
     context.beginPath();
     context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -192,39 +176,33 @@ function drawBall(ball) {
     context.closePath();
 }
 
-// Funzione per aggiornare la posizione della palla e delle racchette
 function update() {
     ball.x += ball.dx;
     ball.y += ball.dy;
 
-    // Rimbalzi sui muri
     if (ball.y + ball.radius > canvas.height) {
-        ball.dy = -ball.dy;  // Inverti la direzione verticale
-        ball.y = canvas.height - ball.radius;  // Riposiziona appena all'interno del campo
+        ball.dy = -ball.dy;  
+        ball.y = canvas.height - ball.radius;  
     }
     
     if (ball.y - ball.radius < 0) {
-        ball.dy = -ball.dy;  // Inverti la direzione verticale
-        ball.y = ball.radius;  // Riposiziona appena all'interno del campo
+        ball.dy = -ball.dy; 
+        ball.y = ball.radius; 
     }
 
-    // Rimbalzi paddle sinistro
     if (ball.x - ball.radius < player2Paddle.x + player2Paddle.width + 0.005 && 
         ball.x - ball.radius > player2Paddle.x - 0.005 && 
         ball.y > player2Paddle.y - 0.005 && 
         ball.y < player2Paddle.y + player2Paddle.height + 0.005) {
         
-        // Distanza dal centro del paddle
         let impactPoint = ball.y - (player2Paddle.y + player2Paddle.height / 2);
         let normalizedImpact = impactPoint / (player2Paddle.height / 2);
 
-        // Modifica la direzione della palla in base al punto di impatto
-        let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));  // Imposta la velocità: velocità massima al centro, minima ai bordi
+        let bounceAngle = normalizedImpact * (Math.PI / 4);  
+        let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed));  
         ball.dx = speed * Math.cos(bounceAngle);
         ball.dy = speed * Math.sin(bounceAngle);
 
-        // Assicurati che la palla vada verso destra
         ball.dx = Math.abs(ball.dx);
     }
     //paddle destro
@@ -236,12 +214,11 @@ function update() {
                 let impactPoint = ball.y - (player1Paddle.y + player1Paddle.height / 2);
                 let normalizedImpact = impactPoint / (player1Paddle.height / 2);
         
-                let bounceAngle = normalizedImpact * (Math.PI / 4);  // Angolo massimo di 45 gradi
-                let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); // Imposta la velocità: velocità massima al centro, minima ai bordi
+                let bounceAngle = normalizedImpact * (Math.PI / 4); 
+                let speed = maxSpeed - (Math.abs(normalizedImpact) * (maxSpeed - minSpeed)); 
                 ball.dx = speed * Math.cos(bounceAngle);
                 ball.dy = speed * Math.sin(bounceAngle);
         
-                // Assicurati che la palla vada verso sinistra
                 ball.dx = -Math.abs(ball.dx);
     }
 
@@ -256,11 +233,9 @@ function update() {
         resetBall();
     }
 
-    // Aggiorna la posizione delle paddle in base alla loro velocità (dy)
     player2Paddle.y += player2Paddle.dy;
     player1Paddle.y += player1Paddle.dy;
 
-    // Impedisci che le paddle escano dal campo
     if (player2Paddle.y < 0) {
         player2Paddle.y = 0;
     } else if (player2Paddle.y + player2Paddle.height > canvas.height) {
@@ -297,7 +272,6 @@ function winLose() {
     }
 }
 
-// Funzione per gestire l'input del giocatore
 window.addEventListener('keydown', function (event) {
     const paddleSpeed = setPaddleSpeed();
     switch (event.key) {
@@ -350,7 +324,7 @@ window.pongGame = {
     pause: function() {
         running = false;
         if (animationId) {
-            cancelAnimationFrame(animationId);  // Ferma l'animazione corrente
+            cancelAnimationFrame(animationId);  
         }
     },
     play: function() {
@@ -368,7 +342,7 @@ window.pongGame = {
         resetBall();
         drawFrame();
         if (animationId) {
-            cancelAnimationFrame(animationId);  // Ferma l'animazione precedente
+            cancelAnimationFrame(animationId);  
         }
     },
     clear: function() {
@@ -378,11 +352,9 @@ window.pongGame = {
 
 
 window.addEventListener('resize', function() {
-    resizeCanvas(); // Aggiorna il canvas ogni volta che la finestra viene ridimensionata
-    gameLoop(); // Continua il gioco se è in esecuzione
+    resizeCanvas(); 
+    gameLoop();
 });
 
-// // Esegui resizeCanvas all'inizio e ogni volta che la finestra viene ridimensionata
-// window.addEventListener('resize', resizeCanvas);
-resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
+resizeCanvas(); 
 drawFrame();
