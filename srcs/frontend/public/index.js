@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function setSearchingPlayers(inGame) {
-		if (isLoggedIn || !inGame) {
+		if (isLoggedIn && !inGame) {
 			document.getElementById('search-players-btn').classList.remove('disabled');
 		}
 		else {
@@ -399,6 +399,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		handleNavigation('home');
 	});
 
+	document.getElementById('backProfileOther-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('search');
+	});
+
 	// Form validation functions
 	function validateEmail(email) {
 		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -542,6 +547,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		// const searchInput = document.getElementById('searchInput').value;
 		// Logica per cercare i giocatori
 		handleNavigation('search');
+	});
+
+	document.getElementById('viewProfile').addEventListener('click', function() {
+		handleNavigation('profileOther');
 	});
 
 	// Gestione del caricamento dell'immagine del profilo
