@@ -19,7 +19,7 @@ COPY backend/ .
 
 RUN chmod +x setup.sh
 
-COPY --from=frontend-builder app/public /static/
+COPY --from=frontend-builder /app/build /app/static/
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

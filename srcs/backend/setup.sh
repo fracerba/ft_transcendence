@@ -18,9 +18,9 @@ if [ "$DEVELOPMENT" = "True" ]; then
   python manage.py makemigrations
   python manage.py migrate
 
-  # Collect static files
-  echo "Collecting static files..."
-  python manage.py collectstatic --noinput
+  # # Collect static files only in production
+  # echo "Collecting static files..."
+  # python manage.py collectstatic --noinput
 fi
 
 # Create admin user
