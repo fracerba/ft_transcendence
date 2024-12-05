@@ -89,8 +89,8 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 1.  **Clone the repository**
 
     ```sh
-    git clone https://github.com/yourusername/mighty-pong-contest.git
-    cd mighty-pong-contest
+    git clone https://github.com/minestrinad/ft_transcendence.git
+    cd ft_transcendence
     ```
 2. **Set up environment variables**
    *   Create a `.env` file in the src/ directory with necessary environment variables:
