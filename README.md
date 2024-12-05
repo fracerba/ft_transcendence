@@ -8,16 +8,17 @@ This repository contains the source code and documentation for an advanced web-b
 
 Welcome to the Mighty Pong Contest! This project aims to provide a platform for users to play Pong against others in real-time with a seamless user experience.
 
-### Table of Contents
+## Table of contents
+* [ft\_transcendence](README.md)
+* [Mighty Pong Contest]()
+  * [Overview](#overview)
+  * [Features](#features)
+  * [Technologies](#technologies)
+  * [Setup](#setup)
+  * [Usage](#usage)
+  * [License](#license)
 
-* [Overview](./#overview)
-* [Features](./#features)
-* [Technologies](./#technologies)
-* [Setup](./#setup)
-* [Usage](./#usage)
-* [License](./#license)
-
-### Overview
+## Overview
 
 ***
 
@@ -39,6 +40,7 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 * **Match History**: View detailed match history and statistics.
 * **Responsive Design**: Works on all devices with support for browser navigation.
 * **Secure**: HTTPS, JWT authentication, 2FA, and protection against SQL injections/XSS.
+* **Developer-friendly**: Easy setup with Docker, CI/CD pipeline, and monitoring tools.
 
 ### Technologies
 
@@ -49,22 +51,30 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 * **Django**: Web framework for backend logic.
 * **PostgreSQL**: Database for storing user data and game records.
 * **JWT**: For secure authentication.
+* **Django Channels**: For handling WebSockets and real-time communication.
+
 
 #### Frontend
 
+* **javascript**: For game logic and rendering.
+* **HTML5 Canvas**: For rendering the game on the frontend.
+* **css**: For styling the frontend.
 * **Bootstrap**: Frontend toolkit for responsive design.
 
 #### Game
 
+* **javascript**: For game logic and rendering.
+* **HTML5 Canvas**: For rendering the game on the frontend.
 * **WebSockets**: For real-time communication between players.
+
 
 #### DevOps
 
-* **Docker**: Containerization for easy setup and deployment.
 * **Docker Compose**: To manage multi-container Docker applications.
 * **GitHub Actions**: CI/CD pipeline for automated testing and deployment.
+* **ELK Stack**: For log management and analysis. (Elasticsearch, Logstash, Kibana)
 * **Prometheus**: Monitoring and alerting toolkit.
-* **Grafana**: Analytics and monitoring dashboards.
+* **Grafana**: Analytics and monitoring dashboards
 
 ### Setup
 
@@ -72,9 +82,7 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 
 #### Prerequisites
 
-* Docker and Docker Compose
-* Python 3.8+
-* Node.js 14+
+* Docker
 
 #### Steps
 
@@ -87,22 +95,34 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 2. **Set up environment variables**
    *   Create a `.env` file in the src/ directory with necessary environment variables:
 
-       ```sh
+    ```.env
+      # Django
+      DJANGO_SECRET_KEY=your_secret_key
+      DJANGO_SETTINGS_MODULE= (optional)
 
-         SECRET_KEY='yout_django_sercret_key'
+      ADMIN_USER=your_admin_user
+      ADMIN_PASSWORD=your_admin_password
+      ADMIN_EMAIL=your_admin_email
 
-         # db settings
-         POSTGRESS_DB=your_db_name
-         POSTGRESS_USER=your_db_user
-         POSTGRESS_PASSWORD=your_db_password
-       ```
-3.  **Build and run the application**
+      # PostgreSQL
+      POSTGRES_DB=your_db_name
+      POSTGRES_USER=your_db_user
+      POSTGRES_PASSWORD=your_db_password
+      POSTGRES_HOST=your_db_host
+
+   ```
+3. **Ensure the start_up.sh script is executable**
 
     ```sh
-    docker-compose up --build
-    ```
-4. **Access the application**
-   * Open your browser and go to `http://localhost:8000`
+    chmod +x start_up.sh
+      ```
+4.  **Build and run the application**
+
+      ```sh
+      ./start_up.sh
+      ```
+5. **Access the application**
+   * Open your browser and go to `https://localhost:8000`
 
 ### Usage
 
@@ -129,6 +149,6 @@ The Mighty Pong Contest is a single-page web application that allows users to:
 
 ***
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the [LICENSE](docs/LICENSE) file for more details.
 
 ***
