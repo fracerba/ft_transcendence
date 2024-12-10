@@ -51,6 +51,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		setSearchingPlayers(false);
 	}
 
+	function returnToHome() {
+		resetFooterButtons();
+		showDefaultFooter();
+		resetPongScript();
+		const descriptionField = document.getElementById('profileDescription');
+		descriptionField.setAttribute('readonly', true);
+		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
+		document.getElementById('saveDescriptionBtn').style.display = 'none';
+		handleNavigation('home');
+		resetLoginInput();
+		resetSignupInput();
+		resetTournamentInput();
+	}
+
+
 	function showGame() {
 		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
@@ -368,15 +383,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	//utils buttons
+	document.getElementById('pong2-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		returnToHome();
+	});
+
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		resetFooterButtons();
-		showDefaultFooter();
-		resetPongScript();
-		handleNavigation('home');
-		resetLoginInput();
-		resetSignupInput();
-		resetTournamentInput();
+		returnToHome();
 	});
 
 	document.getElementById('backLeaderboard-btn').addEventListener('click', function(event) {
@@ -583,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		descriptionField.setAttribute('readonly', true);
 		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
 		document.getElementById('saveDescriptionBtn').style.display = 'none';
-		// Salva la descrizione (puoi aggiungere logica per salvare la descrizione nel backend)
+		// Salva la descrizione (aggiungere logica per salvare la descrizione nel backend)
 		console.log('Descrizione salvata:', descriptionField.value);
 	});
 
