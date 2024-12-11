@@ -18,8 +18,8 @@ let player1Paddle, player2Paddle, ball;
 let lastScorer = '';
 let nowBallSpeed = 0;
 let paddleSpeed = 0;
-let maxSpeed;
-let minSpeed;
+let maxSpeed, minSpeed;
+let leftTouchZone, rightTouchZone;
 
 function setPaddleSpeed() {
 	const availableHeight = canvas.height;
@@ -339,6 +339,65 @@ function drawFrame() {
 	drawScore();
 }
 
+// Funzione per rilevare dispositivi mobili
+function isMobileDevice() {
+	return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+}
+
+// Funzione per gestire i controlli touch
+function enableTouchControls() {
+	let touchStartY = 0;
+	let touchEndY = 0;
+
+	leftTouchZone = document.createElement('div');
+	rightTouchZone = document.createElement('div');
+
+	const canvasRect = canvas.getBoundingClientRect();
+
+	// Stile delle aree touch
+	[leftTouchZone, rightTouchZone].forEach(zone => {
+		zone.style.position = 'absolute';
+		zone.style.top = `${canvasRect.top}px`;
+		zone.style.width = '50%';
+		zone.style.height = `${canvasRect.height}px`;
+		zone.style.zIndex = '100'; // Sopra il canvas
+		zone.style.opacity = '0'; // Invisibile
+		document.body.appendChild(zone);
+	});
+
+	leftTouchZone.style.left = '0'; 
+	rightTouchZone.style.right = '0'; 
+
+	// Paddle sinistra (Player 2)
+	leftTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+	leftTouchZone.addEventListener('touchmove', (e) => {
+		touchEndY = e.touches[0].clientY;
+		const deltaY = touchEndY - touchStartY;
+		player2Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
+		touchStartY = touchEndY;
+	});
+	leftTouchZone.addEventListener('touchend', () => { player2Paddle.dy = 0; });
+
+	// Paddle destra (Player 1)
+	rightTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+	rightTouchZone.addEventListener('touchmove', (e) => {
+		touchEndY = e.touches[0].clientY;
+		const deltaY = touchEndY - touchStartY;
+		player1Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
+		touchStartY = touchEndY;
+	});
+	rightTouchZone.addEventListener('touchend', () => { player1Paddle.dy = 0; });
+}
+
+function disableTouchControls() {
+	if (leftTouchZone && rightTouchZone) {
+		leftTouchZone.remove();
+		rightTouchZone.remove();
+		leftTouchZone = null;
+		rightTouchZone = null;
+	}
+}
+
 // Funzione per aggiornare il gioco e disegnare
 function gameLoop() {
 	drawFrame();
@@ -360,6 +419,9 @@ window.pongGame = {
 		if (running || ended)
 			return;
 		running = true;
+		if (isMobileDevice()) {
+			enableTouchControls(); // Abilita i controlli touch
+		}
 		gameLoop();
 	},
 	reset: function() {
@@ -373,6 +435,7 @@ window.pongGame = {
 		if (animationId) {
 			cancelAnimationFrame(animationId);  // Ferma l'animazione precedente
 		}
+		disableTouchControls(); // Rimuovi le zone touch
 	},
 	clear: function() {
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -380,68 +443,15 @@ window.pongGame = {
 };
 
 window.addEventListener('resize', function() {
-    resizeCanvas(); // Aggiorna il canvas
-    if (isMobileDevice()) {
-        enableTouchControls(); // Riassegna i controlli touch
-    }
-    gameLoop(); // Continua il gioco se è in esecuzione
+	resizeCanvas(); // Aggiorna il canvas
+	if (isMobileDevice()) {
+		disableTouchControls(); // Rimuovi i controlli touch esistenti
+		enableTouchControls(); // Riassegna i controlli touch
+	}
+	gameLoop(); // Continua il gioco se è in esecuzione
 });
-
 
 // Inizializza il canvas
 resizeCanvas(); // Chiamata iniziale per impostare le dimensioni iniziali
-
-// Funzione per rilevare dispositivi mobili
-function isMobileDevice() {
-	return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
-}
-
-// Rileva il dispositivo mobile e abilita i controlli touch
-if (isMobileDevice()) {
-    enableTouchControls(); // Abilita i controlli touch
-}
-
-// Funzione per gestire i controlli touch
-function enableTouchControls() {
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    const leftTouchZone = document.createElement('div');
-    const rightTouchZone = document.createElement('div');
-
-    // Stile delle aree touch
-    [leftTouchZone, rightTouchZone].forEach(zone => {
-        zone.style.position = 'absolute';
-        zone.style.top = '0';
-        zone.style.width = '50%';
-        zone.style.height = '100%';
-        zone.style.zIndex = '100'; // Sopra il canvas
-        zone.style.opacity = '0'; // Invisibile
-        document.body.appendChild(zone);
-    });
-
-    leftTouchZone.style.left = '0'; 
-    rightTouchZone.style.right = '0'; 
-
-    // Paddle sinistra (Player 2)
-    leftTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
-    leftTouchZone.addEventListener('touchmove', (e) => {
-        touchEndY = e.touches[0].clientY;
-        const deltaY = touchEndY - touchStartY;
-        player2Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
-        touchStartY = touchEndY;
-    });
-    leftTouchZone.addEventListener('touchend', () => { player2Paddle.dy = 0; });
-
-    // Paddle destra (Player 1)
-    rightTouchZone.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
-    rightTouchZone.addEventListener('touchmove', (e) => {
-        touchEndY = e.touches[0].clientY;
-        const deltaY = touchEndY - touchStartY;
-        player1Paddle.dy = deltaY > 0 ? paddleSpeed : -paddleSpeed;
-        touchStartY = touchEndY;
-    });
-    rightTouchZone.addEventListener('touchend', () => { player1Paddle.dy = 0; });
-}
 
 drawFrame();
