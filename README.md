@@ -93,24 +93,8 @@ The Mighty Pong Contest is a single-page web application that allows users to:
     cd ft_transcendence
     ```
 2. **Set up environment variables**
-   *   Create a `.env` file in the src/ directory with necessary environment variables:
-
-    ```.env
-      # Django
-      DJANGO_SECRET_KEY=your_secret_key
-      DJANGO_SETTINGS_MODULE= (optional)
-
-      ADMIN_USER=your_admin_user
-      ADMIN_PASSWORD=your_admin_password
-      ADMIN_EMAIL=your_admin_email
-
-      # PostgreSQL
-      POSTGRES_DB=your_db_name
-      POSTGRES_USER=your_db_user
-      POSTGRES_PASSWORD=your_db_password
-      POSTGRES_HOST=your_db_host
-
-   ```
+   *   Create a `.env` file in the src/ directory or fill in the existing `.env.example` file.
+   
 3. **Ensure the start_up.sh script is executable**
 
     ```sh

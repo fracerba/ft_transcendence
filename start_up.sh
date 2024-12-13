@@ -15,7 +15,7 @@ is_service_running() {
 start_service() {
 	if ! is_service_running "$1"; then
 			echo "Starting $1..."
-			docker compose up -d "$1"
+			docker compose -f docker-compose.web.yml up -d "$1"
 	else
 			echo "$1 is already running, skipping..."
 	fi
@@ -63,15 +63,19 @@ status() {
 if [[ $# -lt 1 ]]; then
 	echo "Usage: ./start_app.sh <command>"
 	echo "Commands:"
-	echo "  start   Start the project"
+	echo "  website Start the project"
+	echo "  elk     Start the ELK stack"
 	echo "  stop    Stop all services"
 	echo "  status  Check network and volume status"
 	exit 1
 fi
 
 case "$1" in
-	start)
+	website)
 		start_services
+		;;
+	elk)
+		docker compose -f docker-compose.elk.yml up -d
 		;;
 	stop)
 		stop_services
