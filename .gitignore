@@ -13,6 +13,7 @@ build/
 
 # Django specific
 .env
+.prettierrc
 media/
 staticfiles/
 migrations/
@@ -33,9 +34,10 @@ Thumbs.db
 
 # Ignore secret files
 .env
-.pem
+*.pem
 
 # Node.js specific
 package-lock.json
+
 
 
