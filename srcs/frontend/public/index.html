@@ -11,7 +11,7 @@
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">PONG II</a>
+			<a id="pong2-btn" class="navbar-brand" href="#home">PONG II</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -30,6 +30,10 @@
 					</li>
 				</ul>
 			</div>
+			<form id="navbarSearch" class="d-flex" role="search">
+				<input id="searchPlayers" class="form-control me-2" type="search" placeholder="Search players" aria-label="Search">
+				<button id="search-players-btn" class="btn btn-light" type="submit" data-translate="search">Search</button>
+			</form>
 		</div>
 	</nav>
 	<div class="container-fluid">
@@ -56,6 +60,224 @@
 			<button id="back-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 		</div>
 		<!-- Login -->
+		<section id="login" class="page" style="display: none;">
+			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
+				<button id="login2-btn" type="button" class="btn btn-dark" data-translate="login">Log in</button>
+				<button id="login42-btn" type="button" class="btn btn-dark" data-translate="login42">Log in with 42</button>
+				<button id="register-btn" type="button" class="btn btn-dark" data-translate="register">Sign up</button>
+				<button id="backLogin-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+			</div>
+		</section>
+		<!-- Game -->
+		<section id="game" class="page" style="display: none;">
+			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
+				<button id="local-match-btn" type="button" class="btn btn-dark" data-translate="localMatch">Play local</button>
+				<button id="online-match-btn" type="button" class="btn btn-dark" data-translate="onlineMatch">Play online</button>
+				<button id="bot-match-btn" type="button" class="btn btn-dark" data-translate="botMatch">Play against bot</button>
+				<button id="tournament-btn" type="button" class="btn btn-dark" data-translate="tournament">Tournament</button>
+				<button id="backGame-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+			</div>
+		</section>
+	<!-- Online -->
+		<section id="online" class="page" style="display: none;">
+			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
+				<button id="new-online-match-btn" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-translate="createMatch">New match</button>
+				<button id="join-online-match-btn" type="button" class="btn btn-dark" data-translate="joinMatch">Join match</button>
+				<button id="backOnline-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				<!-- Modal -->
+				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content bg-dark text-white">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="staticBackdropLabel" data-translate="createMatch">New match</h1>
+						</div>
+						<div class="modal-body d-flex align-items-center">
+							<div class="spinner-border text-light me-3" role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+							<div data-translate="waintingOpponent">Waiting for opponent to join the match...</div>
+						</div>
+						<div class="modal-footer justify-content-center">
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-translate="back">Back</button>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Online List -->
+		<section id="onlinematches" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-1" data-translate="joinMatch">Join match</h5>
+						<ul id="onlineGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player01
+								<div>
+									<button id="join-online-match-btn2" class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player02
+								<div>
+									<button class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backOnlineMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
+			</div>
+		</section>
+	<!-- Tournament -->
+		<section id="tournament" class="page" style="display: none;">
+			<div class="d-grid gap-2 col-7 col-xs-5 col-md-4 col-lg-3 col-xl-2 mx-auto">
+				<button id="create-tournament-btn" type="button" class="btn btn-dark" data-translate="createTournament">Create tournament</button>
+				<button id="join-tournament-btn" type="button" class="btn btn-dark" data-translate="joinTournament">Join tournament</button>
+				<button id="backTournament-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+			</div>
+		</section>
+		<!-- Create Tournament -->
+		<section id="tournament-form" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-3">
+					<div class="card-body">
+						<h5 class="card-title" data-translate="createTournament">Create tournament</h5>
+						<form class="needs-validation" novalidate>
+							<div id="tournament-label" class="mb-1">
+								<label for="tournamentName" class="form-label" data-translate="tournamentName">Tournament name</label>
+								<input type="name" class="form-control bg-dark text-white" id="tournamentName" required>
+								<div class="invalid-feedback" data-translate="tournamentError">Can't be blank</div>
+							</div>
+							<div id="players-label" class="mb-1 mt-2">
+								<label for="tournamentSelect" class="form-label" data-translate="tournamentPlayers">Number of players</label>
+								<select class="form-select bg-dark text-white" aria-label="tournament player select" id="tournamentSelect" required>
+									<option selected>-</option>
+									<option value="1">3</option>
+									<option value="2">4</option>
+									<option value="3">5</option>
+									<option value="4">6</option>
+									<option value="5">7</option>
+									<option value="6">8</option>
+								</select>
+								<div class="invalid-feedback" data-translate="selectError">Select a number</div>
+							</div>
+							<button id="tournament-form-btn" type="submit" class="btn btn-success me-1 mt-1" data-translate="createTournament">Create tournament</button>
+							<button id="backTournamentForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Tournament List -->
+		<section id="tournamentmatches" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-1" data-translate="joinTournament">Join tournament</h5>
+						<ul id="tournamentGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								<div id="tournamentName">
+									Player01
+								</div>
+								<div id="tournamentNumber">
+									5/6
+								</div>
+								<div id="tournamentCreator">
+									Player01
+								</div>
+								<div>
+									<button id="join-tournament-match-btn" class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								<div id="tournamentName">
+									DAJEROMA
+								</div>
+								<div id="tournamentNumber">
+									3/8
+								</div>
+								<div id="tournamentCreator">
+									Player02
+								</div>
+								<div>
+									<button class="btn btn-success btn-sm" data-translate="join">Join</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backTournamentMatches-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
+			</div>
+		</section>
+		<!-- Tournament Waiting List -->
+		<section id="tournamentroom" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-2">Tournament name</h5>
+						<ul id="tournamentGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player01
+								<span class="badge bg-success" data-translate="creator">Creator</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player02
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player03
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player04
+								<div>
+									<button class="btn btn-danger btn-sm" data-translate="kick">Kick</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								--
+							</li>
+						</ul>
+						<div class="text-center">
+							<button id="tournamentStart" type="button" class="btn btn-success me-1 mt-2" disabled data-translate="startTournament">Start tournament</button>
+							<button id="backTournamentRoom" type="button" class="btn btn-danger mt-2" data-translate="quit">Quit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	<!-- Login -->
+		<!-- Log in Form -->
+		<section id="login-form" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-3">
+					<div class="card-body">
+						<h5 class="card-title" data-translate="login">Log in</h5>
+						<form class="needs-validation" novalidate>
+							<div id="username-label" class="mb-1">
+								<label for="loginUsername" class="form-label" data-translate="username">Username</label>
+								<input type="username" class="form-control bg-dark text-white" id="loginUsername" required>
+								<div class="invalid-feedback" data-translate="userError">Invalid username</div>
+							</div>
+							<div id="password-label" class="mb-1 mt-2">
+								<label for="loginPassword" class="form-label" data-translate="password">Password</label>
+								<input type="password" class="form-control bg-dark text-white" id="loginPassword" required>
+								<div class="invalid-feedback" data-translate="passError">Wrong password</div>
+							</div>
+							<button id="login-submit-btn" type="submit" class="btn btn-success me-1 mt-1" data-translate="login">Log in</button>
+							<button id="backLoginForm-btn" type="button" class="btn btn-secondary mt-1" data-translate="back">Back</button>
+						</form>
+					</div>
 		<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 			<!-- Log in Form -->
 			<div id="login-form" class="card text-white bg-dark mb-3" style="display: none;">
@@ -232,6 +454,292 @@
 			<div class="d-grid gap-2 col-2 mx-auto">
 				<button id="back5-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 			</div>
+		</section>
+	<!-- Profile of another player -->
+		<section id="profileOther" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-lg-10 col-xl-8 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-header" data-translate="profile">Profile</div>
+					<div class="card-body">
+						<div class="row">
+							<!-- Sezione 1: Immagine e Nome Profilo -->
+							<div class="col-md-3 mb-3 text-center">
+								<h4 class="card-title mt-2">Player02</h4>
+								<img id="profileImageOther" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 150px; height: 150px;">
+								<div>
+									<button id="sendFriendProfile" type="button" class="btn btn-success mt-2" data-translate="sendFriend">Send Friend Request</button>
+								</div>
+								<!-- Riassunto delle statistiche -->
+								<div class="mt-3">
+									<h5 class="card-title" data-translate="stats">Stats</h5>
+									<div class="row">
+										<div class="col text-center">
+											<div class="text-white fw-bold" data-translate="games">Games</div>
+											<div>8</div>
+										</div>
+										<div class="col text-center">
+											<div class="text-white fw-bold" data-translate="wins">Wins</div>
+											<div>4</div>
+										</div>
+										<div class="col text-center">
+											<div class="text-white fw-bold" data-translate="winrate">Win rate</div>
+											<div>50%</div>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-5 text-center">
+											<div class="text-white fw-bold" data-translate="friends">Friends</div>
+											<div>4</div>
+										</div>
+										<div class="col-7 text-center">
+											<div class="text-white fw-bold" data-translate="tournamentWon">Tournaments won</div>
+											<div>0</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Sezione 2: Scheda Info -->
+							<div class="col-md-5 mb-3">
+								<h5 class="card-title" data-translate="info">Info</h5>
+								<textarea id="profileDescriptionOther" class="form-control bg-dark text-white-50" rows="5" readonly>Enter your description here...</textarea>
+								<!-- Lista delle partite recenti -->
+								<div class="mt-4">
+									<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
+									<ul id="recentGamesListOther" class="list-group">
+										<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+											<div>
+												<div>Player01</div>
+												<div>Player02</div>
+											</div>
+											<div class="text-center">
+												<div>11</div>
+												<div>2</div>
+											</div>
+											<span class="badge bg-success" data-translate="loss">Loss</span>
+											<span class="badge bg-secondary" data-translate="online">Online</span>
+											<span>22/12/2024</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+											<div>
+												<div>Player01</div>
+												<div>Player02</div>
+											</div>
+											<div class="text-center">
+												<div>5</div>
+												<div>11</div>
+											</div>
+											<span class="badge bg-danger" data-translate="win">Win</span>
+											<span class="badge bg-secondary" data-translate="online">Online</span>
+											<span>22/12/2024</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- Sezione 3: Risultati per modalità -->
+							<div class="col-md-4">
+								<h5 class="card-title" data-translate="modeResults">Mode Results</h5>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="localGames">Local games</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>100%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="onlineGames">Online games</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>50%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="botGames">Games against bot</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>0</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>0%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="tournamentGames">Tournament matches</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>3</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>33.3%</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="d-grid gap-2 col-2 mx-auto">
+					<button id="backProfileOther-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
+			</div>
+		</section>
+	<!-- Stats -->
+		<section id="stats" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-lg-10 col-xl-8 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-header" data-translate="stats">Stats</div>
+					<div class="card-body">
+						<div class="row">
+							<!-- Colonna 1: Nome giocatore, foto profilo e riassunto delle statistiche -->
+							<div class="col-md-3 text-center">
+								<h5 class="card-title" data-translate="generalStats">Player Stats</h5>
+								<img id="profileImageStats" src="default-avatar.jpg" alt="Profile Image" class="img-thumbnail" style="width: 120px; height: 120px;">
+								<p id="playerName" class="mt-1">Player01</p>
+								<div class="row">
+									<div class="col text-center">
+										<div class="text-white fw-bold" data-translate="games">Games</div>
+										<div>8</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white fw-bold" data-translate="wins">Wins</div>
+										<div>4</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white fw-bold" data-translate="winrate">Win rate</div>
+										<div>50%</div>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="col-5 text-center">
+										<div class="text-white fw-bold" data-translate="friends">Friends</div>
+										<div>4</div>
+									</div>
+									<div class="col-7 text-center">
+										<div class="text-white fw-bold" data-translate="tournamentWon">Tournaments won</div>
+										<div>0</div>
+									</div>
+								</div>
+							</div>
+							<!-- Colonna 2: Partite recenti -->
+							<div class="col-md-5">
+								<h5 class="card-title" data-translate="recentGames">Recent Games</h5>
+									<ul id="recentGamesList" class="list-group">
+										<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+											<div>
+												<div>Player01</div>
+												<div>Player02</div>
+											</div>
+											<div class="text-center">
+												<div>11</div>
+												<div>2</div>
+											</div>
+											<span class="badge bg-success" data-translate="win">Win</span>
+											<span class="badge bg-secondary" data-translate="online">Online</span>
+											<span>22/12/2024</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+											<div>
+												<div>Player01</div>
+												<div>Player02</div>
+											</div>
+											<div class="text-center">
+												<div>5</div>
+												<div>11</div>
+											</div>
+											<span class="badge bg-danger" data-translate="loss">Loss</span>
+											<span class="badge bg-secondary" data-translate="local">Local</span>
+											<span>22/12/2024</span>
+										</li>
+									</ul>
+							</div>
+							<!-- Colonna 3: Risultati per modalità -->
+							<div class="col-md-4">
+								<h5 class="card-title" data-translate="modeResults">Mode Results</h5>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="localGames">Local games</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>100%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="onlineGames">Online games</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>2</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>50%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="botGames">Games against bot</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>0</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>0%</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-white fw-bold mb-1" data-translate="tournamentGames">Tournament matches</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="games">Games</div>
+										<div>3</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="wins">Wins</div>
+										<div>1</div>
+									</div>
+									<div class="col text-center">
+										<div class="text-white" data-translate="winrate">Win rate</div>
+										<div>33.3%</div>
+									</div>
+								</div>
+							</div>
 		</div>
 		<!-- Stats -->
 		<div class="d-grid gap-1 col-10 col-md-8 mx-auto">
@@ -269,6 +777,32 @@
 					</div>
 				</div>
 			</div>
+		</section>
+	<!-- Search Players -->
+		<section id="search" class="page" style="display: none;">
+			<div class="d-grid gap-1 col-12 col-xs-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<div class="card text-white bg-dark mb-1">
+					<div class="card-body">
+						<h5 class="card-title mb-2" data-translate="searchPlayers">Search players</h5>
+						<ul id="onlineGamesList" class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player02
+								<div>
+									<button id="viewProfile" class="btn btn-success btn-sm" data-translate="viewProfile">View profile</button>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+								Player03
+								<div>
+									<button id="viewProfile" class="btn btn-success btn-sm" data-translate="viewProfile">View profile</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-grid gap-2 col-4 mx-auto">
+					<button id="backSearchPlayers-btn" type="button" class="btn btn-dark mb-3" data-translate="back">Back</button>
+				</div>
 			<div class="d-grid gap-2 col-2 mx-auto">
 				<button id="back6-btn" type="button" class="btn btn-dark" style="display: none" data-translate="back">Back</button>
 			</div>

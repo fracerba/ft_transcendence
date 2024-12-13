@@ -1,130 +1,141 @@
 document.addEventListener('DOMContentLoaded', function() {
 	let isLoggedIn = false; // Replace with actual login status check
+	let current = 'home';
 
 	function setElementById(id, status) {
 		document.getElementById(id).style.display = status;
 	}
 
-	function showMainButtons() {
-		setElementById('play-btn','block');
-		setElementById('leaderboard-btn','block');
+	// const navLinks = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
+
+    function navigateTo(pageId) {
+        pages.forEach(page => {
+            page.style.display = page.id === pageId ? 'block' : 'none';
+        });
+		if (pageId === 'home') {
+			showHome();
+		}
+		if (pageId === 'game') {
+			showGame();
+		}
+		if (pageId === 'pong') {
+			showPlayingFooter();
+		}
+		if (pageId !== 'pong' && current === 'pong') {
+			showDefaultFooter();
+			resetPongScript();
+		}
+		current = pageId;
+    }
+
+    function handleNavigation(pageId) {
+        history.pushState({ pageId }, '', `#${pageId}`);
+        navigateTo(pageId);
+    }
+
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.pageId) {
+            navigateTo(event.state.pageId);
+        }
+    });
+
+	const initialPage = window.location.hash.replace('#', '') || 'home';
+	handleNavigation(initialPage);
+
+	function showHome() {
 		setElementById('stats-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('profile-btn',isLoggedIn ? 'block' : 'none');
 		setElementById('login-btn',isLoggedIn ? 'none' : 'block');
 		setElementById('logout-btn',isLoggedIn ? 'block' : 'none');
+		setSearchingPlayers(false);
 	}
 
-	function showLoginButtons() {
-		setElementById('login2-btn','block');
-		setElementById('register-btn','block');
-		setElementById('back-btn','block');
+	function returnToHome() {
+		resetFooterButtons();
+		showDefaultFooter();
+		resetPongScript();
+		const descriptionField = document.getElementById('profileDescription');
+		descriptionField.setAttribute('readonly', true);
+		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
+		document.getElementById('saveDescriptionBtn').style.display = 'none';
+		handleNavigation('home');
+		resetLoginInput();
+		resetSignupInput();
+		resetTournamentInput();
 	}
 
-	function showPlayButtons() {
-		setElementById('local-match-btn','block');
+
+	function showGame() {
 		setElementById('online-match-btn',isLoggedIn ? 'block' : 'none');
-		setElementById('bot-match-btn','block');
 		setElementById('tournament-btn',isLoggedIn ? 'block' : 'none');
-		setElementById('back-btn','block');
-	}
-
-	function hideMainButtons() {
-		setElementById('play-btn','none');
-		setElementById('leaderboard-btn','none');
-		setElementById('stats-btn','none');
-		setElementById('profile-btn','none');
-		setElementById('login-btn','none');
-		setElementById('logout-btn','none');
-	}
-
-	function hideLoginButtons() {
-		setElementById('login2-btn','none');
-		setElementById('register-btn','none');
-		setElementById('back-btn','none');
-	}
-
-	function hidePlayButtons() {
-		setElementById('local-match-btn','none');
-		setElementById('online-match-btn','none');
-		setElementById('bot-match-btn','none');
-		setElementById('tournament-btn','none');
-		setElementById('back-btn','none');
-	}
-
-	function hideLeaderboard() {
-		setElementById('leaderboard','none');
-		setElementById('back4-btn','none');
-	}
-
-	function hideProfile() {
-		setElementById('profile','none');
-		setElementById('back5-btn','none');
-	}
-
-	function hideStats() {
-		setElementById('stats','none');
-		setElementById('back6-btn','none');
-	}
-
-	function showMainOnly() {
-		showMainButtons();
-		hideLoginButtons();
-		hidePlayButtons();
-	}
-
-	function showLoginOnly() {
-		hideMainButtons();
-		hidePlayButtons();
-		showLoginButtons();
-	}
-
-	function showPlayOnly() {
-		hideMainButtons();
-		hideLoginButtons();
-		showPlayButtons();
-	}
-
-	function hideAll() {
-		hideMainButtons();
-		hideLoginButtons();
-		hidePlayButtons();
 	}
 
 	function showPlayingFooter() {
 		setElementById('pongCanvas','block');
+		setElementById('containerAll','none');
+		setSearchingPlayers(true);
 		setElementById('default-footer','none');
 		setElementById('playing-footer','block');
+		resetFooterButtons();
+		setElementById('friend-btn','none');
 	}
 
-	function showDefaultFooterblock() {
+	function showOnlineFooter() {
+		setElementById('play2-btn','none');
+		setElementById('friend-btn','block');
+		setElementById('restart-btn','none');
+	}
+
+	function showDefaultFooter() {
 		setElementById('pongCanvas','none');
+		setElementById('containerAll','block');
+		setSearchingPlayers(false);
 		setElementById('default-footer','block');
 		setElementById('playing-footer','none');
+		setElementById('quit-footer','none');
 	}
 
 	function resetFooterButtons() {
 		setElementById('play2-btn','block');
 		setElementById('pause-btn','none');
 		setElementById('resume-btn','none');
+		setElementById('restart-btn','block');
 	}
 
 	function resetLoginInput() {
 		document.getElementById('loginUsername').value = '';
 		document.getElementById('loginPassword').value = '';
+		document.getElementById('loginUsername').classList.remove('is-invalid');
+		document.getElementById('loginPassword').classList.remove('is-invalid');
 	}
 
 	function resetSignupInput() {
 		document.getElementById('signupEmail').value = '';
 		document.getElementById('signupUsername').value = '';
 		document.getElementById('signupPassword').value = '';
+		document.getElementById('emailHelp').style.display = 'block';
+		document.getElementById('userHelp').style.display = 'block';
+		document.getElementById('passHelp').style.display = 'block';
+		document.getElementById('signupEmail').classList.remove('is-invalid');
+		document.getElementById('signupUsername').classList.remove('is-invalid');
+		document.getElementById('signupPassword').classList.remove('is-invalid');
 	}
 
-	function loginSuccess() {
-		setElementById('login-form','none');
-		resetLoginInput();
-		setElementById('signup-form','none');
-		resetSignupInput();
-		showMainOnly();
+	function resetTournamentInput() {
+		document.getElementById('tournamentName').value = '';
+		document.getElementById('tournamentSelect').value = '-';
+		document.getElementById('tournamentName').classList.remove('is-invalid');
+		document.getElementById('tournamentSelect').classList.remove('is-invalid');
+	}
+
+	function setSearchingPlayers(inGame) {
+		if (isLoggedIn && !inGame) {
+			document.getElementById('search-players-btn').classList.remove('disabled');
+		}
+		else {
+			document.getElementById('search-players-btn').classList.add('disabled');
+		}
 	}
 
 	function loadPongScript() {
@@ -153,100 +164,176 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
+	//main buttons
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showPlayOnly();
+		handleNavigation('game');
 	});
 
 	document.getElementById('leaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		setElementById('leaderboard','block');
-		setElementById('back4-btn','block');
+		handleNavigation('leaderboard');
 	});
 	
 	document.getElementById('profile-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		setElementById('profile','block');
-		setElementById('back5-btn','block');
+		handleNavigation('profile');
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		setElementById('stats','block');
-		setElementById('back6-btn','block');
+		handleNavigation('stats');
 	});
 	
 	document.getElementById('login-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showLoginOnly();
+		handleNavigation('login');
 	});
 
 	document.getElementById('logout-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		isLoggedIn = false;
-		showMainOnly();
+		handleNavigation('home');
 	});
 
-
+	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		setElementById('login-form','block');
+		handleNavigation('login-form');
+	});
+
+	document.getElementById('login42-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('login','none');
+		//aggiungere login con 42
 	});
 
 	document.getElementById('register-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		setElementById('signup-form','block');
+		handleNavigation('signup-form');
 	});
 
-	document.getElementById('back2-btn').addEventListener('click', function(event) {
+	document.getElementById('backLogin-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('login-form','none');
+		handleNavigation('home');
+	});
+
+	document.getElementById('backLoginForm-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('login');
 		resetLoginInput();
-		document.getElementById('loginUsername').classList.remove('is-invalid');
-		document.getElementById('loginPassword').classList.remove('is-invalid');
-		showLoginOnly();
 	});
 
-	document.getElementById('back3-btn').addEventListener('click', function(event) {
+	document.getElementById('backSignupForm-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		setElementById('signup-form','none');
+		handleNavigation('login');
 		resetSignupInput();
-		document.getElementById('emailHelp').style.display = 'block';
-		document.getElementById('userHelp').style.display = 'block';
-		document.getElementById('passHelp').style.display = 'block';
-		document.getElementById('signupEmail').classList.remove('is-invalid');
-		document.getElementById('signupUsername').classList.remove('is-invalid');
-		document.getElementById('signupPassword').classList.remove('is-invalid');
-		showLoginOnly();
 	});
 
+	//play buttons
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
-		showPlayingFooter();
+		handleNavigation('pong');
 		loadPongScript();
 	});
 
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		handleNavigation('online');
 	});
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		handleNavigation('pong');
+		// loadPongScript();
 	});
 
 	document.getElementById('tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideAll();
+		handleNavigation('tournament');
 	});
 
+	document.getElementById('backGame-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('home');
+	});
+
+	//online mode buttons
+	document.getElementById('new-online-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		// setElementById('online','none');
+		// showPlayingFooter();
+		// showOnlineFooter();
+		// loadPongScript();
+	});
+
+	document.getElementById('join-online-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('onlinematches');
+	});
+
+	document.getElementById('backOnline-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('game');
+	});
+
+	document.getElementById('join-online-match-btn2').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('pong');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('backOnlineMatches-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('online');
+	});
+
+	//tournament mode buttons
+	document.getElementById('create-tournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournament-form');
+	});
+
+	document.getElementById('join-tournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournamentmatches');
+	});
+
+	document.getElementById('backTournament-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('game');
+	});
+
+	document.getElementById('backTournamentForm-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournament');
+		resetTournamentInput();
+	});
+
+	document.getElementById('tournamentStart').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('pong');
+		showOnlineFooter();
+		loadPongScript();
+	});
+
+	document.getElementById('backTournamentRoom').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournament');
+	});
+
+	document.getElementById('join-tournament-match-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournamentroom');
+	});
+
+	document.getElementById('backTournamentMatches-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('tournament');
+	});
+
+	//in-game buttons
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
@@ -277,46 +364,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.getElementById('quit-btn').addEventListener('click', function(event) {
 		event.preventDefault();
+		setElementById('playing-footer','none');
+		setElementById('quit-footer','block');
+	});
+
+	document.getElementById('quitYes-btn').addEventListener('click', function(event) {
+		event.preventDefault();
 		resetFooterButtons();
-		showMainOnly();
-		showDefaultFooterblock();
+		showDefaultFooter();
+		handleNavigation('game');
 		resetPongScript();
+	});
+
+	document.getElementById('quitNo-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		setElementById('playing-footer','block');
+		setElementById('quit-footer','none');
+	});
+
+	//utils buttons
+	document.getElementById('pong2-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		returnToHome();
 	});
 
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		resetFooterButtons();
-		hideLeaderboard();
-		hideProfile();
-		hideStats();
-		showDefaultFooterblock();
-		resetPongScript();
-		loginSuccess();
+		returnToHome();
 	});
 
-	document.getElementById('back-btn').addEventListener('click', function(event) {
+	document.getElementById('backLeaderboard-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		showMainOnly();
+		handleNavigation('home');
 	});
 
-	document.getElementById('back4-btn').addEventListener('click', function(event) {
+	document.getElementById('backProfile-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideLeaderboard();
-		showMainOnly();
+		handleNavigation('home');
 	});
 
-	document.getElementById('back5-btn').addEventListener('click', function(event) {
+	document.getElementById('backStats-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideProfile();
-		showMainOnly();
+		handleNavigation('home');
 	});
 
-	document.getElementById('back6-btn').addEventListener('click', function(event) {
+	document.getElementById('backSearchPlayers-btn').addEventListener('click', function(event) {
 		event.preventDefault();
-		hideStats();
-		showMainOnly();
+		handleNavigation('home');
 	});
-	  
+
+	document.getElementById('backProfileOther-btn').addEventListener('click', function(event) {
+		event.preventDefault();
+		handleNavigation('search');
+	});
+
+	// Form validation functions
 	function validateEmail(email) {
 		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return re.test(email);
@@ -330,6 +432,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
 	}
 	
+	function validateName(name) {
+		return (name.length > 0);
+	}
+
+	function validateNumber(number) {
+		return (number !== '-');
+	}
+
+	function isNicknameInUse(nickname) {
+		// Logica per controllare se il nickname è già in uso
+		if (nickname === 'AM') {
+			return true;
+		}
+		return false;
+	}
+
+	function showNicknameModal() {
+		const nicknameModal = new bootstrap.Modal(document.getElementById('nicknameModal'));
+		nicknameModal.show();
+	}
+
+	// Form validation for Login
 	document.getElementById('login-form').addEventListener('submit', function(event) {
 		event.preventDefault();
 		const username = document.getElementById('loginUsername').value;
@@ -337,12 +461,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		let isValid = true;
 
+		//cambia con controllo sul database
 		if (!validateUsername(username)) {
 			isValid = false;
 			document.getElementById('loginUsername').classList.add('is-invalid');
 		} else {
 			document.getElementById('loginUsername').classList.remove('is-invalid');
 		}
+		//cambia con controllo sul database
 		if (!validatePassword(password)) {
 			isValid = false;
 			document.getElementById('loginPassword').classList.add('is-invalid');
@@ -351,10 +477,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (isValid) {
 			isLoggedIn = true;
-			loginSuccess();
+			handleNavigation('home');
+			resetLoginInput();
 		}
 	});
 
+	// Form validation for Sign up
 	document.getElementById('signup-form').addEventListener('submit', function(event) {
 		event.preventDefault();
 		const email = document.getElementById('signupEmail').value;
@@ -387,12 +515,59 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('passHelp').style.display = 'block';
 			document.getElementById('signupPassword').classList.remove('is-invalid');
 		}
+		if (isValid && isNicknameInUse(username)) {
+			isValid = false;
+			showNicknameModal();
+			document.getElementById('userHelp').style.display = 'none';
+			document.getElementById('signupUsername').classList.add('is-invalid');
+		}
 		if (isValid) {
 			isLoggedIn = true;
-			loginSuccess();
+			//aggiungere utente al database
+			handleNavigation('home');
+			resetSignupInput();
 		}
 	});
 
+	// Form validation for Tournament
+	document.getElementById('tournament-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const name = document.getElementById('tournamentName').value;
+		const number = document.getElementById('tournamentSelect').value;
+
+		let isValid = true;
+
+		if (!validateName(name)) {
+			isValid = false;
+			document.getElementById('tournamentName').classList.add('is-invalid');
+		} else {
+			document.getElementById('tournamentName').classList.remove('is-invalid');
+		}
+		if (!validateNumber(number)) {
+			isValid = false;
+			document.getElementById('tournamentSelect').classList.add('is-invalid');
+		} else {
+			document.getElementById('tournamentSelect').classList.remove('is-invalid');
+		}
+		if (isValid) {
+			handleNavigation('tournamentroom');
+			resetTournamentInput();
+		}
+	});
+
+	// Ricerca giocatori
+	document.getElementById('navbarSearch').addEventListener('submit', function(event) {
+		event.preventDefault();
+		// const searchInput = document.getElementById('searchInput').value;
+		// Logica per cercare i giocatori
+		handleNavigation('search');
+	});
+
+	document.getElementById('viewProfile').addEventListener('click', function() {
+		handleNavigation('profileOther');
+	});
+
+	// Gestione del caricamento dell'immagine del profilo
 	document.getElementById('uploadImageBtn').addEventListener('click', function() {
 		document.getElementById('uploadImage').click();
 	});
@@ -403,11 +578,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			const reader = new FileReader();
 			reader.onload = function(e) {
 				document.getElementById('profileImage').src = e.target.result;
+				document.getElementById('profileImageStats').src = e.target.result;
 			};
 			reader.readAsDataURL(file);
 		}
 	});
 
+	// Gestione della modifica della descrizione del profilo
 	document.getElementById('editDescriptionBtn').addEventListener('click', function() {
 		const descriptionField = document.getElementById('profileDescription');
 		descriptionField.removeAttribute('readonly');
@@ -420,51 +597,65 @@ document.addEventListener('DOMContentLoaded', function() {
 		descriptionField.setAttribute('readonly', true);
 		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
 		document.getElementById('saveDescriptionBtn').style.display = 'none';
+		// Salva la descrizione (aggiungere logica per salvare la descrizione nel backend)
 		console.log('Descrizione salvata:', descriptionField.value);
 	});
 
+	document.getElementById('viewStatsBtn').addEventListener('click', function() {
+		handleNavigation('stats');
+	});
+	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
 	const friendsList = [
 		{ name: 'Friend01', online: true },
 		{ name: 'Friend02', online: false },
+		// Aggiungi altri amici qui
 	];
 
 	const friendsListElement = document.getElementById('friendsList');
 	friendsList.forEach(friend => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = friend.name;
 
-		const statusBadge = document.createElement('span');
-		statusBadge.className = `badge ${friend.online ? 'bg-success' : 'bg-secondary'}`;
-		statusBadge.textContent = friend.online ? 'Online' : 'Offline';
-
-		listItem.appendChild(statusBadge);
+		if (friend.online) {
+			const statusBadge = document.createElement('span');
+			statusBadge.className = 'badge bg-success';
+			statusBadge.setAttribute('data-translate', 'online');
+			statusBadge.textContent = 'Online';
+			listItem.appendChild(statusBadge);
+		}
 		friendsListElement.appendChild(listItem);
 	});
 
+	// Esempio di richieste di amicizia (puoi popolare dinamicamente questa lista dal backend)
 	const friendRequests = [
 		{ name: 'Request01' },
 		{ name: 'Request02' },
+		// Aggiungi altre richieste qui
 	];
 
 	const friendRequestsElement = document.getElementById('friendRequestsList');
 	friendRequests.forEach(request => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
 		listItem.textContent = request.name;
 
 		const actionsDiv = document.createElement('div');
 		const acceptButton = document.createElement('button');
-		acceptButton.className = 'btn btn-success btn-sm';
+		acceptButton.className = 'btn btn-success btn-sm me-1';
+		acceptButton.setAttribute('data-translate', 'accept');
 		acceptButton.textContent = 'Accept';
 		acceptButton.addEventListener('click', function() {
+			// Logica per accettare la richiesta
 			console.log('Accepted:', request.name);
 		});
 
 		const rejectButton = document.createElement('button');
 		rejectButton.className = 'btn btn-danger btn-sm';
+		rejectButton.setAttribute('data-translate', 'reject');
 		rejectButton.textContent = 'Reject';
 		rejectButton.addEventListener('click', function() {
+			// Logica per rifiutare la richiesta
 			console.log('Rejected:', request.name);
 		});
 
@@ -474,45 +665,81 @@ document.addEventListener('DOMContentLoaded', function() {
 		friendRequestsElement.appendChild(listItem);
 	});
 
+	// Esempio di richieste di amicizia inviate (puoi popolare dinamicamente questa lista dal backend)
 	const sentRequests = [
 		{ name: 'SentRequest01' },
 		{ name: 'SentRequest02' },
+		// Aggiungi altre richieste inviate qui
 	];
 
 	const sentRequestsElement = document.getElementById('sentRequestsList');
 	sentRequests.forEach(request => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item';
+		listItem.className = 'list-group-item bg-dark text-white';
 		listItem.textContent = request.name;
 		sentRequestsElement.appendChild(listItem);
 	});
 
+	// Esempio di lista di partite (puoi popolare dinamicamente questa lista dal backend)
 	const matchesList = [
-		{ opponent: 'Opponent01', result: 'Win' },
-		{ opponent: 'Opponent02', result: 'Loss' },
+		{ player1: 'Player01', player2: 'Player02', score1: '11', score2:'8', result: 'Win', mode: 'Online', date: '02/10/2023' },
+		{ player1: 'Player01', player2: 'AM', score1: '5', score2:'11', result: 'Loss', mode: 'Bot', date: '01/10/2023' },
+		// Aggiungi altre partite qui
 	];
 
-	const matchesListElement = document.getElementById('matchesList');
+	const matchesListElement = document.getElementById('recentGamesList');
+	const matchesListElement2 = document.getElementById('recentGamesList2');
 	matchesList.forEach(match => {
 		const listItem = document.createElement('li');
-		listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-		listItem.textContent = match.opponent;
+		listItem.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white';
+
+		const actionsDiv = document.createElement('div');
+		const player1Div = document.createElement('div');
+		player1Div.textContent = match.player1;
+		actionsDiv.appendChild(player1Div);
+		const player2Div = document.createElement('div');
+		player2Div.textContent = match.player2;
+		actionsDiv.appendChild(player2Div);
+		listItem.appendChild(actionsDiv);
+
+		const actions2Div = document.createElement('div');
+		actions2Div.className = 'text-center';
+		const score1Div = document.createElement('div');
+		score1Div.textContent = match.score1;
+		actions2Div.appendChild(score1Div);
+		const score2Div = document.createElement('div');
+		score2Div.textContent = match.score2;
+		actions2Div.appendChild(score2Div);
+		listItem.appendChild(actions2Div);
 
 		const resultBadge = document.createElement('span');
-		resultBadge.className = `badge ${match.result === 'Win' ? 'bg-success' : 'bg-danger'}`;
+		resultBadge.className = match.result === 'Win' ? 'badge bg-success' : 'badge bg-danger';
+		resultBadge.setAttribute('data-translate', match.result.toLowerCase());
 		resultBadge.textContent = match.result;
-
 		listItem.appendChild(resultBadge);
+
+		const modeBadge = document.createElement('span');
+		modeBadge.className = 'badge bg-secondary';
+		modeBadge.textContent = match.mode;
+		modeBadge.setAttribute('data-translate', match.mode.toLowerCase());
+		listItem.appendChild(modeBadge);
+
+		const dateBadge = document.createElement('span');
+		dateBadge.textContent = match.date;
+		listItem.appendChild(dateBadge);
+
 		matchesListElement.appendChild(listItem);
+		matchesListElement2.appendChild(listItem.cloneNode(true));
 	});
 
-	const stats = {
-		totalMatches: 10,
-		wins: 5,
-		losses: 3,
-	};
+	// // Esempio di statistiche (puoi popolare dinamicamente queste statistiche dal backend)
+	// const stats = {
+	// 	totalMatches: 10,
+	// 	wins: 5,
+	// 	losses: 3,
+	// };
 
-	document.getElementById('totalMatches').textContent = stats.totalMatches;
-	document.getElementById('wins').textContent = stats.wins;
-	document.getElementById('losses').textContent = stats.losses;
+	// document.getElementById('games').textContent = stats.totalMatches;
+	// document.getElementById('wins').textContent = stats.wins;
+	// document.getElementById('losses').textContent = stats.losses;
 });
