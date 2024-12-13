@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	//main buttons
 	document.getElementById('play-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		showPlayOnly();
@@ -171,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		hideAll();
 		setElementById('profile','block');
 		setElementById('back5-btn','block');
-		// showProfile();
 	});
 
 	document.getElementById('stats-btn').addEventListener('click', function(event) {
@@ -179,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		hideAll();
 		setElementById('stats','block');
 		setElementById('back6-btn','block');
-		// showStats();
 	});
 	
 	document.getElementById('login-btn').addEventListener('click', function(event) {
@@ -194,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 
-	//login buttons
 	document.getElementById('login2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
@@ -229,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		showLoginOnly();
 	});
 
-	//play buttons
 	document.getElementById('local-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
@@ -240,28 +235,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('online-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		// showPlayingFooter();
-		// startPongScript();
-		// loadPongScript();
 	});
 
 	document.getElementById('bot-match-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		// showPlayingFooter();
-		// startPongScript();
-		// loadPongScript();
 	});
 
 	document.getElementById('tournament-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		hideAll();
-		// showPlayingFooter();
-		// startPongScript();
-		// loadPongScript();
 	});
 
-	//game buttons
 	document.getElementById('play2-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		startPongScript();
@@ -298,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetPongScript();
 	});
 
-	//utils buttons
 	document.getElementById('home-btn').addEventListener('click', function(event) {
 		event.preventDefault();
 		resetFooterButtons();
@@ -333,23 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		showMainOnly();
 	});
 	  
-	// 	// Fetch all the forms we want to apply custom Bootstrap validation styles to
-	// 	const forms = document.querySelectorAll('.needs-validation')
-	  
-	// 	// Loop over them and prevent submission
-	// 	Array.from(forms).forEach(form => {
-	// 	  form.addEventListener('submit', event => {
-	// 		if (!form.checkValidity()) {
-	// 		  event.preventDefault()
-	// 		  event.stopPropagation()
-	// 		}
-	  
-	// 		form.classList.add('was-validated')
-	// 	  }, false)
-	// 	})
-	//   })()
-
-	// Form validation functions
 	function validateEmail(email) {
 		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return re.test(email);
@@ -363,7 +330,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		return (password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password));
 	}
 	
-	// Form validation for Login
 	document.getElementById('login-form').addEventListener('submit', function(event) {
 		event.preventDefault();
 		const username = document.getElementById('loginUsername').value;
@@ -371,14 +337,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		let isValid = true;
 
-		//cambia con controllo sul database
 		if (!validateUsername(username)) {
 			isValid = false;
 			document.getElementById('loginUsername').classList.add('is-invalid');
 		} else {
 			document.getElementById('loginUsername').classList.remove('is-invalid');
 		}
-		//cambia con controllo sul database
 		if (!validatePassword(password)) {
 			isValid = false;
 			document.getElementById('loginPassword').classList.add('is-invalid');
@@ -391,7 +355,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// Form validation for Sign up
 	document.getElementById('signup-form').addEventListener('submit', function(event) {
 		event.preventDefault();
 		const email = document.getElementById('signupEmail').value;
@@ -426,12 +389,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (isValid) {
 			isLoggedIn = true;
-			//aggiungere utente al database
 			loginSuccess();
 		}
 	});
 
-	// Gestione del caricamento dell'immagine del profilo
 	document.getElementById('uploadImageBtn').addEventListener('click', function() {
 		document.getElementById('uploadImage').click();
 	});
@@ -447,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// Gestione della modifica della descrizione del profilo
 	document.getElementById('editDescriptionBtn').addEventListener('click', function() {
 		const descriptionField = document.getElementById('profileDescription');
 		descriptionField.removeAttribute('readonly');
@@ -460,15 +420,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		descriptionField.setAttribute('readonly', true);
 		document.getElementById('editDescriptionBtn').style.display = 'inline-block';
 		document.getElementById('saveDescriptionBtn').style.display = 'none';
-		// Salva la descrizione (puoi aggiungere logica per salvare la descrizione nel backend)
 		console.log('Descrizione salvata:', descriptionField.value);
 	});
 
-	// Esempio di lista di amici (puoi popolare dinamicamente questa lista dal backend)
 	const friendsList = [
 		{ name: 'Friend01', online: true },
 		{ name: 'Friend02', online: false },
-		// Aggiungi altri amici qui
 	];
 
 	const friendsListElement = document.getElementById('friendsList');
@@ -485,11 +442,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		friendsListElement.appendChild(listItem);
 	});
 
-	// Esempio di richieste di amicizia (puoi popolare dinamicamente questa lista dal backend)
 	const friendRequests = [
 		{ name: 'Request01' },
 		{ name: 'Request02' },
-		// Aggiungi altre richieste qui
 	];
 
 	const friendRequestsElement = document.getElementById('friendRequestsList');
@@ -503,7 +458,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		acceptButton.className = 'btn btn-success btn-sm';
 		acceptButton.textContent = 'Accept';
 		acceptButton.addEventListener('click', function() {
-			// Logica per accettare la richiesta
 			console.log('Accepted:', request.name);
 		});
 
@@ -511,7 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		rejectButton.className = 'btn btn-danger btn-sm';
 		rejectButton.textContent = 'Reject';
 		rejectButton.addEventListener('click', function() {
-			// Logica per rifiutare la richiesta
 			console.log('Rejected:', request.name);
 		});
 
@@ -521,11 +474,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		friendRequestsElement.appendChild(listItem);
 	});
 
-	// Esempio di richieste di amicizia inviate (puoi popolare dinamicamente questa lista dal backend)
 	const sentRequests = [
 		{ name: 'SentRequest01' },
 		{ name: 'SentRequest02' },
-		// Aggiungi altre richieste inviate qui
 	];
 
 	const sentRequestsElement = document.getElementById('sentRequestsList');
@@ -536,11 +487,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		sentRequestsElement.appendChild(listItem);
 	});
 
-	// Esempio di lista di partite (puoi popolare dinamicamente questa lista dal backend)
 	const matchesList = [
 		{ opponent: 'Opponent01', result: 'Win' },
 		{ opponent: 'Opponent02', result: 'Loss' },
-		// Aggiungi altre partite qui
 	];
 
 	const matchesListElement = document.getElementById('matchesList');
@@ -557,7 +506,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		matchesListElement.appendChild(listItem);
 	});
 
-	// Esempio di statistiche (puoi popolare dinamicamente queste statistiche dal backend)
 	const stats = {
 		totalMatches: 10,
 		wins: 5,
